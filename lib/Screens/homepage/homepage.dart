@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:core';
 import 'dart:io';
@@ -55,15 +54,16 @@ import 'package:mec/Utils/unawaited.dart';
 class Homepage extends StatefulWidget {
   Homepage(
       {required this.currentUserNo,
-        required this.prefs,
-        required this.doc,
-        this.isShowOnlyCircularSpin = false,
-        key})
+      required this.prefs,
+      required this.doc,
+      this.isShowOnlyCircularSpin = false,
+      key})
       : super(key: key);
   final String? currentUserNo;
   final DocumentSnapshot<Map<String, dynamic>> doc;
   final bool? isShowOnlyCircularSpin;
   final SharedPreferences prefs;
+
   @override
   State createState() => new HomepageState(doc: this.doc);
 }
@@ -78,16 +78,19 @@ class HomepageState extends State<Homepage>
       _userQuery.add(_filter.text.isEmpty ? '' : _filter.text);
     });
   }
+
   TabController? controllerIfcallallowed;
   TabController? controllerIfcallNotallowed;
   late StreamSubscription _intentDataStreamSubscription;
   List<SharedMediaFile>? _sharedFiles = [];
   String? _sharedText;
+
   @override
   bool get wantKeepAlive => true;
 
   bool isFetching = true;
   List phoneNumberVariants = [];
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed)
@@ -124,7 +127,7 @@ class HomepageState extends State<Homepage>
 
   StreamSubscription? spokenSubscription;
   List<StreamSubscription> unreadSubscriptions =
-  List.from(<StreamSubscription>[]);
+      List.from(<StreamSubscription>[]);
 
   List<StreamController> controllers = List.from(<StreamController>[]);
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -166,9 +169,9 @@ class HomepageState extends State<Homepage>
       controllerIfcallallowed!.addListener(() {
         if (controllerIfcallallowed!.index == 2) {
           final statusProvider =
-          Provider.of<StatusProvider>(context, listen: false);
+              Provider.of<StatusProvider>(context, listen: false);
           final contactsProvider =
-          Provider.of<AvailableContactsProvider>(context, listen: false);
+              Provider.of<AvailableContactsProvider>(context, listen: false);
           statusProvider.searchContactStatus(widget.currentUserNo!,
               contactsProvider.alreadyJoinedUsersPhoneNameAsInServer);
         }
@@ -176,9 +179,9 @@ class HomepageState extends State<Homepage>
       controllerIfcallNotallowed!.addListener(() {
         if (controllerIfcallNotallowed!.index == 2) {
           final statusProvider =
-          Provider.of<StatusProvider>(context, listen: false);
+              Provider.of<StatusProvider>(context, listen: false);
           final contactsProvider =
-          Provider.of<AvailableContactsProvider>(context, listen: false);
+              Provider.of<AvailableContactsProvider>(context, listen: false);
           statusProvider.searchContactStatus(widget.currentUserNo!,
               contactsProvider.alreadyJoinedUsersPhoneNameAsInServer);
         }
@@ -186,59 +189,43 @@ class HomepageState extends State<Homepage>
     });
   }
 
-  // detectLocale() async {
-  //   await Devicelocale.currentLocale.then((locale) async {
-  //     if (locale == 'ja_JP' &&
-  //         (widget.prefs.getBool('islanguageselected') == false ||
-  //             widget.prefs.getBool('islanguageselected') == null)) {
-  //       Locale _locale = await setLocale('ja');
-  //       mecWrapper.setLocale(context, _locale);
-  //       setState(() {});
-  //     }
-  //   }).catchError((onError) {
-  //     mec.toast(
-  //       'Error occured while fetching Locale :$onError',
-  //     );
-  //   });
-  // }
-
   incrementSessionCount(String myphone) async {
     final StatusProvider statusProvider =
-    Provider.of<StatusProvider>(context, listen: false);
+        Provider.of<StatusProvider>(context, listen: false);
     final AvailableContactsProvider contactsProvider =
-    Provider.of<AvailableContactsProvider>(context, listen: false);
+        Provider.of<AvailableContactsProvider>(context, listen: false);
     final FirestoreDataProviderCALLHISTORY firestoreDataProviderCALLHISTORY =
-    Provider.of<FirestoreDataProviderCALLHISTORY>(context, listen: false);
+        Provider.of<FirestoreDataProviderCALLHISTORY>(context, listen: false);
     await FirebaseFirestore.instance
         .collection(DbPaths.collectiondashboard)
         .doc(DbPaths.docuserscount)
         .set(
-        Platform.isAndroid
-            ? {
-          Dbkeys.totalvisitsANDROID: FieldValue.increment(1),
-        }
-            : {
-          Dbkeys.totalvisitsIOS: FieldValue.increment(1),
-        },
-        SetOptions(merge: true));
+            Platform.isAndroid
+                ? {
+                    Dbkeys.totalvisitsANDROID: FieldValue.increment(1),
+                  }
+                : {
+                    Dbkeys.totalvisitsIOS: FieldValue.increment(1),
+                  },
+            SetOptions(merge: true));
     await FirebaseFirestore.instance
         .collection(DbPaths.collectionusers)
         .doc(widget.currentUserNo)
         .set(
-        Platform.isAndroid
-            ? {
-          Dbkeys.isNotificationStringsMulitilanguageEnabled: true,
-          Dbkeys.notificationStringsMap:
-          getTranslateNotificationStringsMap(this.context),
-          Dbkeys.totalvisitsANDROID: FieldValue.increment(1),
-        }
-            : {
-          Dbkeys.isNotificationStringsMulitilanguageEnabled: true,
-          Dbkeys.notificationStringsMap:
-          getTranslateNotificationStringsMap(this.context),
-          Dbkeys.totalvisitsIOS: FieldValue.increment(1),
-        },
-        SetOptions(merge: true));
+            Platform.isAndroid
+                ? {
+                    Dbkeys.isNotificationStringsMulitilanguageEnabled: true,
+                    Dbkeys.notificationStringsMap:
+                        getTranslateNotificationStringsMap(this.context),
+                    Dbkeys.totalvisitsANDROID: FieldValue.increment(1),
+                  }
+                : {
+                    Dbkeys.isNotificationStringsMulitilanguageEnabled: true,
+                    Dbkeys.notificationStringsMap:
+                        getTranslateNotificationStringsMap(this.context),
+                    Dbkeys.totalvisitsIOS: FieldValue.increment(1),
+                  },
+            SetOptions(merge: true));
     firestoreDataProviderCALLHISTORY.fetchNextData(
         'CALLHISTORY',
         FirebaseFirestore.instance
@@ -253,9 +240,6 @@ class HomepageState extends State<Homepage>
           context, _cachedModel, myphone, widget.prefs,
           currentuserphoneNumberVariants: phoneNumberVariants);
     }
-
-    //  await statusProvider.searchContactStatus(
-    //       myphone, contactsProvider.joinedUserPhoneStringAsInServer);
     statusProvider.triggerDeleteMyExpiredStatus(myphone);
     statusProvider.triggerDeleteOtherUsersExpiredStatus(myphone);
     if (_sharedFiles!.length > 0 || _sharedText != null) {
@@ -315,12 +299,12 @@ class HomepageState extends State<Homepage>
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentDataStreamSubscription =
         ReceiveSharingIntent.getTextStream().listen((String value) {
-          setState(() {
-            _sharedText = value;
-          });
-        }, onError: (err) {
-          print("getLinkStream error: $err");
-        });
+      setState(() {
+        _sharedText = value;
+      });
+    }, onError: (err) {
+      print("getLinkStream error: $err");
+    });
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialText().then((String? value) {
@@ -343,10 +327,10 @@ class HomepageState extends State<Homepage>
     });
     await FirebaseMessaging.instance
         .unsubscribeFromTopic(Platform.isAndroid
-        ? Dbkeys.topicUSERSandroid
-        : Platform.isIOS
-        ? Dbkeys.topicUSERSios
-        : Dbkeys.topicUSERSweb)
+            ? Dbkeys.topicUSERSandroid
+            : Platform.isIOS
+                ? Dbkeys.topicUSERSios
+                : Dbkeys.topicUSERSweb)
         .catchError((err) {
       print(err.toString());
     });
@@ -397,7 +381,7 @@ class HomepageState extends State<Homepage>
 
   getuid(BuildContext context) {
     final UserProvider userProvider =
-    Provider.of<UserProvider>(context, listen: false);
+        Provider.of<UserProvider>(context, listen: false);
     userProvider.getUserDetails(widget.currentUserNo);
   }
 
@@ -424,7 +408,7 @@ class HomepageState extends State<Homepage>
       MaterialPageRoute(
         builder: (BuildContext context) => mecWrapper(),
       ),
-          (Route route) => false,
+      (Route route) => false,
     );
   }
 
@@ -514,7 +498,7 @@ class HomepageState extends State<Homepage>
                 title, body, titleMultilang, bodyMultilang);
           } else if (message.data['title'] == 'You have new message(s)') {
             var currentpeer =
-            Provider.of<CurrentChatPeer>(this.context, listen: false);
+                Provider.of<CurrentChatPeer>(this.context, listen: false);
             if (currentpeer.peerid != message.data['peerid']) {
               // FlutterRingtonePlayer.playNotification();
               showOverlayNotification((context) {
@@ -551,13 +535,13 @@ class HomepageState extends State<Homepage>
                     leading: message.data.containsKey("image")
                         ? SizedBox()
                         : message.data["image"] == null
-                        ? SizedBox()
-                        : Image.network(
-                      message.data['image'],
-                      width: 50,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
+                            ? SizedBox()
+                            : Image.network(
+                                message.data['image'],
+                                width: 50,
+                                height: 70,
+                                fit: BoxFit.cover,
+                              ),
                     title: Text(
                       message.data['titleMultilang'],
                       maxLines: 1,
@@ -602,8 +586,8 @@ class HomepageState extends State<Homepage>
               context,
               new MaterialPageRoute(
                   builder: (context) => AllNotifications(
-                    prefs: widget.prefs,
-                  )));
+                        prefs: widget.prefs,
+                      )));
         } else {
           flutterLocalNotificationsPlugin..cancelAll();
         }
@@ -626,8 +610,8 @@ class HomepageState extends State<Homepage>
               context,
               new MaterialPageRoute(
                   builder: (context) => AllNotifications(
-                    prefs: widget.prefs,
-                  )));
+                        prefs: widget.prefs,
+                      )));
         }
       }
     });
@@ -643,12 +627,12 @@ class HomepageState extends State<Homepage>
 
   getSignedInUserOrRedirect() async {
     try {
-      // setState(() {
-      //   isblockNewlogins = widget.doc.data()![Dbkeys.isblocknewlogins];
-      //   isApprovalNeededbyAdminForNewUser =
-      //   widget.doc[Dbkeys.isaccountapprovalbyadminneeded];
-      //   accountApprovalMessage = widget.doc[Dbkeys.accountapprovalmessage];
-      // });
+      setState(() {
+        isblockNewlogins = widget.doc.data()![Dbkeys.isblocknewlogins];
+        isApprovalNeededbyAdminForNewUser =
+            widget.doc[Dbkeys.isaccountapprovalbyadminneeded];
+        accountApprovalMessage = widget.doc[Dbkeys.accountapprovalmessage];
+      });
       print("emul is ${widget.doc.data()![Dbkeys.isemulatorallowed]}");
       print("physic is ${mapDeviceInfo[Dbkeys.deviceInfoISPHYSICAL]}");
       if (widget.doc.data()![Dbkeys.isemulatorallowed] == false &&
@@ -660,10 +644,10 @@ class HomepageState extends State<Homepage>
         print("else is");
         print("platform is android ${widget.doc.data()}");
         if (widget.doc[Platform.isAndroid
-            ? Dbkeys.isappunderconstructionandroid
-            : Platform.isIOS
-            ? Dbkeys.isappunderconstructionios
-            : Dbkeys.isappunderconstructionweb] ==
+                ? Dbkeys.isappunderconstructionandroid
+                : Platform.isIOS
+                    ? Dbkeys.isappunderconstructionios
+                    : Dbkeys.isappunderconstructionweb] ==
             true) {
           print("undercontruct");
           await unsubscribeToNotification(widget.currentUserNo);
@@ -672,48 +656,48 @@ class HomepageState extends State<Homepage>
         } else {
           print("else else is");
           final PackageInfo info = await PackageInfo.fromPlatform();
-  print("info version is ${info.version}");
+          print("info version is ${info.version}");
           int currentAppVersionInPhone = int.parse(info.version
-              .trim()
-              .split(".")[0]
-              .toString()
-              .padLeft(3, '0') +
-              info.version.trim().split(".")[1].toString().padLeft(3, '0') +
-              info.version
-                  .trim()
-                  .split(".")[2]
-                  .toString()
-                  .padLeft(3, '0')) ??
-              0;
-          print("currnt version is $currentAppVersionInPhone");
-          int currentNewAppVersionInServer =
-              int.parse(widget.doc[Platform.isAndroid
-                  ? Dbkeys.latestappversionandroid
-                  : Platform.isIOS
-                  ? Dbkeys.latestappversionios
-                  : Dbkeys.latestappversionweb]
-                  .trim()
-                  .split(".")[0]
-                  .toString()
-                  .padLeft(3, '0') +
-                  widget.doc[Platform.isAndroid
-                      ? Dbkeys.latestappversionandroid
-                      : Platform.isIOS
-                      ? Dbkeys.latestappversionios
-                      : Dbkeys.latestappversionweb]
                       .trim()
-                      .split(".")[1]
+                      .split(".")[0]
                       .toString()
                       .padLeft(3, '0') +
-                  widget.doc[Platform.isAndroid
-                      ? Dbkeys.latestappversionandroid
-                      : Platform.isIOS
-                      ? Dbkeys.latestappversionios
-                      : Dbkeys.latestappversionweb]
+                  info.version.trim().split(".")[1].toString().padLeft(3, '0') +
+                  info.version
                       .trim()
                       .split(".")[2]
                       .toString()
                       .padLeft(3, '0')) ??
+              0;
+          print("currnt version is $currentAppVersionInPhone");
+          int currentNewAppVersionInServer =
+              int.parse(widget.doc[Platform.isAndroid
+                              ? Dbkeys.latestappversionandroid
+                              : Platform.isIOS
+                                  ? Dbkeys.latestappversionios
+                                  : Dbkeys.latestappversionweb]
+                          .trim()
+                          .split(".")[0]
+                          .toString()
+                          .padLeft(3, '0') +
+                      widget.doc[Platform.isAndroid
+                              ? Dbkeys.latestappversionandroid
+                              : Platform.isIOS
+                                  ? Dbkeys.latestappversionios
+                                  : Dbkeys.latestappversionweb]
+                          .trim()
+                          .split(".")[1]
+                          .toString()
+                          .padLeft(3, '0') +
+                      widget.doc[Platform.isAndroid
+                              ? Dbkeys.latestappversionandroid
+                              : Platform.isIOS
+                                  ? Dbkeys.latestappversionios
+                                  : Dbkeys.latestappversionweb]
+                          .trim()
+                          .split(".")[2]
+                          .toString()
+                          .padLeft(3, '0')) ??
                   0;
           if (currentAppVersionInPhone < currentNewAppVersionInServer) {
             showDialog<String>(
@@ -743,8 +727,8 @@ class HomepageState extends State<Homepage>
                                 widget.doc[Platform.isAndroid
                                     ? Dbkeys.newapplinkandroid
                                     : Platform.isIOS
-                                    ? Dbkeys.newapplinkios
-                                    : Dbkeys.newapplinkweb])),
+                                        ? Dbkeys.newapplinkios
+                                        : Dbkeys.newapplinkweb])),
                       ],
                     ));
               },
@@ -759,9 +743,9 @@ class HomepageState extends State<Homepage>
               getiosapplink: widget.doc[Dbkeys.newapplinkios],
               getisadmobshow: widget.doc[Dbkeys.isadmobshow],
               getismediamessagingallowed:
-              widget.doc[Dbkeys.ismediamessageallowed],
+                  widget.doc[Dbkeys.ismediamessageallowed],
               getistextmessagingallowed:
-              widget.doc[Dbkeys.istextmessageallowed],
+                  widget.doc[Dbkeys.istextmessageallowed],
               getiscallsallowed: widget.doc[Dbkeys.iscallsallowed],
               gettnc: widget.doc[Dbkeys.tnc],
               gettncType: widget.doc[Dbkeys.tncTYPE],
@@ -769,33 +753,33 @@ class HomepageState extends State<Homepage>
               getprivacypolicyType: widget.doc[Dbkeys.privacypolicyTYPE],
               getis24hrsTimeformat: widget.doc[Dbkeys.is24hrsTimeformat],
               getmaxFileSizeAllowedInMB:
-              widget.doc[Dbkeys.maxFileSizeAllowedInMB],
+                  widget.doc[Dbkeys.maxFileSizeAllowedInMB],
               getisPercentProgressShowWhileUploading:
-              widget.doc[Dbkeys.isPercentProgressShowWhileUploading],
+                  widget.doc[Dbkeys.isPercentProgressShowWhileUploading],
               getisCallFeatureTotallyHide:
-              widget.doc[Dbkeys.isCallFeatureTotallyHide],
+                  widget.doc[Dbkeys.isCallFeatureTotallyHide],
               getgroupMemberslimit: widget.doc[Dbkeys.groupMemberslimit],
               getbroadcastMemberslimit:
-              widget.doc[Dbkeys.broadcastMemberslimit],
+                  widget.doc[Dbkeys.broadcastMemberslimit],
               getstatusDeleteAfterInHours:
-              widget.doc[Dbkeys.statusDeleteAfterInHours],
+                  widget.doc[Dbkeys.statusDeleteAfterInHours],
               getfeedbackEmail: widget.doc[Dbkeys.feedbackEmail],
               getisLogoutButtonShowInSettingsPage:
-              widget.doc[Dbkeys.isLogoutButtonShowInSettingsPage],
+                  widget.doc[Dbkeys.isLogoutButtonShowInSettingsPage],
               getisAllowCreatingGroups:
-              widget.doc[Dbkeys.isAllowCreatingGroups],
+                  widget.doc[Dbkeys.isAllowCreatingGroups],
               getisAllowCreatingBroadcasts:
-              widget.doc[Dbkeys.isAllowCreatingBroadcasts],
+                  widget.doc[Dbkeys.isAllowCreatingBroadcasts],
               getisAllowCreatingStatus:
-              widget.doc[Dbkeys.isAllowCreatingStatus],
+                  widget.doc[Dbkeys.isAllowCreatingStatus],
               getmaxNoOfFilesInMultiSharing:
-              widget.doc[Dbkeys.maxNoOfFilesInMultiSharing],
+                  widget.doc[Dbkeys.maxNoOfFilesInMultiSharing],
               getmaxNoOfContactsSelectForForward:
-              widget.doc[Dbkeys.maxNoOfContactsSelectForForward],
+                  widget.doc[Dbkeys.maxNoOfContactsSelectForForward],
               getappShareMessageStringAndroid:
-              widget.doc[Dbkeys.appShareMessageStringAndroid],
+                  widget.doc[Dbkeys.appShareMessageStringAndroid],
               getappShareMessageStringiOS:
-              widget.doc[Dbkeys.appShareMessageStringiOS],
+                  widget.doc[Dbkeys.appShareMessageStringiOS],
               getisCustomAppShareLink: widget.doc[Dbkeys.isCustomAppShareLink],
             );
 
@@ -806,14 +790,14 @@ class HomepageState extends State<Homepage>
                   context,
                   new MaterialPageRoute(
                       builder: (context) => new LoginScreen(
-                        prefs: widget.prefs,
-                        accountApprovalMessage: accountApprovalMessage,
-                        isaccountapprovalbyadminneeded:
-                        isApprovalNeededbyAdminForNewUser,
-                        isblocknewlogins: isblockNewlogins,
-                        title: getTranslated(context, 'signin'),
-                        doc: widget.doc,
-                      ))));
+                            prefs: widget.prefs,
+                            accountApprovalMessage: accountApprovalMessage,
+                            isaccountapprovalbyadminneeded:
+                                isApprovalNeededbyAdminForNewUser,
+                            isblocknewlogins: isblockNewlogins,
+                            title: getTranslated(context, 'signin'),
+                            doc: widget.doc,
+                          ))));
             } else {
               print("users is");
               await FirebaseFirestore.instance
@@ -866,251 +850,11 @@ class HomepageState extends State<Homepage>
     } catch (e) {
       showERRORSheet(this.context, "", message: e.toString());
     }
-
-    // await FirebaseFirestore.instance
-    //     .collection(Dbkeys.appsettings)
-    //     .doc(Dbkeys.userapp)
-    //     .get()
-    //     .then((doc) async {
-    //   if (doc.exists && doc.data()!.containsKey(Dbkeys.usersidesetupdone)) {
-    //     if (!doc.data()!.containsKey(Dbkeys.updateV7done)) {
-    //       doc.reference.update({
-    //         Dbkeys.maxNoOfFilesInMultiSharing: MaxNoOfFilesInMultiSharing,
-    //         Dbkeys.maxNoOfContactsSelectForForward:
-    //             MaxNoOfContactsSelectForForward,
-    //         Dbkeys.appShareMessageStringAndroid: '',
-    //         Dbkeys.appShareMessageStringiOS: '',
-    //         Dbkeys.isCustomAppShareLink: false,
-    //         Dbkeys.updateV7done: true,
-    //       });
-    //       mec.toast(getTranslated(this.context, 'erroroccured'));
-    //     } else {
-    //       setState(() {
-    //         isblockNewlogins = doc[Dbkeys.isblocknewlogins];
-    //         isApprovalNeededbyAdminForNewUser =
-    //             doc[Dbkeys.isaccountapprovalbyadminneeded];
-    //         accountApprovalMessage = doc[Dbkeys.accountapprovalmessage];
-    //       });
-    //       if (doc[Dbkeys.isemulatorallowed] == false &&
-    //           mapDeviceInfo[Dbkeys.deviceInfoISPHYSICAL] == false) {
-    //         setState(() {
-    //           isNotAllowEmulator = true;
-    //         });
-    //       } else {
-    //         if (doc[Platform.isAndroid
-    //                 ? Dbkeys.isappunderconstructionandroid
-    //                 : Platform.isIOS
-    //                     ? Dbkeys.isappunderconstructionios
-    //                     : Dbkeys.isappunderconstructionweb] ==
-    //             true) {
-    //           await unsubscribeToNotification(widget.currentUserNo);
-    //           maintainanceMessage = doc[Dbkeys.maintainancemessage];
-    //           setState(() {});
-    //         } else {
-    //           final PackageInfo info = await PackageInfo.fromPlatform();
-
-    //           int currentAppVersionInPhone = int.tryParse(info.version
-    //                       .trim()
-    //                       .split(".")[0]
-    //                       .toString()
-    //                       .padLeft(3, '0') +
-    //                   info.version
-    //                       .trim()
-    //                       .split(".")[1]
-    //                       .toString()
-    //                       .padLeft(3, '0') +
-    //                   info.version
-    //                       .trim()
-    //                       .split(".")[2]
-    //                       .toString()
-    //                       .padLeft(3, '0')) ??
-    //               0;
-    //           int currentNewAppVersionInServer =
-    //               int.tryParse(doc[Platform.isAndroid
-    //                               ? Dbkeys.latestappversionandroid
-    //                               : Platform.isIOS
-    //                                   ? Dbkeys.latestappversionios
-    //                                   : Dbkeys.latestappversionweb]
-    //                           .trim()
-    //                           .split(".")[0]
-    //                           .toString()
-    //                           .padLeft(3, '0') +
-    //                       doc[Platform.isAndroid
-    //                               ? Dbkeys.latestappversionandroid
-    //                               : Platform.isIOS
-    //                                   ? Dbkeys.latestappversionios
-    //                                   : Dbkeys.latestappversionweb]
-    //                           .trim()
-    //                           .split(".")[1]
-    //                           .toString()
-    //                           .padLeft(3, '0') +
-    //                       doc[Platform.isAndroid
-    //                               ? Dbkeys.latestappversionandroid
-    //                               : Platform.isIOS
-    //                                   ? Dbkeys.latestappversionios
-    //                                   : Dbkeys.latestappversionweb]
-    //                           .trim()
-    //                           .split(".")[2]
-    //                           .toString()
-    //                           .padLeft(3, '0')) ??
-    //                   0;
-    //           if (currentAppVersionInPhone < currentNewAppVersionInServer) {
-    //             showDialog<String>(
-    //               context: context,
-    //               barrierDismissible: false,
-    //               builder: (BuildContext context) {
-    //                 String title = getTranslated(context, 'updateavl');
-    //                 String message = getTranslated(context, 'updateavlmsg');
-
-    //                 String btnLabel = getTranslated(context, 'updatnow');
-
-    //                 return new WillPopScope(
-    //                     onWillPop: () async => false,
-    //                     child: AlertDialog(
-    //                       title: Text(
-    //                         title,
-    //                         style: TextStyle(color: mecgreen),
-    //                       ),
-    //                       content: Text(message),
-    //                       actions: <Widget>[
-    //                         TextButton(
-    //                             child: Text(
-    //                               btnLabel,
-    //                               style: TextStyle(color: fiberchatLightGreen),
-    //                             ),
-    //                             onPressed: () =>
-    //                                 custom_url_launcher(doc[Platform.isAndroid
-    //                                     ? Dbkeys.newapplinkandroid
-    //                                     : Platform.isIOS
-    //                                         ? Dbkeys.newapplinkios
-    //                                         : Dbkeys.newapplinkweb])),
-    //                       ],
-    //                     ));
-    //               },
-    //             );
-    //           } else {
-    //             final observer =
-    //                 Provider.of<Observer>(this.context, listen: false);
-
-    //             observer.setObserver(
-    //               getuserAppSettingsDoc: doc.data(),
-    //               getandroidapplink: doc[Dbkeys.newapplinkandroid],
-    //               getiosapplink: doc[Dbkeys.newapplinkios],
-    //               getisadmobshow: doc[Dbkeys.isadmobshow],
-    //               getismediamessagingallowed: doc[Dbkeys.ismediamessageallowed],
-    //               getistextmessagingallowed: doc[Dbkeys.istextmessageallowed],
-    //               getiscallsallowed: doc[Dbkeys.iscallsallowed],
-    //               gettnc: doc[Dbkeys.tnc],
-    //               gettncType: doc[Dbkeys.tncTYPE],
-    //               getprivacypolicy: doc[Dbkeys.privacypolicy],
-    //               getprivacypolicyType: doc[Dbkeys.privacypolicyTYPE],
-    //               getis24hrsTimeformat: doc[Dbkeys.is24hrsTimeformat],
-    //               getmaxFileSizeAllowedInMB: doc[Dbkeys.maxFileSizeAllowedInMB],
-    //               getisPercentProgressShowWhileUploading:
-    //                   doc[Dbkeys.isPercentProgressShowWhileUploading],
-    //               getisCallFeatureTotallyHide:
-    //                   doc[Dbkeys.isCallFeatureTotallyHide],
-    //               getgroupMemberslimit: doc[Dbkeys.groupMemberslimit],
-    //               getbroadcastMemberslimit: doc[Dbkeys.broadcastMemberslimit],
-    //               getstatusDeleteAfterInHours:
-    //                   doc[Dbkeys.statusDeleteAfterInHours],
-    //               getfeedbackEmail: doc[Dbkeys.feedbackEmail],
-    //               getisLogoutButtonShowInSettingsPage:
-    //                   doc[Dbkeys.isLogoutButtonShowInSettingsPage],
-    //               getisAllowCreatingGroups: doc[Dbkeys.isAllowCreatingGroups],
-    //               getisAllowCreatingBroadcasts:
-    //                   doc[Dbkeys.isAllowCreatingBroadcasts],
-    //               getisAllowCreatingStatus: doc[Dbkeys.isAllowCreatingStatus],
-    //               getmaxNoOfFilesInMultiSharing:
-    //                   doc[Dbkeys.maxNoOfFilesInMultiSharing],
-    //               getmaxNoOfContactsSelectForForward:
-    //                   doc[Dbkeys.maxNoOfContactsSelectForForward],
-    //               getappShareMessageStringAndroid:
-    //                   doc[Dbkeys.appShareMessageStringAndroid],
-    //               getappShareMessageStringiOS:
-    //                   doc[Dbkeys.appShareMessageStringiOS],
-    //               getisCustomAppShareLink: doc[Dbkeys.isCustomAppShareLink],
-    //             );
-
-    //             if (currentUserNo == null ||
-    //                 currentUserNo!.isEmpty ||
-    //                 widget.isSecuritySetupDone == false) {
-    //               await unsubscribeToNotification(widget.currentUserNo);
-    //               unawaited(Navigator.pushReplacement(
-    //                   context,
-    //                   new MaterialPageRoute(
-    //                       builder: (context) => new LoginScreen(
-    //                         doc: widget.doc,
-    //                             prefs: widget.prefs,
-    //                             accountApprovalMessage: accountApprovalMessage,
-    //                             isaccountapprovalbyadminneeded:
-    //                                 isApprovalNeededbyAdminForNewUser,
-    //                             isblocknewlogins: isblockNewlogins,
-    //                             title: getTranslated(context, 'signin'),
-    //                             issecutitysetupdone: widget.isSecuritySetupDone,
-    //                           ))));
-    //             } else {
-    //               await FirebaseFirestore.instance
-    //                   .collection(DbPaths.collectionusers)
-    //                   .doc(widget.currentUserNo ?? currentUserNo)
-    //                   .get()
-    //                   .then((userDoc) async {
-    //                 if (deviceid != userDoc[Dbkeys.currentDeviceID] ||
-    //                     !userDoc.data()!.containsKey(Dbkeys.currentDeviceID)) {
-    //                   if (ConnectWithAdminApp == true) {
-    //                     await unsubscribeToNotification(widget.currentUserNo);
-    //                   }
-    //                   await logout(context);
-    //                 } else {
-    //                   if (!userDoc.data()!.containsKey(Dbkeys.accountstatus)) {
-    //                     await logout(context);
-    //                   } else if (userDoc[Dbkeys.accountstatus] !=
-    //                       Dbkeys.sTATUSallowed) {
-    //                     setState(() {
-    //                       accountstatus = userDoc[Dbkeys.accountstatus];
-    //                       accountactionmessage = userDoc[Dbkeys.actionmessage];
-    //                     });
-    //                   } else {
-    //                     setState(() {
-    //                       userFullname = userDoc[Dbkeys.nickname];
-    //                       userPhotourl = userDoc[Dbkeys.photoUrl];
-    //                       phoneNumberVariants = phoneNumberVariantsList(
-    //                           countrycode: userDoc[Dbkeys.countryCode],
-    //                           phonenumber: userDoc[Dbkeys.phoneRaw]);
-    //                       isFetching = false;
-    //                     });
-    //                     getuid(context);
-    //                     setIsActive();
-
-    //                     incrementSessionCount(userDoc[Dbkeys.phone]);
-    //                   }
-    //                 }
-    //               });
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   } else {
-    //     await setupAdminAppCompatibleDataForFirstTime().then((result) {
-    //       if (result == true) {
-    //         mec.toast(getTranslated(this.context, 'erroroccured'));
-    //       } else if (result == false) {
-    //         mec.toast(
-    //           'Error occured while writing setupAdminAppCompatibleDataForFirstTime().Please restart the app.',
-    //         );
-    //       }
-    //     });
-    //   }
-    // }).catchError((err) {
-    //   mec.toast(
-    //     'Error occured while fetching appsettings/userapp. ERROR: $err',
-    //   );
-    // });}
   }
 
   StreamController<String> _userQuery =
-  new StreamController<String>.broadcast();
+      new StreamController<String>.broadcast();
+
   void _changeLanguage(Language language) async {
     Locale _locale = await setLocale(language.languageCode);
     mecWrapper.setLocale(context, _locale);
@@ -1121,7 +865,7 @@ class HomepageState extends State<Homepage>
             .doc(widget.currentUserNo)
             .update({
           Dbkeys.notificationStringsMap:
-          getTranslateNotificationStringsMap(this.context),
+              getTranslateNotificationStringsMap(this.context),
         });
       });
     }
@@ -1133,6 +877,7 @@ class HomepageState extends State<Homepage>
   }
 
   DateTime? currentBackPressTime = DateTime.now();
+
   Future<bool> onWillPop() {
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime!) > Duration(seconds: 3)) {
@@ -1152,541 +897,538 @@ class HomepageState extends State<Homepage>
     final observer = Provider.of<Observer>(context, listen: true);
     return isNotAllowEmulator == true
         ? errorScreen(
-        'Emulator Not Allowed.', ' Please use any real device & Try again.')
+            'Emulator Not Allowed.', ' Please use any real device & Try again.')
         : accountstatus != null
-        ? errorScreen(accountstatus, accountactionmessage)
-        : ConnectWithAdminApp == true && maintainanceMessage != null
-        ? errorScreen('App Under maintainance', maintainanceMessage)
-        : ConnectWithAdminApp == true && isFetching == true
-        ? Splashscreen(
-      isShowOnlySpinner: widget.isShowOnlyCircularSpin,
-    )
-        : PickupLayout(
-        prefs: widget.prefs,
-        scaffold: mec.getNTPWrappedWidget(WillPopScope(
-          onWillPop: onWillPop,
-          child: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                  elevation: DESIGN_TYPE == Themetype.messenger
-                      ? 0.4
-                      : 1,
-                  backgroundColor:
-                  DESIGN_TYPE == Themetype.whatsapp
-                      ? mecgreen
-                      : mecWhite,
-                  title: Text(
-                    Appname,
-                    style: TextStyle(
-                      color: DESIGN_TYPE == Themetype.whatsapp
-                          ? mecWhite
-                          : mecBlack,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  // title: Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Image.asset(
-                  //       'assets/images/applogo.png',
-                  //       height: 80,
-                  //       width: 140,
-                  //       fit: BoxFit.fitHeight),
-                  // ),
-                  // titleSpacing: 14,
-                  actions: <Widget>[
+            ? errorScreen(accountstatus, accountactionmessage)
+            : ConnectWithAdminApp == true && maintainanceMessage != null
+                ? errorScreen('App Under maintainance', maintainanceMessage)
+                : ConnectWithAdminApp == true && isFetching == true
+                    ? Splashscreen(
+                        isShowOnlySpinner: widget.isShowOnlyCircularSpin,
+                      )
+                    : PickupLayout(
+                        prefs: widget.prefs,
+                        scaffold: mec.getNTPWrappedWidget(WillPopScope(
+                          onWillPop: onWillPop,
+                          child: Scaffold(
+                              backgroundColor: Colors.white,
+                              appBar: AppBar(
+                                  elevation: DESIGN_TYPE == Themetype.messenger
+                                      ? 0.4
+                                      : 1,
+                                  backgroundColor:
+                                      DESIGN_TYPE == Themetype.whatsapp
+                                          ? mecgreen
+                                          : mecWhite,
+                                  title: Text(
+                                    Appname,
+                                    style: TextStyle(
+                                      color: DESIGN_TYPE == Themetype.whatsapp
+                                          ? mecWhite
+                                          : mecBlack,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  // title: Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: Image.asset(
+                                  //       'assets/images/applogo.png',
+                                  //       height: 80,
+                                  //       width: 140,
+                                  //       fit: BoxFit.fitHeight),
+                                  // ),
+                                  // titleSpacing: 14,
+                                  actions: <Widget>[
 //
-                    Language.languageList().length < 2
-                        ? SizedBox()
-                        : Container(
-                      alignment: Alignment.centerRight,
-                      margin: EdgeInsets.only(top: 4),
-                      width: 120,
-                      child: DropdownButton<Language>(
-                        // iconSize: 40,
+                                    Language.languageList().length < 2
+                                        ? SizedBox()
+                                        : Container(
+                                            alignment: Alignment.centerRight,
+                                            margin: EdgeInsets.only(top: 4),
+                                            width: 120,
+                                            child: DropdownButton<Language>(
+                                              // iconSize: 40,
 
-                        isExpanded: true,
-                        underline: SizedBox(),
-                        icon: Container(
-                          width: 60,
-                          height: 30,
-                          child: Row(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.language_outlined,
-                                color: DESIGN_TYPE ==
-                                    Themetype.whatsapp
-                                    ? mecWhite
-                                    : mecBlack
-                                    .withOpacity(0.7),
-                                size: 22,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: DESIGN_TYPE ==
-                                    Themetype.whatsapp
-                                    ? mecLightGreen
-                                    : mecLightGreen,
-                                size: 27,
-                              )
-                            ],
-                          ),
-                        ),
-                        onChanged: (Language? language) {
-                          _changeLanguage(language!);
-                        },
-                        items: Language.languageList()
-                            .map<
-                            DropdownMenuItem<
-                                Language>>(
-                              (e) => DropdownMenuItem<
-                              Language>(
-                            value: e,
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment
-                                  .end,
-                              children: <Widget>[
-                                Text(
-                                  IsShowLanguageNameInNativeLanguage ==
-                                      true
-                                      ? '' +
-                                      e.name +
-                                      '  ' +
-                                      e.flag +
-                                      ' '
-                                      : ' ' +
-                                      e.languageNameInEnglish +
-                                      '  ' +
-                                      e.flag +
-                                      ' ',
-                                  style: TextStyle(
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                            .toList(),
-                      ),
-                    ),
+                                              isExpanded: true,
+                                              underline: SizedBox(),
+                                              icon: Container(
+                                                width: 60,
+                                                height: 30,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.language_outlined,
+                                                      color: DESIGN_TYPE ==
+                                                              Themetype.whatsapp
+                                                          ? mecWhite
+                                                          : mecBlack
+                                                              .withOpacity(0.7),
+                                                      size: 22,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: DESIGN_TYPE ==
+                                                              Themetype.whatsapp
+                                                          ? mecLightGreen
+                                                          : mecLightGreen,
+                                                      size: 27,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              onChanged: (Language? language) {
+                                                _changeLanguage(language!);
+                                              },
+                                              items: Language.languageList()
+                                                  .map<
+                                                      DropdownMenuItem<
+                                                          Language>>(
+                                                    (e) => DropdownMenuItem<
+                                                        Language>(
+                                                      value: e,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            IsShowLanguageNameInNativeLanguage ==
+                                                                    true
+                                                                ? '' +
+                                                                    e.name +
+                                                                    '  ' +
+                                                                    e.flag +
+                                                                    ' '
+                                                                : ' ' +
+                                                                    e.languageNameInEnglish +
+                                                                    '  ' +
+                                                                    e.flag +
+                                                                    ' ',
+                                                            style: TextStyle(
+                                                                fontSize: 15),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                  .toList(),
+                                            ),
+                                          ),
 // // //---- All localizations settings----
-                    PopupMenuButton(
-                        padding: EdgeInsets.all(0),
-                        icon: Padding(
-                          padding:
-                          const EdgeInsets.only(right: 1),
-                          child: Icon(
-                            Icons.more_vert_outlined,
-                            color: DESIGN_TYPE ==
-                                Themetype.whatsapp
-                                ? mecWhite
-                                : mecBlack,
-                          ),
-                        ),
-                        color: mecWhite,
-                        onSelected: (dynamic val) async {
-                          switch (val) {
-                            case 'rate':
-                              break;
-                            case 'tutorials':
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return SimpleDialog(
-                                      contentPadding:
-                                      EdgeInsets.all(20),
-                                      children: <Widget>[
-                                        ListTile(
-                                          title: Text(
-                                            getTranslated(
-                                                context,
-                                                'swipeview'),
+                                    PopupMenuButton(
+                                        padding: EdgeInsets.all(0),
+                                        icon: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 1),
+                                          child: Icon(
+                                            Icons.more_vert_outlined,
+                                            color: DESIGN_TYPE ==
+                                                    Themetype.whatsapp
+                                                ? mecWhite
+                                                : mecBlack,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        ListTile(
-                                            title: Text(
-                                              getTranslated(context,
-                                                  'swipehide'),
-                                            )),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        ListTile(
-                                            title: Text(
-                                              getTranslated(context,
-                                                  'lp_setalias'),
-                                            ))
-                                      ],
-                                    );
-                                  });
-                              break;
-                            case 'privacy':
-                              break;
-                            case 'tnc':
-                              break;
-                            case 'share':
-                              break;
-                            case 'notifications':
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) =>
-                                          AllNotifications(
-                                            prefs: widget.prefs,
-                                          )));
-
-                              break;
-                            case 'feedback':
-                              break;
-                            case 'logout':
-                              break;
-                            case 'settings':
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder:
-                                          (context) =>
-                                          SettingsOption(
-                                            prefs: widget
-                                                .prefs,
-                                            onTapLogout:
-                                                () async {
-                                              await logout(
-                                                  context);
-                                            },
-                                            onTapEditProfile:
-                                                () {
+                                        color: mecWhite,
+                                        onSelected: (dynamic val) async {
+                                          switch (val) {
+                                            case 'rate':
+                                              break;
+                                            case 'tutorials':
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return SimpleDialog(
+                                                      contentPadding:
+                                                          EdgeInsets.all(20),
+                                                      children: <Widget>[
+                                                        ListTile(
+                                                          title: Text(
+                                                            getTranslated(
+                                                                context,
+                                                                'swipeview'),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        ListTile(
+                                                            title: Text(
+                                                          getTranslated(context,
+                                                              'swipehide'),
+                                                        )),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        ListTile(
+                                                            title: Text(
+                                                          getTranslated(context,
+                                                              'lp_setalias'),
+                                                        ))
+                                                      ],
+                                                    );
+                                                  });
+                                              break;
+                                            case 'privacy':
+                                              break;
+                                            case 'tnc':
+                                              break;
+                                            case 'share':
+                                              break;
+                                            case 'notifications':
                                               Navigator.push(
                                                   context,
                                                   new MaterialPageRoute(
-                                                      builder: (context) => ProfileSetting(
-                                                        prefs: widget.prefs,
-                                                        biometricEnabled: biometricEnabled,
-                                                        type: mec.getAuthenticationType(biometricEnabled, _cachedModel),
-                                                      )));
-                                            },
-                                            currentUserNo:
-                                            widget
-                                                .currentUserNo!,
-                                            biometricEnabled:
-                                            biometricEnabled,
-                                            type: mec
-                                                .getAuthenticationType(
-                                                biometricEnabled,
-                                                _cachedModel),
-                                          )));
+                                                      builder: (context) =>
+                                                          AllNotifications(
+                                                            prefs: widget.prefs,
+                                                          )));
 
-                              break;
-                            case 'group':
-                              if (observer
-                                  .isAllowCreatingGroups ==
-                                  false) {
-                                mec.showRationale(
-                                    getTranslated(this.context,
-                                        'disabled'));
-                              } else {
-                                final AvailableContactsProvider
-                                dbcontactsProvider =
-                                Provider.of<
-                                    AvailableContactsProvider>(
-                                    context,
-                                    listen: false);
-                                dbcontactsProvider
-                                    .fetchContacts(
-                                    context,
-                                    _cachedModel,
-                                    widget.currentUserNo!,
-                                    widget.prefs);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AddContactsToGroup(
-                                              currentUserNo: widget
-                                                  .currentUserNo,
-                                              model:
-                                              _cachedModel,
-                                              biometricEnabled:
-                                              false,
-                                              prefs:
-                                              widget.prefs,
-                                              isAddingWhileCreatingGroup:
-                                              true,
-                                            )));
-                              }
-                              break;
+                                              break;
+                                            case 'feedback':
+                                              break;
+                                            case 'logout':
+                                              break;
+                                            case 'settings':
+                                              Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              SettingsOption(
+                                                                prefs: widget
+                                                                    .prefs,
+                                                                onTapLogout:
+                                                                    () async {
+                                                                  await logout(
+                                                                      context);
+                                                                },
+                                                                onTapEditProfile:
+                                                                    () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      new MaterialPageRoute(
+                                                                          builder: (context) => ProfileSetting(
+                                                                                prefs: widget.prefs,
+                                                                                biometricEnabled: biometricEnabled,
+                                                                                type: mec.getAuthenticationType(biometricEnabled, _cachedModel),
+                                                                              )));
+                                                                },
+                                                                currentUserNo:
+                                                                    widget
+                                                                        .currentUserNo!,
+                                                                biometricEnabled:
+                                                                    biometricEnabled,
+                                                                type: mec.getAuthenticationType(
+                                                                    biometricEnabled,
+                                                                    _cachedModel),
+                                                              )));
 
-                            case 'broadcast':
-                              if (observer
-                                  .isAllowCreatingBroadcasts ==
-                                  false) {
-                                mec.showRationale(
-                                    getTranslated(this.context,
-                                        'disabled'));
-                              } else {
-                                final AvailableContactsProvider
-                                dbcontactsProvider =
-                                Provider.of<
-                                    AvailableContactsProvider>(
-                                    context,
-                                    listen: false);
-                                dbcontactsProvider
-                                    .fetchContacts(
-                                    context,
-                                    _cachedModel,
-                                    widget.currentUserNo!,
-                                    widget.prefs);
-                                await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AddContactsToBroadcast(
-                                              currentUserNo: widget
-                                                  .currentUserNo,
-                                              model:
-                                              _cachedModel,
-                                              biometricEnabled:
-                                              false,
-                                              prefs:
-                                              widget.prefs,
-                                              isAddingWhileCreatingBroadcast:
-                                              true,
-                                            )));
-                              }
-                              break;
-                          }
-                        },
-                        itemBuilder: (context) =>
-                        <PopupMenuItem<String>>[
-                          PopupMenuItem<String>(
-                              value: 'group',
-                              child: Text(
-                                getTranslated(
-                                    context, 'newgroup'),
+                                              break;
+                                            case 'group':
+                                              if (observer
+                                                      .isAllowCreatingGroups ==
+                                                  false) {
+                                                mec.showRationale(getTranslated(
+                                                    this.context, 'disabled'));
+                                              } else {
+                                                final AvailableContactsProvider
+                                                    dbcontactsProvider =
+                                                    Provider.of<
+                                                            AvailableContactsProvider>(
+                                                        context,
+                                                        listen: false);
+                                                dbcontactsProvider
+                                                    .fetchContacts(
+                                                        context,
+                                                        _cachedModel,
+                                                        widget.currentUserNo!,
+                                                        widget.prefs);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddContactsToGroup(
+                                                              currentUserNo: widget
+                                                                  .currentUserNo,
+                                                              model:
+                                                                  _cachedModel,
+                                                              biometricEnabled:
+                                                                  false,
+                                                              prefs:
+                                                                  widget.prefs,
+                                                              isAddingWhileCreatingGroup:
+                                                                  true,
+                                                            )));
+                                              }
+                                              break;
+
+                                            case 'broadcast':
+                                              if (observer
+                                                      .isAllowCreatingBroadcasts ==
+                                                  false) {
+                                                mec.showRationale(getTranslated(
+                                                    this.context, 'disabled'));
+                                              } else {
+                                                final AvailableContactsProvider
+                                                    dbcontactsProvider =
+                                                    Provider.of<
+                                                            AvailableContactsProvider>(
+                                                        context,
+                                                        listen: false);
+                                                dbcontactsProvider
+                                                    .fetchContacts(
+                                                        context,
+                                                        _cachedModel,
+                                                        widget.currentUserNo!,
+                                                        widget.prefs);
+                                                await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddContactsToBroadcast(
+                                                              currentUserNo: widget
+                                                                  .currentUserNo,
+                                                              model:
+                                                                  _cachedModel,
+                                                              biometricEnabled:
+                                                                  false,
+                                                              prefs:
+                                                                  widget.prefs,
+                                                              isAddingWhileCreatingBroadcast:
+                                                                  true,
+                                                            )));
+                                              }
+                                              break;
+                                          }
+                                        },
+                                        itemBuilder: (context) =>
+                                            <PopupMenuItem<String>>[
+                                              PopupMenuItem<String>(
+                                                  value: 'group',
+                                                  child: Text(
+                                                    getTranslated(
+                                                        context, 'newgroup'),
+                                                  )),
+                                              PopupMenuItem<String>(
+                                                  value: 'broadcast',
+                                                  child: Text(
+                                                    getTranslated(context,
+                                                        'newbroadcast'),
+                                                  )),
+                                              PopupMenuItem<String>(
+                                                value: 'tutorials',
+                                                child: Text(
+                                                  getTranslated(
+                                                      context, 'tutorials'),
+                                                ),
+                                              ),
+                                              PopupMenuItem<String>(
+                                                  value: 'settings',
+                                                  child: Text(
+                                                    getTranslated(context,
+                                                        'settingsoption'),
+                                                  )),
+                                            ]),
+                                  ],
+                                  bottom: TabBar(
+                                    isScrollable: IsAdaptiveWidthTab == true
+                                        ? true
+                                        : DEFAULT_LANGUAGE_FILE_CODE == "en" &&
+                                                (widget.prefs.getString(
+                                                            LAGUAGE_CODE) ==
+                                                        null ||
+                                                    widget.prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        "en")
+                                            ? false
+                                            : widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'pt' ||
+                                                    widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'my' ||
+                                                    widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'nl' ||
+                                                    widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'vi' ||
+                                                    widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'tr' ||
+                                                    widget
+                                                            .prefs
+                                                            .getString(
+                                                                LAGUAGE_CODE) ==
+                                                        'id' ||
+                                                    widget.prefs.getString(
+                                                            LAGUAGE_CODE) ==
+                                                        'ka' ||
+                                                    widget.prefs.getString(
+                                                            LAGUAGE_CODE) ==
+                                                        'fr' ||
+                                                    widget.prefs.getString(
+                                                            LAGUAGE_CODE) ==
+                                                        'es'
+                                                ? true
+                                                : false,
+                                    labelStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: FONTFAMILY_NAME,
+                                    ),
+                                    unselectedLabelStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: FONTFAMILY_NAME,
+                                    ),
+                                    labelColor:
+                                        DESIGN_TYPE == Themetype.whatsapp
+                                            ? mecWhite
+                                            : mecBlack,
+                                    unselectedLabelColor:
+                                        DESIGN_TYPE == Themetype.whatsapp
+                                            ? mecWhite.withOpacity(0.6)
+                                            : mecBlack.withOpacity(0.6),
+                                    indicatorWeight: 3,
+                                    indicatorColor:
+                                        DESIGN_TYPE == Themetype.whatsapp
+                                            ? mecWhite
+                                            : mecgreen,
+                                    controller:
+                                        observer.isCallFeatureTotallyHide ==
+                                                false
+                                            ? controllerIfcallallowed
+                                            : controllerIfcallNotallowed,
+                                    tabs: observer.isCallFeatureTotallyHide ==
+                                            false
+                                        ? <Widget>[
+                                            Tab(
+                                              child: Text(
+                                                getTranslated(context, 'chats'),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        FONTFAMILY_NAME),
+                                              ),
+                                            ),
+                                            Tab(
+                                              child: Text(
+                                                getTranslated(
+                                                    context, 'status'),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        FONTFAMILY_NAME),
+                                              ),
+                                            ),
+                                            Tab(
+                                              child: Text(
+                                                getTranslated(context, 'calls'),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        FONTFAMILY_NAME),
+                                              ),
+                                            ),
+                                          ]
+                                        : <Widget>[
+                                            Tab(
+                                              child: Text(
+                                                getTranslated(context, 'chats'),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        FONTFAMILY_NAME),
+                                              ),
+                                            ),
+                                            Tab(
+                                              child: Text(
+                                                getTranslated(
+                                                    context, 'status'),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        FONTFAMILY_NAME),
+                                              ),
+                                            ),
+                                          ],
+                                  )),
+                              body: TabBarView(
+                                controller:
+                                    observer.isCallFeatureTotallyHide == false
+                                        ? controllerIfcallallowed
+                                        : controllerIfcallNotallowed,
+                                children: observer.isCallFeatureTotallyHide ==
+                                        false
+                                    ? <Widget>[
+                                        IsShowLastMessageInChatTileWithTime ==
+                                                false
+                                            ? RecentChatsWithoutLastMessage(
+                                                prefs: widget.prefs,
+                                                currentUserNo:
+                                                    widget.currentUserNo,
+                                                isSecuritySetupDone: false)
+                                            : RecentChats(
+                                                prefs: widget.prefs,
+                                                currentUserNo:
+                                                    widget.currentUserNo,
+                                                isSecuritySetupDone: false),
+                                        Status(
+                                            currentUserFullname: userFullname,
+                                            currentUserPhotourl: userPhotourl,
+                                            phoneNumberVariants:
+                                                this.phoneNumberVariants,
+                                            currentUserNo: widget.currentUserNo,
+                                            model: _cachedModel,
+                                            biometricEnabled: biometricEnabled,
+                                            prefs: widget.prefs),
+                                        CallHistory(
+                                          model: _cachedModel,
+                                          userphone: widget.currentUserNo,
+                                          prefs: widget.prefs,
+                                        ),
+                                      ]
+                                    : <Widget>[
+                                        IsShowLastMessageInChatTileWithTime ==
+                                                false
+                                            ? RecentChatsWithoutLastMessage(
+                                                prefs: widget.prefs,
+                                                currentUserNo:
+                                                    widget.currentUserNo,
+                                                isSecuritySetupDone: false)
+                                            : RecentChats(
+                                                prefs: widget.prefs,
+                                                currentUserNo:
+                                                    widget.currentUserNo,
+                                                isSecuritySetupDone: false),
+                                        Status(
+                                            currentUserFullname: userFullname,
+                                            currentUserPhotourl: userPhotourl,
+                                            phoneNumberVariants:
+                                                this.phoneNumberVariants,
+                                            currentUserNo: widget.currentUserNo,
+                                            model: _cachedModel,
+                                            biometricEnabled: biometricEnabled,
+                                            prefs: widget.prefs),
+                                      ],
                               )),
-                          PopupMenuItem<String>(
-                              value: 'broadcast',
-                              child: Text(
-                                getTranslated(context,
-                                    'newbroadcast'),
-                              )),
-                          PopupMenuItem<String>(
-                            value: 'tutorials',
-                            child: Text(
-                              getTranslated(
-                                  context, 'tutorials'),
-                            ),
-                          ),
-                          PopupMenuItem<String>(
-                              value: 'settings',
-                              child: Text(
-                                getTranslated(context,
-                                    'settingsoption'),
-                              )),
-                        ]),
-                  ],
-                  bottom: TabBar(
-                    isScrollable: IsAdaptiveWidthTab == true
-                        ? true
-                        : DEFAULT_LANGUAGE_FILE_CODE == "en" &&
-                        (widget.prefs.getString(
-                            LAGUAGE_CODE) ==
-                            null ||
-                            widget.prefs
-                                .getString(
-                                LAGUAGE_CODE) ==
-                                "en")
-                        ? false
-                        : widget
-                        .prefs
-                        .getString(
-                        LAGUAGE_CODE) ==
-                        'pt' ||
-                        widget
-                            .prefs
-                            .getString(
-                            LAGUAGE_CODE) ==
-                            'my' ||
-                        widget
-                            .prefs
-                            .getString(
-                            LAGUAGE_CODE) ==
-                            'nl' ||
-                        widget
-                            .prefs
-                            .getString(
-                            LAGUAGE_CODE) ==
-                            'vi' ||
-                        widget
-                            .prefs
-                            .getString(
-                            LAGUAGE_CODE) ==
-                            'tr' ||
-                        widget
-                            .prefs
-                            .getString(
-                            LAGUAGE_CODE) ==
-                            'id' ||
-                        widget.prefs.getString(
-                            LAGUAGE_CODE) ==
-                            'ka' ||
-                        widget.prefs.getString(
-                            LAGUAGE_CODE) ==
-                            'fr' ||
-                        widget.prefs.getString(
-                            LAGUAGE_CODE) ==
-                            'es'
-                        ? true
-                        : false,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: FONTFAMILY_NAME,
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: FONTFAMILY_NAME,
-                    ),
-                    labelColor:
-                    DESIGN_TYPE == Themetype.whatsapp
-                        ? mecWhite
-                        : mecBlack,
-                    unselectedLabelColor:
-                    DESIGN_TYPE == Themetype.whatsapp
-                        ? mecWhite.withOpacity(0.6)
-                        : mecBlack.withOpacity(0.6),
-                    indicatorWeight: 3,
-                    indicatorColor:
-                    DESIGN_TYPE == Themetype.whatsapp
-                        ? mecWhite
-                        : mecgreen,
-                    controller:
-                    observer.isCallFeatureTotallyHide ==
-                        false
-                        ? controllerIfcallallowed
-                        : controllerIfcallNotallowed,
-                    tabs: observer.isCallFeatureTotallyHide ==
-                        false
-                        ? <Widget>[
-                      Tab(
-                        child: Text(
-                          getTranslated(context, 'chats'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily:
-                              FONTFAMILY_NAME),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          getTranslated(
-                              context, 'status'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily:
-                              FONTFAMILY_NAME),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          getTranslated(context, 'calls'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily:
-                              FONTFAMILY_NAME),
-                        ),
-                      ),
-                    ]
-                        : <Widget>[
-                      Tab(
-                        child: Text(
-                          getTranslated(context, 'chats'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily:
-                              FONTFAMILY_NAME),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          getTranslated(
-                              context, 'status'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily:
-                              FONTFAMILY_NAME),
-                        ),
-                      ),
-                    ],
-                  )),
-              body: TabBarView(
-                controller:
-                observer.isCallFeatureTotallyHide == false
-                    ? controllerIfcallallowed
-                    : controllerIfcallNotallowed,
-                children: observer.isCallFeatureTotallyHide ==
-                    false
-                    ? <Widget>[
-                  IsShowLastMessageInChatTileWithTime ==
-                      false
-                      ? RecentChatsWithoutLastMessage(
-                      prefs: widget.prefs,
-                      currentUserNo:
-                      widget.currentUserNo,
-                      isSecuritySetupDone: false)
-                      : RecentChats(
-                      prefs: widget.prefs,
-                      currentUserNo:
-                      widget.currentUserNo,
-                      isSecuritySetupDone: false),
-                  Status(
-                      currentUserFullname: userFullname,
-                      currentUserPhotourl: userPhotourl,
-                      phoneNumberVariants:
-                      this.phoneNumberVariants,
-                      currentUserNo: widget.currentUserNo,
-                      model: _cachedModel,
-                      biometricEnabled: biometricEnabled,
-                      prefs: widget.prefs),
-                  CallHistory(
-                    model: _cachedModel,
-                    userphone: widget.currentUserNo,
-                    prefs: widget.prefs,
-                  ),
-                ]
-                    : <Widget>[
-                  IsShowLastMessageInChatTileWithTime ==
-                      false
-                      ? RecentChatsWithoutLastMessage(
-                      prefs: widget.prefs,
-                      currentUserNo:
-                      widget.currentUserNo,
-                      isSecuritySetupDone: false)
-                      : RecentChats(
-                      prefs: widget.prefs,
-                      currentUserNo:
-                      widget.currentUserNo,
-                      isSecuritySetupDone: false),
-                  Status(
-                      currentUserFullname: userFullname,
-                      currentUserPhotourl: userPhotourl,
-                      phoneNumberVariants:
-                      this.phoneNumberVariants,
-                      currentUserNo: widget.currentUserNo,
-                      model: _cachedModel,
-                      biometricEnabled: biometricEnabled,
-                      prefs: widget.prefs),
-                ],
-              )),
-        )));
+                        )));
   }
 }
 
@@ -1704,7 +1446,6 @@ Future<dynamic> myBackgroundMessageHandlerAndroid(RemoteMessage message) async {
     if (message.data['title'] == 'You have new message(s)' ||
         message.data['title'] == 'New message in Group') {
       //-- need not to do anythig for these message type as it will be automatically popped up.
-
     } else if (message.data['title'] == 'Incoming Audio Call...' ||
         message.data['title'] == 'Incoming Video Call...') {
       final data = message.data;
@@ -1750,7 +1491,8 @@ Future<dynamic> myBackgroundMessageHandlerAndroid(RemoteMessage message) async {
 // }
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
+
 Future _showNotificationWithDefaultSound(String? title, String? message,
     String? titleMultilang, String? bodyMultilang) async {
   if (Platform.isAndroid) {
@@ -1758,34 +1500,34 @@ Future _showNotificationWithDefaultSound(String? title, String? message,
   }
 
   var initializationSettingsAndroid =
-  new AndroidInitializationSettings('@mipmap/ic_launcher');
+      new AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettingsIOS = IOSInitializationSettings();
   var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
   flutterLocalNotificationsPlugin.initialize(initializationSettings);
   var androidPlatformChannelSpecifics =
-  title == 'Missed Call' || title == 'Call Ended'
-      ? local.AndroidNotificationDetails('channel_id', 'channel_name',
-      importance: local.Importance.max,
-      priority: local.Priority.high,
-      sound: RawResourceAndroidNotificationSound('whistle2'),
-      playSound: true,
-      ongoing: true,
-      visibility: NotificationVisibility.public,
-      timeoutAfter: 28000)
-      : local.AndroidNotificationDetails('channel_id', 'channel_name',
-      sound: RawResourceAndroidNotificationSound('ringtone'),
-      playSound: true,
-      ongoing: true,
-      importance: local.Importance.max,
-      priority: local.Priority.high,
-      visibility: NotificationVisibility.public,
-      timeoutAfter: 28000);
+      title == 'Missed Call' || title == 'Call Ended'
+          ? local.AndroidNotificationDetails('channel_id', 'channel_name',
+              importance: local.Importance.max,
+              priority: local.Priority.high,
+              sound: RawResourceAndroidNotificationSound('whistle2'),
+              playSound: true,
+              ongoing: true,
+              visibility: NotificationVisibility.public,
+              timeoutAfter: 28000)
+          : local.AndroidNotificationDetails('channel_id', 'channel_name',
+              sound: RawResourceAndroidNotificationSound('ringtone'),
+              playSound: true,
+              ongoing: true,
+              importance: local.Importance.max,
+              priority: local.Priority.high,
+              visibility: NotificationVisibility.public,
+              timeoutAfter: 28000);
   var iOSPlatformChannelSpecifics = local.IOSNotificationDetails(
     presentAlert: true,
     presentBadge: true,
     sound:
-    title == 'Missed Call' || title == 'Call Ended' ? '' : 'ringtone.caf',
+        title == 'Missed Call' || title == 'Call Ended' ? '' : 'ringtone.caf',
     presentSound: true,
   );
   var platformChannelSpecifics = local.NotificationDetails(
@@ -1826,9 +1568,7 @@ Widget errorScreen(String? title, String? subtitle) {
               '$title',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 20,
-                  color: mecWhite,
-                  fontWeight: FontWeight.w700),
+                  fontSize: 20, color: mecWhite, fontWeight: FontWeight.w700),
             ),
             SizedBox(
               height: 20,
@@ -1847,4 +1587,3 @@ Widget errorScreen(String? title, String? subtitle) {
     ),
   );
 }
-

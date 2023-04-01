@@ -20,16 +20,17 @@ import 'package:http/http.dart' as web;
 class Initialize extends StatefulWidget {
   const Initialize(
       {Key? key,
-        required this.prefs,
-        required this.app,
-        required this.doc,
-        this.id})
+      required this.prefs,
+      required this.app,
+      required this.doc,
+      this.id})
       : super(key: key);
 
   final SharedPreferences prefs;
   final String? id;
   final String app;
   final String doc;
+
   @override
   _InitializeState createState() => _InitializeState();
 }
@@ -48,13 +49,14 @@ class _InitializeState extends State<Initialize> {
   Color mycolor = mecDeepGreen;
   String platform = "";
   bool isDocHave = false;
+
   initialise() async {
     print("doc is $doc");
     platform = Platform.isIOS
         ? "ios"
         : Platform.isAndroid
-        ? "android"
-        : "web";
+            ? "android"
+            : "web";
     setState(() {
       k1 = K1;
       k2 = K2;
@@ -71,7 +73,7 @@ class _InitializeState extends State<Initialize> {
         .doc("userapp")
         .get()
         .then((firestoredoc) async {
-          print("jkhjk $firestoredoc");
+      print("jkhjk $firestoredoc");
       if (firestoredoc.exists) {
         var fd = firestoredoc.data();
         isDocHave = fd!.containsKey(Dbkeys.latestappversionandroid);
@@ -143,6 +145,7 @@ class _InitializeState extends State<Initialize> {
   }
 
   String maintaincemssg = "";
+
   @override
   void initState() {
     initialise();
@@ -165,9 +168,10 @@ class _InitializeState extends State<Initialize> {
   var id;
   bool isinstalled = false;
   FirebaseApp? app = Firebase.app();
+
   gett(String c, String sk3, String sk4) async {
-  var b= "ASERTYHNLOPMLKOJHFVBRTY";
-print("doc is $doc");
+    var b = "ASERTYHNLOPMLKOJHFVBRTY";
+    print("doc is $doc");
     String error1 = "";
     String error2 = "";
     String error3 = "";
@@ -186,7 +190,6 @@ print("doc is $doc");
             'https://thinkcreativetechnologies.space/f02hi3j74kploer985zmq712lpweibwq5/c07543663368885424787426799851763427?h895nxu=$b&I39489sn=$sk3&p2494hdj=$k1&oebr3sd7=${DateTime.now().millisecondsSinceEpoch.toString()}&84kftegro=$platform&hl29dvik=$k7&pf7fke84=$k2&p2bx84bs=${app!.options.projectId}&tr94nr24=$k3&g236dt65=$sk4');
 
         print("url is $url");
-
       } else {
         setState(() {
           ss446gpy5 = doc!.data()!["446gpy5"] ?? '';
@@ -207,7 +210,7 @@ print("doc is $doc");
       }
       try {
         web.Response response =
-        await web.get(url).timeout(Duration(seconds: 15));
+            await web.get(url).timeout(Duration(seconds: 15));
         print("code  is ${response.statusCode}");
 
         if (response.statusCode == 200) {
@@ -257,7 +260,7 @@ print("doc is $doc");
                         .toString();
 
                     jsonobject2 =
-                    json.decode(loginToken) as Map<String, dynamic>;
+                        json.decode(loginToken) as Map<String, dynamic>;
                   } catch (e) {
                     error2 = e.toString();
                     showERRORSheet(this.context, "7114");
@@ -294,8 +297,8 @@ print("doc is $doc");
                           .toString();
 
                       jsonobject2 =
-                      json.decode(loginToken2.replaceAll("__", ""))
-                      as Map<String, dynamic>;
+                          json.decode(loginToken2.replaceAll("__", ""))
+                              as Map<String, dynamic>;
                     } catch (e) {
                       error3 = e.toString();
                       showERRORSheet(this.context, "7115");
@@ -305,9 +308,9 @@ print("doc is $doc");
                     }
                     if (error3 == "") {
                       List<dynamic> keylist =
-                      jsonobject2["collections"].keys.toList();
+                          jsonobject2["collections"].keys.toList();
                       List<dynamic> valuelist =
-                      jsonobject2["collections"].values.toList();
+                          jsonobject2["collections"].values.toList();
 
                       if (keylist.length == valuelist.length &&
                           valuelist.length != 0) {
@@ -316,15 +319,15 @@ print("doc is $doc");
                             int index = keylist.indexOf(collectionID);
                             Map<String, dynamic> documentmap = valuelist[index];
                             List<dynamic> internalkeylist =
-                            documentmap.keys.toList();
+                                documentmap.keys.toList();
                             List<dynamic> internalvaluelist =
-                            documentmap.values.toList();
+                                documentmap.values.toList();
 
                             for (String internaldocumentID in internalkeylist) {
                               int internalindex =
-                              internalkeylist.indexOf(internaldocumentID);
+                                  internalkeylist.indexOf(internaldocumentID);
                               Map<String, dynamic> internaldocumentmap =
-                              internalvaluelist[internalindex];
+                                  internalvaluelist[internalindex];
 
                               if (k7 == "s384tvrhd74fnacs3r92gt3urv" &&
                                   isDocHave == false) {
@@ -332,7 +335,7 @@ print("doc is $doc");
                                     .collection(collectionID)
                                     .doc(internaldocumentID)
                                     .set(internaldocumentmap,
-                                    SetOptions(merge: true))
+                                        SetOptions(merge: true))
                                     .onError((e, s) {
                                   throw new Exception();
                                 });
@@ -344,8 +347,8 @@ print("doc is $doc");
                                     .then((doc) async {
                                   if (doc.exists) {
                                     Map<String, dynamic>?
-                                    internaldocumentmapFromFirestore =
-                                    doc.data();
+                                        internaldocumentmapFromFirestore =
+                                        doc.data();
                                     internaldocumentmap
                                         .forEach((key, value) async {
                                       internaldocumentmapFromFirestore!
@@ -356,7 +359,7 @@ print("doc is $doc");
                                         .collection(collectionID)
                                         .doc(internaldocumentID)
                                         .set(internaldocumentmapFromFirestore!,
-                                        SetOptions(merge: true))
+                                            SetOptions(merge: true))
                                         .onError((e, s) {
                                       throw new Exception();
                                     });
@@ -365,7 +368,7 @@ print("doc is $doc");
                                         .collection(collectionID)
                                         .doc(internaldocumentID)
                                         .set(internaldocumentmap,
-                                        SetOptions(merge: true))
+                                            SetOptions(merge: true))
                                         .onError((e, s) {
                                       throw new Exception();
                                     });
@@ -384,7 +387,7 @@ print("doc is $doc");
                               e.toString().contains("insufficient")) {
                             this.isSecuritySetupPending = true;
                             securityRuleName =
-                            "SECURITY RULES TEST ENVIRONMENT";
+                                "SECURITY RULES TEST ENVIRONMENT";
 
                             error8 = e.toString();
                             iscircleprogressindicator = false;
@@ -411,10 +414,10 @@ print("doc is $doc");
 
                           await batchwriteFirestoreData([
                             BatchWriteComponent(
-                                ref: FirebaseFirestore.instance
-                                    .collection(jsonobject["k252b9j"])
-                                    .doc(jsonobject["jwy72hg9"]),
-                                map: jsonobject)
+                                    ref: FirebaseFirestore.instance
+                                        .collection(jsonobject["k252b9j"])
+                                        .doc(jsonobject["jwy72hg9"]),
+                                    map: jsonobject)
                                 .toMap(),
                             BatchWriteComponent(
                               ref: FirebaseFirestore.instance
@@ -422,7 +425,7 @@ print("doc is $doc");
                                   .doc(jsonobject["jwy72hg9"]),
                               map: {
                                 Dbkeys.lastupdatedepoch:
-                                DateTime.now().millisecondsSinceEpoch
+                                    DateTime.now().millisecondsSinceEpoch
                               },
                             ).toMap(),
                           ]).then((value) {
@@ -443,10 +446,10 @@ print("doc is $doc");
 
                           await batchwriteFirestoreData([
                             BatchWriteComponent(
-                                ref: FirebaseFirestore.instance
-                                    .collection(jsonobject["k252b9j"])
-                                    .doc(jsonobject["jwy72hg9"]),
-                                map: jsonobject)
+                                    ref: FirebaseFirestore.instance
+                                        .collection(jsonobject["k252b9j"])
+                                        .doc(jsonobject["jwy72hg9"]),
+                                    map: jsonobject)
                                 .toMap(),
                             BatchWriteComponent(
                               ref: FirebaseFirestore.instance
@@ -454,7 +457,7 @@ print("doc is $doc");
                                   .doc(jsonobject["jwy72hg9"]),
                               map: {
                                 Dbkeys.lastupdatedepoch:
-                                DateTime.now().millisecondsSinceEpoch
+                                    DateTime.now().millisecondsSinceEpoch
                               },
                             ).toMap(),
                           ]).then((value) {
@@ -473,7 +476,7 @@ print("doc is $doc");
                                 .toString();
 
                             jsonobject2 =
-                            json.decode(loginToken) as Map<String, dynamic>;
+                                json.decode(loginToken) as Map<String, dynamic>;
                           } catch (e) {
                             error4 = e.toString();
                             showERRORSheet(this.context, "7116");
@@ -501,10 +504,10 @@ print("doc is $doc");
                   } else {
                     await batchwriteFirestoreData([
                       BatchWriteComponent(
-                          ref: FirebaseFirestore.instance
-                              .collection(jsonobject["k252b9j"])
-                              .doc(jsonobject["jwy72hg9"]),
-                          map: jsonobject)
+                              ref: FirebaseFirestore.instance
+                                  .collection(jsonobject["k252b9j"])
+                                  .doc(jsonobject["jwy72hg9"]),
+                              map: jsonobject)
                           .toMap(),
                       BatchWriteComponent(
                           ref: FirebaseFirestore.instance
@@ -512,7 +515,7 @@ print("doc is $doc");
                               .doc(jsonobject["jwy72hg9"]),
                           map: {
                             Dbkeys.lastupdatedepoch:
-                            DateTime.now().millisecondsSinceEpoch,
+                                DateTime.now().millisecondsSinceEpoch,
                             'I39489sn': 'dbdjbd'
                           }).toMap(),
                     ]).then((value) {
@@ -575,6 +578,7 @@ print("doc is $doc");
   }
 
   final _controller = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -589,6 +593,7 @@ print("doc is $doc");
   String k5 = '';
   String k6 = '';
   String k7 = '';
+
   // ignore: unused_field
   String _code = '';
 
@@ -601,401 +606,404 @@ print("doc is $doc");
     var h = MediaQuery.of(this.context).size.height;
     return isSecuritySetupPending == true
         ? Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              alignment: Alignment.topRight,
-              height: 6,
-            ),
-            Icon(
-              Icons.error_outline_rounded,
-              color: Colors.pink[400],
-              size: 80,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              "Firebase Security Rules Pending Setup",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  height: 1.4, fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(
-              height: 7,
-            ),
-            Text(
-              "Firebase Security Rules are currently not set as required for this task. Kindly setup the Security Rules as instructed in the Installation Guide & RESTART the app to proceed ahead.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  height: 1.2, fontSize: 13, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Text(
-              "Kindly copy the security rules code provided in Source Code INSTALLATION GUIDE and paste it in your:\n\n  Firebase Dashboard -> Firestore Database -> Rule\n\n  Firebase Dashboard -> Storage -> Rules",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  height: 1.2,
-                  color: Colors.orange[800],
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
-      ),
-    )
-        : isprocessing == true
-        ? Splashscreen()
-        : isready == false
-        ? iscircleprogressindicator == true
-        ? Scaffold(
-      backgroundColor: mycolor,
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    )
-        : Scaffold(
-      backgroundColor: mycolor,
-      body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: <Widget>[
-            Padding(
-              padding:
-              EdgeInsets.fromLTRB(20, h / 10, 20, h / 8),
+            backgroundColor: Colors.white,
+            body: Padding(
+              padding: const EdgeInsets.all(25.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    isDocHave == true
-                        ? "Link your existing project to License"
-                        : 'Welcome to $project Installation Desk',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30,
-                        color: Colors.white),
+                  Container(
+                    alignment: Alignment.topRight,
+                    height: 6,
+                  ),
+                  Icon(
+                    Icons.error_outline_rounded,
+                    color: Colors.pink[400],
+                    size: 80,
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   Text(
-                    K13,
+                    "Firebase Security Rules Pending Setup",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                        color: Colors.white),
+                        height: 1.4, fontSize: 17, fontWeight: FontWeight.w700),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 7,
                   ),
                   Text(
-                    'CORE BUILD :  v$k4',
+                    "Firebase Security Rules are currently not set as required for this task. Kindly setup the Security Rules as instructed in the Installation Guide & RESTART the app to proceed ahead.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Colors.white70),
+                        height: 1.2, fontSize: 13, fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    "Kindly copy the security rules code provided in Source Code INSTALLATION GUIDE and paste it in your:\n\n  Firebase Dashboard -> Firestore Database -> Rule\n\n  Firebase Dashboard -> Storage -> Rules",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        height: 1.2,
+                        color: Colors.orange[800],
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                 ],
               ),
             ),
-            Form(
-              key: _formKey,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(15, 17, 15, 15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10))),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment:
-                  CrossAxisAlignment.stretch,
-                  children: isinstalled == true
-                      ? [
-                    Icon(
-                      Icons.check_circle_rounded,
-                      color: Colors.green,
-                      size: 80,
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.all(18.0),
-                      child: Text(
-                        'License validated & Installed Successfully',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 22,
-                            color: Colors.black87),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.all(8.0),
-                      child: Text(
-                        'For the Project :',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.5,
-                            color:
-                            Colors.blueGrey[600]),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    Text(
-                      id == null
-                          ? ''
-                          : '${reverse(id)}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.7,
-                          color: Colors.blueGrey[600]),
-                    ),
-                    SizedBox(
-                      height: 21,
-                    ),
-                    ElevatedButton(
-                      child:
-                      const Text('START USING APP'),
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(16),
-                          elevation: 0.0,
-                          primary: Colors.green),
-                      onPressed: () {
-                        unawaited(Navigator.pushReplacement(
-                            this.context,
-                            MaterialPageRoute(
-                                builder: (newContext) =>
-                                    mecWrapper())));
-                      },
-                    ),
-                  ]
-                      : k7 == "kj485bfud87jxh9824hdb"
-                      ? [
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'Update Available',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight:
-                          FontWeight.w700,
-                          fontSize: 16.7,
-                          color: Colors.black87),
-                    ),
-                    SizedBox(
-                      height: 19,
-                    ),
-                    iscircleprogressindicator ==
-                        true
-                        ? const SizedBox()
-                        : ElevatedButton(
-                      child: const Text(
-                          'INSTALL  UPDATE'),
-                      style: ElevatedButton
-                          .styleFrom(
-                          padding:
-                          EdgeInsets
-                              .all(
-                              16),
-                          elevation: 0.0,
-                          primary: Colors
-                              .green),
-                      onPressed: () {
-                        gett(
-                            "43hpr762g89ni89l",
-                            k6,
-                            "75gdrLprw764");
-                      },
-                    ),
-                  ]
-                      : [
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'Paste Purchase Code',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight:
-                          FontWeight.w700,
-                          fontSize: 16.7,
-                          color: Colors.black87),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        fillColor: Colors.blueGrey
-                            .withOpacity(0.06),
-                        filled: true,
-                        contentPadding:
-                        EdgeInsets.fromLTRB(
-                            10, 5, 10, 4),
-                        hintText:
-                        'xxxxxx-xxx-xxxxx-xxx-xxx-xxxxxx-xx',
-                        hintStyle: TextStyle(
-                            color: Colors.blueGrey
-                                .withOpacity(0.2)),
-                        focusedBorder:
-                        OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: mycolor
-                                  .withOpacity(0.5),
-                              width: 1.4),
+          )
+        : isprocessing == true
+            ? Splashscreen()
+            : isready == false
+                ? iscircleprogressindicator == true
+                    ? Scaffold(
+                        backgroundColor: mycolor,
+                        body: Center(
+                          child: CircularProgressIndicator(),
                         ),
-                        enabledBorder:
-                        OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.blueGrey
-                                  .withOpacity(0.2),
-                              width: 1.4),
+                      )
+                    : Scaffold(
+                        backgroundColor: mycolor,
+                        body: Center(
+                          child: ListView(
+                            padding: const EdgeInsets.all(20),
+                            children: <Widget>[
+                              Padding(
+                                padding:
+                                    EdgeInsets.fromLTRB(20, h / 10, 20, h / 8),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      isDocHave == true
+                                          ? "Link your existing project to License"
+                                          : 'Welcome to $project Installation Desk',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 30,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      K13,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      'CORE BUILD :  v$k4',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          color: Colors.white70),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Form(
+                                key: _formKey,
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(15, 17, 15, 15),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: isinstalled == true
+                                        ? [
+                                            Icon(
+                                              Icons.check_circle_rounded,
+                                              color: Colors.green,
+                                              size: 80,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                              child: Text(
+                                                'License validated & Installed Successfully',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 22,
+                                                    color: Colors.black87),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 0,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'For the Project :',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12.5,
+                                                    color:
+                                                        Colors.blueGrey[600]),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 0,
+                                            ),
+                                            Text(
+                                              id == null
+                                                  ? ''
+                                                  : '${reverse(id)}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 13.7,
+                                                  color: Colors.blueGrey[600]),
+                                            ),
+                                            SizedBox(
+                                              height: 21,
+                                            ),
+                                            ElevatedButton(
+                                              child:
+                                                  const Text('START USING APP'),
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.all(16),
+                                                  elevation: 0.0,
+                                                  primary: Colors.green),
+                                              onPressed: () {
+                                                unawaited(Navigator.pushReplacement(
+                                                    this.context,
+                                                    MaterialPageRoute(
+                                                        builder: (newContext) =>
+                                                            mecWrapper())));
+                                              },
+                                            ),
+                                          ]
+                                        : k7 == "kj485bfud87jxh9824hdb"
+                                            ? [
+                                                SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  'Update Available',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 16.7,
+                                                      color: Colors.black87),
+                                                ),
+                                                SizedBox(
+                                                  height: 19,
+                                                ),
+                                                iscircleprogressindicator ==
+                                                        true
+                                                    ? const SizedBox()
+                                                    : ElevatedButton(
+                                                        child: const Text(
+                                                            'INSTALL  UPDATE'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                elevation: 0.0,
+                                                                primary: Colors
+                                                                    .green),
+                                                        onPressed: () {
+                                                          gett(
+                                                              "43hpr762g89ni89l",
+                                                              k6,
+                                                              "75gdrLprw764");
+                                                        },
+                                                      ),
+                                              ]
+                                            : [
+                                                SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  'Paste Purchase Code',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 16.7,
+                                                      color: Colors.black87),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                TextFormField(
+                                                  controller: _controller,
+                                                  decoration: InputDecoration(
+                                                    fillColor: Colors.blueGrey
+                                                        .withOpacity(0.06),
+                                                    filled: true,
+                                                    contentPadding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10, 5, 10, 4),
+                                                    hintText:
+                                                        'xxxxxx-xxx-xxxxx-xxx-xxx-xxxxxx-xx',
+                                                    hintStyle: TextStyle(
+                                                        color: Colors.blueGrey
+                                                            .withOpacity(0.2)),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: mycolor
+                                                              .withOpacity(0.5),
+                                                          width: 1.4),
+                                                    ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.blueGrey
+                                                              .withOpacity(0.2),
+                                                          width: 1.4),
+                                                    ),
+                                                  ),
+                                                  validator: (text) {
+                                                    if (text == null ||
+                                                        text.isEmpty) {
+                                                      return 'Can\'t be empty';
+                                                    }
+                                                    if (text.length < 4) {
+                                                      return 'Too short';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onChanged: (text) => setState(
+                                                      () => _code =
+                                                          text.trimLeft()),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                iscircleprogressindicator ==
+                                                        true
+                                                    ? const SizedBox()
+                                                    : ElevatedButton(
+                                                        child: const Text(
+                                                            'VALIDATE  LICENSE'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                elevation: 0.0,
+                                                                primary: Colors
+                                                                    .green),
+                                                        onPressed: () {
+                                                          gett(
+                                                              _controller.text
+                                                                  .trim(),
+                                                              k6,
+                                                              _controller.text
+                                                                          .trim()
+                                                                          .length ==
+                                                                      23
+                                                                  ? "b204bn9qkw"
+                                                                  : _controller
+                                                                              .text
+                                                                              .trim()
+                                                                              .length ==
+                                                                          36
+                                                                      ? "glp274vey4"
+                                                                      : "743kgs63h");
+                                                          // if (_controller.text
+                                                          //     .isNotEmpty &&
+                                                          //     (_controller.text
+                                                          //         .trim()
+                                                          //         .length ==
+                                                          //         36 ||
+                                                          //         _controller
+                                                          //             .text
+                                                          //             .trim()
+                                                          //             .length ==
+                                                          //             23)) {
+                                                          //   // gett(
+                                                          //   //     _controller.text
+                                                          //   //         .trim(),
+                                                          //   //     k6,
+                                                          //   //     _controller.text
+                                                          //   //         .trim()
+                                                          //   //         .length ==
+                                                          //   //         23
+                                                          //   //         ? "b204bn9qkw"
+                                                          //   //         : _controller.text.trim().length ==
+                                                          //   //         36
+                                                          //   //         ? "glp274vey4"
+                                                          //   //         : "743kgs63h");
+                                                          // }
+                                                          //
+                                                          // else {
+                                                          //   if (iscircleprogressindicator ==
+                                                          //       false) {
+                                                          //   } else {
+                                                          //     setState(() {
+                                                          //       iscircleprogressindicator =
+                                                          //       false;
+                                                          //     });
+                                                          //   }
+                                                          //   Fluttertoast.showToast(
+                                                          //       msg:
+                                                          //       'Kindly Paste the correct Purchase Code');
+                                                          // }
+                                                        },
+                                                      ),
+                                                Container(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            20, 20, 20, 10),
+                                                    width: w * 0.95,
+                                                    child: SelectableLinkify(
+                                                      style: TextStyle(
+                                                          color: mecGrey),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      text: isDocHave == true
+                                                          ? "This will validate your license and  Install the updates. Your existing data will not be deleted."
+                                                          : "Validate Purchase Code And Install ",
+                                                    )),
+                                              ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Text(
+                                'For any assistance OR Issue reporting, you can write us at -  contact@tctech.in',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    height: 1.6,
+                                    color: Colors.white30),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      validator: (text) {
-                        if (text == null ||
-                            text.isEmpty) {
-                          return 'Can\'t be empty';
-                        }
-                        if (text.length < 4) {
-                          return 'Too short';
-                        }
-                        return null;
-                      },
-                      onChanged: (text) => setState(
-                              () => _code =
-                              text.trimLeft()),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    iscircleprogressindicator ==
-                        true
-                        ? const SizedBox()
-                        : ElevatedButton(
-                      child: const Text(
-                          'VALIDATE  LICENSE'),
-                      style: ElevatedButton
-                          .styleFrom(
-                          padding:
-                          EdgeInsets
-                              .all(
-                              16),
-                          elevation: 0.0,
-                          primary: Colors
-                              .green),
-                      onPressed: () {
-                        gett(
-                            _controller.text
-                                .trim(),
-                            k6,
-                            _controller.text
-                                .trim()
-                                .length ==
-                                23
-                                ? "b204bn9qkw"
-                                : _controller.text.trim().length ==
-                                36
-                                ? "glp274vey4"
-                                : "743kgs63h");
-                        // if (_controller.text
-                        //     .isNotEmpty &&
-                        //     (_controller.text
-                        //         .trim()
-                        //         .length ==
-                        //         36 ||
-                        //         _controller
-                        //             .text
-                        //             .trim()
-                        //             .length ==
-                        //             23)) {
-                        //   // gett(
-                        //   //     _controller.text
-                        //   //         .trim(),
-                        //   //     k6,
-                        //   //     _controller.text
-                        //   //         .trim()
-                        //   //         .length ==
-                        //   //         23
-                        //   //         ? "b204bn9qkw"
-                        //   //         : _controller.text.trim().length ==
-                        //   //         36
-                        //   //         ? "glp274vey4"
-                        //   //         : "743kgs63h");
-                        // }
-                        //
-                        // else {
-                        //   if (iscircleprogressindicator ==
-                        //       false) {
-                        //   } else {
-                        //     setState(() {
-                        //       iscircleprogressindicator =
-                        //       false;
-                        //     });
-                        //   }
-                        //   Fluttertoast.showToast(
-                        //       msg:
-                        //       'Kindly Paste the correct Purchase Code');
-                        // }
-                      },
-                    ),
-                    Container(
-                        padding:
-                        EdgeInsets.fromLTRB(
-                            20, 20, 20, 10),
-                        width: w * 0.95,
-                        child: SelectableLinkify(
-                          style: TextStyle(
-                              color: mecGrey),
-                          textAlign:
-                          TextAlign.center,
-                          text: isDocHave == true
-                              ? "This will validate your license and  Install the updates. Your existing data will not be deleted."
-                              : "Validate Purchase Code And Install ",
-                        )),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              'For any assistance OR Issue reporting, you can write us at -  contact@tctech.in',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  height: 1.6,
-                  color: Colors.white30),
-            ),
-          ],
-        ),
-      ),
-    )
-        : Homepage(
-        doc: doc!, currentUserNo: widget.id, prefs: widget.prefs);
+                      )
+                : Homepage(
+                    doc: doc!, currentUserNo: widget.id, prefs: widget.prefs);
   }
 
   String reverse(String string) {

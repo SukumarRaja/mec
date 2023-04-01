@@ -1,5 +1,6 @@
 
 import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mec/Configs/Dbpaths.dart';
@@ -19,20 +20,41 @@ import 'package:mec/Models/call_methods.dart';
 import 'package:mec/Utils/permissions.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:audioplayers/audioplayers.dart' as audioPlayers;
+
 
 // ignore: must_be_immutable
-class PickupScreen extends StatelessWidget {
+class PickupScreen extends StatefulWidget {
   final Call call;
   final String? currentuseruid;
   final SharedPreferences prefs;
-  final CallMethods callMethods = CallMethods();
 
   PickupScreen({
     required this.call,
     required this.currentuseruid,
     required this.prefs,
   });
+
+  @override
+  State<PickupScreen> createState() => _PickupScreenState();
+}
+class _PickupScreenState extends State<PickupScreen> {
+  final CallMethods callMethods = CallMethods();
+
+  late audioPlayers.AudioPlayer player;
+  onCall()async{
+    AudioCache audioCache = AudioCache();
+
+    print("oncall");
+    player = await audioCache.play('sounds/callingtone.mp3', volume: 100);
+  }
+
   ClientRole _role = ClientRole.Broadcaster;
+@override
+  void initState() {
+   onCall();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
@@ -69,7 +91,7 @@ class PickupScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  call.isvideocall == true
+                                  widget.call.isvideocall == true
                                       ? Icons.videocam
                                       : Icons.mic_rounded,
                                   size: 40,
@@ -81,7 +103,7 @@ class PickupScreen extends StatelessWidget {
                                   width: 7,
                                 ),
                                 Text(
-                                  call.isvideocall == true
+                                  widget.call.isvideocall == true
                                       ? getTranslated(context, 'incomingvideo')
                                       : getTranslated(context, 'incomingaudio'),
                                   style: TextStyle(
@@ -103,7 +125,7 @@ class PickupScreen extends StatelessWidget {
                                     width:
                                         MediaQuery.of(context).size.width / 1.1,
                                     child: Text(
-                                      call.callerName!,
+                                      widget.call.callerName!,
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
@@ -118,7 +140,7 @@ class PickupScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 7),
                                   Text(
-                                    call.callerId!,
+                                    widget.call.callerId!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       color: DESIGN_TYPE == Themetype.whatsapp
@@ -138,7 +160,7 @@ class PickupScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      call.callerPic == null || call.callerPic == ''
+                      widget.call.callerPic == null || widget.call.callerPic == ''
                           ? Container(
                               height: w + (w / 140),
                               width: w,
@@ -156,7 +178,7 @@ class PickupScreen extends StatelessWidget {
                                     width: w,
                                     color: Colors.white12,
                                     child: CachedNetworkImage(
-                                      imageUrl: call.callerPic!,
+                                      imageUrl: widget.call.callerPic!,
                                       fit: BoxFit.cover,
                                       height: w + (w / 140),
                                       width: w,
@@ -197,22 +219,23 @@ class PickupScreen extends StatelessWidget {
                           children: <Widget>[
                             RawMaterialButton(
                               onPressed: () async {
+                                player.stop();
                                 flutterLocalNotificationsPlugin.cancelAll();
-                                await callMethods.endCall(call: call);
+                                await callMethods.endCall(call: widget.call);
                                 FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.callerId)
+                                    .doc(widget.call.callerId)
                                     .collection(DbPaths.collectioncallhistory)
-                                    .doc(call.timeepoch.toString())
+                                    .doc(widget.call.timeepoch.toString())
                                     .set({
                                   'STATUS': 'rejected',
                                   'ENDED': DateTime.now(),
                                 }, SetOptions(merge: true));
                                 FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.receiverId)
+                                    .doc(widget.call.receiverId)
                                     .collection(DbPaths.collectioncallhistory)
-                                    .doc(call.timeepoch.toString())
+                                    .doc(widget.call.timeepoch.toString())
                                     .set({
                                   'STATUS': 'rejected',
                                   'ENDED': DateTime.now(),
@@ -236,7 +259,7 @@ class PickupScreen extends StatelessWidget {
                                 // });
                                 await FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.callerId)
+                                    .doc(widget.call.callerId)
                                     .collection('recent')
                                     .doc('callended')
                                     .delete();
@@ -245,11 +268,11 @@ class PickupScreen extends StatelessWidget {
                                     () async {
                                   await FirebaseFirestore.instance
                                       .collection(DbPaths.collectionusers)
-                                      .doc(call.callerId)
+                                      .doc(widget.call.callerId)
                                       .collection('recent')
                                       .doc('callended')
                                       .set({
-                                    'id': call.callerId,
+                                    'id': widget.call.callerId,
                                     'ENDED':
                                         DateTime.now().millisecondsSinceEpoch
                                   });
@@ -259,7 +282,7 @@ class PickupScreen extends StatelessWidget {
                                     'CALLHISTORY',
                                     FirebaseFirestore.instance
                                         .collection(DbPaths.collectionusers)
-                                        .doc(call.receiverId)
+                                        .doc(widget.call.receiverId)
                                         .collection(
                                             DbPaths.collectioncallhistory)
                                         .orderBy('TIME', descending: true)
@@ -280,6 +303,7 @@ class PickupScreen extends StatelessWidget {
                             SizedBox(width: 45),
                             RawMaterialButton(
                               onPressed: () async {
+                                player.stop();
                                 flutterLocalNotificationsPlugin.cancelAll();
                                 await Permissions
                                         .cameraAndMicrophonePermissionsGranted()
@@ -288,21 +312,21 @@ class PickupScreen extends StatelessWidget {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => call
+                                        builder: (context) => widget.call
                                                     .isvideocall ==
                                                 true
                                             ? VideoCall(
-                                                prefs: prefs,
-                                                currentuseruid: currentuseruid!,
-                                                call: call,
-                                                channelName: call.channelId!,
+                                                prefs: widget.prefs,
+                                                currentuseruid: widget.currentuseruid!,
+                                                call: widget.call,
+                                                channelName: widget.call.channelId!,
                                                 role: _role,
                                               )
                                             : AudioCall(
-                                                prefs: prefs,
-                                                currentuseruid: currentuseruid,
-                                                call: call,
-                                                channelName: call.channelId,
+                                                prefs: widget.prefs,
+                                                currentuseruid: widget.currentuseruid,
+                                                call: widget.call,
+                                                channelName: widget.call.channelId,
                                                 role: _role,
                                               ),
                                       ),
@@ -358,7 +382,7 @@ class PickupScreen extends StatelessWidget {
                                 height: 0,
                               )
                             : Icon(
-                                call.isvideocall == true
+                                widget.call.isvideocall == true
                                     ? Icons.videocam_outlined
                                     : Icons.mic,
                                 size: 80,
@@ -374,7 +398,7 @@ class PickupScreen extends StatelessWidget {
                                 height: 20,
                               ),
                         Text(
-                          call.isvideocall == true
+                          widget.call.isvideocall == true
                               ? getTranslated(context, 'incomingvideo')
                               : getTranslated(context, 'incomingaudio'),
                           style: TextStyle(
@@ -386,7 +410,7 @@ class PickupScreen extends StatelessWidget {
                         ),
                         SizedBox(height: w > h ? 16 : 50),
                         CachedImage(
-                          call.callerPic,
+                          widget.call.callerPic,
                           isRound: true,
                           height: w > h ? 60 : 110,
                           width: w > h ? 60 : 110,
@@ -394,7 +418,7 @@ class PickupScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 15),
                         Text(
-                          call.callerName!,
+                          widget.call.callerName!,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: DESIGN_TYPE == Themetype.whatsapp
@@ -409,22 +433,23 @@ class PickupScreen extends StatelessWidget {
                           children: <Widget>[
                             RawMaterialButton(
                               onPressed: () async {
+                                player.stop();
                                 flutterLocalNotificationsPlugin.cancelAll();
-                                await callMethods.endCall(call: call);
+                                await callMethods.endCall(call: widget.call);
                                 FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.callerId)
+                                    .doc(widget.call.callerId)
                                     .collection(DbPaths.collectioncallhistory)
-                                    .doc(call.timeepoch.toString())
+                                    .doc(widget.call.timeepoch.toString())
                                     .set({
                                   'STATUS': 'rejected',
                                   'ENDED': DateTime.now(),
                                 }, SetOptions(merge: true));
                                 FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.receiverId)
+                                    .doc(widget.call.receiverId)
                                     .collection(DbPaths.collectioncallhistory)
-                                    .doc(call.timeepoch.toString())
+                                    .doc(widget.call.timeepoch.toString())
                                     .set({
                                   'STATUS': 'rejected',
                                   'ENDED': DateTime.now(),
@@ -432,7 +457,7 @@ class PickupScreen extends StatelessWidget {
                                 //----------
                                 await FirebaseFirestore.instance
                                     .collection(DbPaths.collectionusers)
-                                    .doc(call.callerId)
+                                    .doc(widget.call.callerId)
                                     .collection('recent')
                                     .doc('callended')
                                     .delete();
@@ -441,11 +466,11 @@ class PickupScreen extends StatelessWidget {
                                     () async {
                                   await FirebaseFirestore.instance
                                       .collection(DbPaths.collectionusers)
-                                      .doc(call.callerId)
+                                      .doc(widget.call.callerId)
                                       .collection('recent')
                                       .doc('callended')
                                       .set({
-                                    'id': call.callerId,
+                                    'id': widget.call.callerId,
                                     'ENDED':
                                         DateTime.now().millisecondsSinceEpoch
                                   });
@@ -455,7 +480,7 @@ class PickupScreen extends StatelessWidget {
                                     'CALLHISTORY',
                                     FirebaseFirestore.instance
                                         .collection(DbPaths.collectionusers)
-                                        .doc(call.receiverId)
+                                        .doc(widget.call.receiverId)
                                         .collection(
                                             DbPaths.collectioncallhistory)
                                         .orderBy('TIME', descending: true)
@@ -476,6 +501,7 @@ class PickupScreen extends StatelessWidget {
                             SizedBox(width: 45),
                             RawMaterialButton(
                               onPressed: () async {
+                                player.stop();
                                 flutterLocalNotificationsPlugin.cancelAll();
                                 await Permissions
                                         .cameraAndMicrophonePermissionsGranted()
@@ -484,21 +510,21 @@ class PickupScreen extends StatelessWidget {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => call
+                                        builder: (context) => widget.call
                                                     .isvideocall ==
                                                 true
                                             ? VideoCall(
-                                                prefs: prefs,
-                                                currentuseruid: currentuseruid!,
-                                                call: call,
-                                                channelName: call.channelId!,
+                                                prefs: widget.prefs,
+                                                currentuseruid: widget.currentuseruid!,
+                                                call: widget.call,
+                                                channelName: widget.call.channelId!,
                                                 role: _role,
                                               )
                                             : AudioCall(
-                                                prefs: prefs,
-                                                currentuseruid: currentuseruid,
-                                                call: call,
-                                                channelName: call.channelId,
+                                                prefs: widget.prefs,
+                                                currentuseruid: widget.currentuseruid,
+                                                call: widget.call,
+                                                channelName: widget.call.channelId,
                                                 role: _role,
                                               ),
                                       ),

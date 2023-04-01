@@ -68,6 +68,8 @@ class _AudioCallState extends State<AudioCall> {
   @override
   void initState() {
     super.initState();
+    print("audio call");
+
     // initialize agora sdk
     initialize();
     stream = FirebaseFirestore.instance
@@ -88,7 +90,8 @@ class _AudioCallState extends State<AudioCall> {
   late audioPlayers.AudioPlayer player;
   AudioCache audioCache = AudioCache();
   Future<Null> _playCallingTone() async {
-    player = await audioCache.loop('sounds/callingtone.mp3', volume: 6);
+    print("sound");
+    player = await audioCache.loop('sounds/callingtone.mp3', volume: 100);
 
     setState(() {});
   }

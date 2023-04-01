@@ -175,29 +175,6 @@ class _mecWrapperState extends State<mecWrapper> {
                                 prefs: snapshot.data!,
                                 id: snapshot.data!.getString(Dbkeys.phone),
                               ),
-                              // home: Homepage(
-                              //   doc: ,
-                              //   prefs: snapshot.data!,
-                              //   currentUserNo:
-                              //       snapshot.data!.getString(Dbkeys.phone),
-                              //   isSecuritySetupDone: snapshot.data!.getString(
-                              //               Dbkeys.isSecuritySetupDone) ==
-                              //           null
-                              //       ? false
-                              //       : ((snapshot.data!
-                              //                   .getString(Dbkeys.phone) ==
-                              //               null)
-                              //           ? false
-                              //           : (snapshot.data!.getString(Dbkeys
-                              //                       .isSecuritySetupDone) ==
-                              //                   snapshot.data!
-                              //                       .getString(Dbkeys.phone))
-                              //               ? true
-                              //               : false),
-                              // ),
-
-                              // ignore: todo
-                              //TODO:---- All localizations settings----
                               locale: _locale,
                               supportedLocales: supportedlocale,
                               localizationsDelegates: [

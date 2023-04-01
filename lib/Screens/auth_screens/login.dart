@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'package:device_info/device_info.dart';
@@ -50,6 +49,7 @@ class LoginScreen extends StatefulWidget {
   final bool? isaccountapprovalbyadminneeded;
   final String? accountApprovalMessage;
   final SharedPreferences prefs;
+
   @override
   LoginScreenState createState() => new LoginScreenState();
 }
@@ -73,6 +73,7 @@ class LoginScreenState extends State<LoginScreen>
   User? currentUser;
   String? deviceid;
   var mapDeviceInfo = {};
+
   @override
   void initState() {
     super.initState();
@@ -117,6 +118,7 @@ class LoginScreenState extends State<LoginScreen>
   }
 
   int currentPinAttemps = 0;
+
   Future<void> verifyPhoneNumber() async {
     final timerProvider = Provider.of<TimerProvider>(context, listen: false);
     final PhoneVerificationCompleted verificationCompleted =
@@ -387,10 +389,8 @@ class LoginScreenState extends State<LoginScreen>
                           prefs: widget.prefs,
                         ))));
           } else {
-            unawaited(Navigator.pushReplacement(
-                this.context,
-                new MaterialPageRoute(
-                    builder: (context) => mecWrapper())));
+            unawaited(Navigator.pushReplacement(this.context,
+                new MaterialPageRoute(builder: (context) => mecWrapper())));
             mec.toast("Failed to Login ! Please try again. ");
           }
         } else {
@@ -464,16 +464,12 @@ class LoginScreenState extends State<LoginScreen>
                 .setString(Dbkeys.phone, documents[0][Dbkeys.phone]);
 
             await subscribeToNotification(documents[0][Dbkeys.phone], false);
-            unawaited(Navigator.pushReplacement(
-                this.context,
-                new MaterialPageRoute(
-                    builder: (context) => mecWrapper())));
+            unawaited(Navigator.pushReplacement(this.context,
+                new MaterialPageRoute(builder: (context) => mecWrapper())));
             mec.toast(getTranslated(this.context, 'welcomeback'));
           } else {
-            unawaited(Navigator.pushReplacement(
-                this.context,
-                new MaterialPageRoute(
-                    builder: (context) => mecWrapper())));
+            unawaited(Navigator.pushReplacement(this.context,
+                new MaterialPageRoute(builder: (context) => mecWrapper())));
             mec.toast("Failed to Login ! Please try again. ");
           }
         }
@@ -512,6 +508,7 @@ class LoginScreenState extends State<LoginScreen>
   }
 
   Language? seletedlanguage;
+
   customclippath(double w, double h) {
     return ClipPath(
       child: Container(
@@ -978,14 +975,12 @@ class LoginScreenState extends State<LoginScreen>
               child: PinFieldAutoFill(
                 codeLength: 6,
                 decoration: UnderlineDecoration(
-                  bgColorBuilder:
-                      FixedColorBuilder(mecGrey.withOpacity(0.1)),
+                  bgColorBuilder: FixedColorBuilder(mecGrey.withOpacity(0.1)),
                   textStyle: TextStyle(
                       fontSize: 22,
                       color: mecBlack,
                       fontWeight: FontWeight.bold),
-                  colorBuilder:
-                      FixedColorBuilder(mecGrey.withOpacity(0.1)),
+                  colorBuilder: FixedColorBuilder(mecGrey.withOpacity(0.1)),
                 ),
                 currentCode: _code,
                 onCodeSubmitted: (code) {
@@ -1027,8 +1022,7 @@ class LoginScreenState extends State<LoginScreen>
           isShowCompletedLoading == true
               ? Center(
                   child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(mecLightGreen)),
+                      valueColor: AlwaysStoppedAnimation<Color>(mecLightGreen)),
                 )
               : Padding(
                   padding: EdgeInsets.fromLTRB(17, 22, 17, 5),
@@ -1045,8 +1039,7 @@ class LoginScreenState extends State<LoginScreen>
                         });
                         handleSignIn();
                       } else
-                        mec.toast(
-                            getTranslated(this.context, 'correctotp'));
+                        mec.toast(getTranslated(this.context, 'correctotp'));
                     },
                   ),
                 ),
@@ -1068,8 +1061,7 @@ class LoginScreenState extends State<LoginScreen>
                             children: [
                               TextSpan(
                                 text: getTranslated(this.context, 'resendcode'),
-                                style: TextStyle(
-                                    fontSize: 14, color: mecGrey),
+                                style: TextStyle(fontSize: 14, color: mecGrey),
                               ),
                               TextSpan(
                                 text: " 00:${timeProvider.start} ",
@@ -1080,8 +1072,7 @@ class LoginScreenState extends State<LoginScreen>
                               ),
                               TextSpan(
                                 text: getTranslated(this.context, 'seconds'),
-                                style: TextStyle(
-                                    fontSize: 14, color: mecGrey),
+                                style: TextStyle(fontSize: 14, color: mecGrey),
                               ),
                             ],
                           )),
@@ -1328,9 +1319,8 @@ class LoginScreenState extends State<LoginScreen>
     var h = MediaQuery.of(this.context).size.height;
 
     return mec.getNTPWrappedWidget(Scaffold(
-      backgroundColor: DESIGN_TYPE == Themetype.whatsapp
-          ? mecDeepGreen
-          : mecWhite,
+      backgroundColor:
+          DESIGN_TYPE == Themetype.whatsapp ? mecDeepGreen : mecWhite,
       body: SingleChildScrollView(
           child: Column(
         children: <Widget>[
@@ -1369,6 +1359,7 @@ class MySimpleButton extends StatefulWidget {
       this.onpressed,
       // this.forcewidget,
       this.shadowcolor});
+
   @override
   _MySimpleButtonState createState() => _MySimpleButtonState();
 }
@@ -1436,6 +1427,7 @@ class MobileInputWithOutline extends StatefulWidget {
       this.controller,
       this.initialCountryCode,
       this.buttonText});
+
   @override
   _MobileInputWithOutlineState createState() => _MobileInputWithOutlineState();
 }
@@ -1448,10 +1440,7 @@ class _MobileInputWithOutlineState extends State<MobileInputWithOutline> {
     return BoxDecoration(
         color: bgColor,
         boxShadow: showShadow
-            ? [
-                BoxShadow(
-                    color: mecgreen, blurRadius: 10, spreadRadius: 2)
-              ]
+            ? [BoxShadow(color: mecgreen, blurRadius: 10, spreadRadius: 2)]
             : [BoxShadow(color: Colors.transparent)],
         border:
             Border.all(color: widget.borderColor ?? Colors.grey, width: 1.5),
@@ -1588,12 +1577,14 @@ class InpuTextBox extends StatefulWidget {
       this.obscuretext,
       this.sufficIconbutton,
       this.minLines});
+
   @override
   _InpuTextBoxState createState() => _InpuTextBoxState();
 }
 
 class _InpuTextBoxState extends State<InpuTextBox> {
   bool isobscuretext = false;
+
   @override
   void initState() {
     super.initState();
