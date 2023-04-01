@@ -16,7 +16,7 @@
         android:allowBackup="false"
         android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="mec">
+        android:label="Chat 360">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:exported="true"

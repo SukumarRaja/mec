@@ -53,7 +53,7 @@ const GiphyAPIKey =
 
 //*--App Configurations---
 const Appname =
-    'mec'; //app name shown evrywhere with the app where required
+    'Chat 360'; //app name shown evrywhere with the app where required
 const DEFAULT_COUNTTRYCODE_ISO =
     'IN'; //default country ISO 2 letter for login screen
 const DEFAULT_COUNTTRYCODE_NUMBER =
