@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:core';
 import 'dart:io';
@@ -46,6 +45,7 @@ class RecentChats extends StatefulWidget {
   final String? currentUserNo;
   final SharedPreferences prefs;
   final bool isSecuritySetupDone;
+
   @override
   State createState() =>
       new RecentChatsState(currentUserNo: this.currentUserNo);
@@ -76,6 +76,7 @@ class RecentChatsState extends State<RecentChats> {
   late encrypt.Encrypter cryptor;
   final iv = encrypt.IV.fromLength(8);
   String? privateKey, sharedSecret;
+
   Future<String?> readPersonalMessage(
       peer, String inputMssg, bool isAESencryption) async {
     try {

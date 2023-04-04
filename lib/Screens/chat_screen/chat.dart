@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -85,6 +84,9 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart' as emojipic;
 import 'package:video_compress/video_compress.dart' as compress;
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:mec/Configs/Enum.dart';
+import 'package:audioplayers/audioplayers.dart' as audioPlayers;
+
+import '../../app/services/notifications.dart';
 
 hidekeyboard(BuildContext context) {
   FocusScope.of(context).requestFocus(FocusNode());
@@ -99,6 +101,7 @@ class ChatScreen extends StatefulWidget {
   final MessageType? sharedFilestype;
   final bool isSharingIntentForwarded;
   final String? sharedText;
+
   ChatScreen({
     Key? key,
     required this.currentUserNo,
@@ -124,7 +127,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   String? peerAvatar, peerNo, currentUserNo, privateKey, sharedSecret;
   late bool locked, hidden;
   Map<String, dynamic>? peer, currentUser;
-  int? chatStatus, unread;
+  int? chatStatus, unread, t1, t2;
   GlobalKey<State> _keyLoader34 =
       new GlobalKey<State>(debugLabel: 'qqqeqeqsse xcb h vgcxhvhaadsqeqe');
   bool isCurrentUserMuted = false;
@@ -133,8 +136,10 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   bool typing = false;
   late File thumbnailFile;
   File? pickedFile;
+
   // bool isLoading = true;
   bool isgeneratingSomethingLoader = false;
+
   // int tempSendIndex = 0;
   String? imageUrl;
   SeenState? seenState;
@@ -167,6 +172,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   PlayerState playerState = PlayerState.stopped;
 
   get isPlaying => playerState == PlayerState.playing;
+
   get isPaused => playerState == PlayerState.paused;
 
   get durationText =>
@@ -176,6 +182,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
       position != null ? position.toString().split('.').first : '';
 
   bool isMuted = false;
+
   void setStateIfMounted(f) {
     if (mounted) setState(f);
   }
@@ -184,6 +191,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   int _numInterstitialLoadAttempts = 0;
   RewardedAd? _rewardedAd;
   int _numRewardedLoadAttempts = 0;
+
   @override
   void initState() {
     super.initState();
@@ -225,6 +233,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   bool hasPeerBlockedMe = false;
+
   listenToBlock() {
     chatStatusSubscriptionForPeer = FirebaseFirestore.instance
         .collection(DbPaths.collectionusers)
@@ -544,6 +553,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   int? thumnailtimestamp;
+
   getFileData(File image, {int? timestamp, int? totalFiles}) {
     final observer = Provider.of<Observer>(this.context, listen: false);
 
@@ -599,6 +609,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   String? videometadata;
+
   Future uploadFile(bool isthumbnail, {int? timestamp}) async {
     uploadTimestamp = timestamp ?? DateTime.now().millisecondsSinceEpoch;
     String fileName = getFileName(
@@ -1579,8 +1590,8 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
 
           if (encrypted is String) {
             int timestamp2 = DateTime.now().millisecondsSinceEpoch;
-            var chatId = mec.getChatId(
-                widget.currentUserNo, list[index][Dbkeys.phone]);
+            var chatId =
+                mec.getChatId(widget.currentUserNo, list[index][Dbkeys.phone]);
             if (content.trim() != '') {
               Map<String, dynamic>? targetPeer =
                   widget.model.userData[list[index][Dbkeys.phone]];
@@ -1843,6 +1854,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
             linkPreviewStyle: LinkPreviewStyle.large,
           );
   }
+
   // Widget selectablelinkify(String? text, double? fontsize) {
   //   return SelectableLinkify(
   //     style: TextStyle(fontSize: fontsize, color: Colors.black87),
@@ -2875,8 +2887,8 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                               child: CachedNetworkImage(
                                 placeholder: (context, url) => Container(
                                   child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        mecBlue),
+                                    valueColor:
+                                        AlwaysStoppedAnimation<Color>(mecBlue),
                                   ),
                                   width: doc[Dbkeys.content].contains('giphy')
                                       ? 60
@@ -3188,8 +3200,8 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                               child: CachedNetworkImage(
                                 placeholder: (context, url) => Container(
                                   child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        mecBlue),
+                                    valueColor:
+                                        AlwaysStoppedAnimation<Color>(mecBlue),
                                   ),
                                   width: replyDoc![Dbkeys.content]
                                           .contains('giphy')
@@ -3577,8 +3589,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                             File? selectedMedia =
                                 await pickVideoFromgallery(context)
                                     .catchError((err) {
-                              mec.toast(
-                                  getTranslated(context, "invalidfile"));
+                              mec.toast(getTranslated(context, "invalidfile"));
                             });
 
                             if (selectedMedia == null) {
@@ -4027,6 +4038,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   FocusNode keyboardFocusNode = new FocusNode();
+
   Widget buildInputAndroid(BuildContext context, bool isemojiShowing,
       Function refreshThisInput, bool keyboardVisible) {
     final observer = Provider.of<Observer>(context, listen: true);
@@ -4122,8 +4134,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                             focusNode: keyboardFocusNode,
                             maxLines: null,
                             textCapitalization: TextCapitalization.sentences,
-                            style: TextStyle(
-                                fontSize: 16.0, color: mecBlack),
+                            style: TextStyle(fontSize: 16.0, color: mecBlack),
                             controller: textEditingController,
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -4299,8 +4310,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                                         GiphyGif? gif =
                                                             await GiphyGet
                                                                 .getGif(
-                                                          tabColor:
-                                                              mecgreen,
+                                                          tabColor: mecgreen,
 
                                                           context: context,
                                                           apiKey:
@@ -4949,6 +4959,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   int currentUploadingIndex = 0;
+
   uploadEach(
     int index,
   ) async {
@@ -5030,8 +5041,17 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     }
   }
 
+  onCall() async {
+    var audioCache = audioPlayers.AudioCache();
+
+    print("oncall");
+     await audioCache.play('sounds/beeb.mp3', volume: 100);
+  }
+
 //-- GROUP BY DATE ---
   List<Widget> getGroupedMessages() {
+    print("t1 is $t1");
+    print("last seend is ${getPeerStatus(peer![Dbkeys.lastSeen])}");
     List<Widget> _groupedMessages = new List.from(<Widget>[
       Card(
         elevation: 0.5,
@@ -5067,6 +5087,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     ]);
     int count = 0;
     groupBy<Message, String>(messages, (msg) {
+      print("msg is ${msg.child}");
       // return getWhen(DateTime.fromMillisecondsSinceEpoch(msg.timestamp!));
       return "${DateTime.fromMillisecondsSinceEpoch(msg.timestamp!).year}-${DateTime.fromMillisecondsSinceEpoch(msg.timestamp!).month}-${DateTime.fromMillisecondsSinceEpoch(msg.timestamp!).day}";
     }).forEach((when, _actualMessages) {
@@ -5086,17 +5107,29 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
       )));
       _actualMessages.forEach((msg) {
         count++;
+        print("actual msg ${_actualMessages.length}");
+        t1 = _actualMessages.length;
+        if (t2 == null) {
+          t2 = _actualMessages.length;
+        }
+
+        print("t1 is ${t1}");
+        print("t2 is ${t2}");
+
         if (unread != 0 && (messages.length - count) == unread! - 1) {
           _groupedMessages.add(Center(
               child: Chip(
             backgroundColor: Colors.blueGrey[50],
             label: Text('$unread' + getTranslated(this.context, 'unread')),
           )));
-          unread = 0; // reset
+          unread = 0;
+          // reset
         }
+
         _groupedMessages.add(msg.child);
       });
     });
+    print("messages is ${_groupedMessages.reversed.toList()}");
     return _groupedMessages.reversed.toList();
   }
 
@@ -5289,6 +5322,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   bool isemojiShowing = false;
+
   refreshInput() {
     setStateIfMounted(() {
       if (isemojiShowing == false) {
@@ -5421,9 +5455,8 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                             call(this.context, true);
                                           } else {
                                             Navigator.of(this.context).pop();
-                                            mec.showRationale(
-                                                getTranslated(
-                                                    this.context, 'pmc'));
+                                            mec.showRationale(getTranslated(
+                                                this.context, 'pmc'));
                                             Navigator.push(
                                                 context,
                                                 new MaterialPageRoute(
@@ -5471,7 +5504,9 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final observer = Provider.of<Observer>(context, listen: true);
     var _keyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
-
+    if (getPeerStatus(peer![Dbkeys.lastSeen]) == "online" && t1 != t2) {
+      onCall();
+    }
     return PickupLayout(
       prefs: widget.prefs,
       scaffold: mec.getNTPWrappedWidget(WillPopScope(
@@ -5593,8 +5628,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                                       if (snapshot.hasData &&
                                                           snapshot.data !=
                                                               null) {
-                                                        return mec.avatar(
-                                                            peer,
+                                                        return mec.avatar(peer,
                                                             radius: 20,
                                                             predefinedinitials:
                                                                 mec.getInitials(
@@ -5602,8 +5636,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                                                         Dbkeys
                                                                             .nickname]));
                                                       }
-                                                      return mec.avatar(
-                                                          peer,
+                                                      return mec.avatar(peer,
                                                           radius: 20);
                                                     }),
                                               )
@@ -5671,9 +5704,8 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                                               );
                                                             }
                                                             return Text(
-                                                              mec
-                                                                  .getNickname(
-                                                                      peer!)!,
+                                                              mec.getNickname(
+                                                                  peer!)!,
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
@@ -6308,13 +6340,11 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
                                                                   'unblock') +
                                                               ' ${peer![Dbkeys.nickname]}?',
                                                           style: TextStyle(
-                                                              color:
-                                                                  mecBlack),
+                                                              color: mecBlack),
                                                         ),
                                                         actions: <Widget>[
                                                           myElevatedButton(
-                                                              color:
-                                                                  mecWhite,
+                                                              color: mecWhite,
                                                               child: Text(
                                                                 getTranslated(
                                                                     this.context,

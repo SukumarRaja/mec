@@ -1,6 +1,7 @@
 
 import 'dart:core';
 import 'package:camera/camera.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mec/Configs/Dbkeys.dart';
 import 'package:mec/Configs/app_constants.dart';
 import 'package:mec/Screens/homepage/initialize.dart';
@@ -29,10 +30,27 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-List<CameraDescription> cameras = <CameraDescription>[];
+import 'app/services/notifications.dart';
 
+List<CameraDescription> cameras = <CameraDescription>[];
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  // startMessage();
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   runApp(
+  //     const MaterialApp(
+  //       debugShowCheckedModeBanner: false,
+  //       home: TrueCallerOverlay(),
+  //     ),
+  //   );
+
+  print('Handling a background message ${message.messageId}');
+}
 void main() async {
   final WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  showNotificationWithDefaultSound(title: "Message",message: "New Message");
 
   binding.renderView.automaticSystemUiAdjustment = false;
   setStatusBarColor();
