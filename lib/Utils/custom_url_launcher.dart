@@ -11,3 +11,24 @@ void custom_url_launcher(String url) async {
         mode: LaunchMode.externalApplication)) throw 'Could not launch $newUrl';
   }
 }
+
+void custom_url_mail(String url) async {
+  if (url.startsWith("http")) {
+    if (!await launchUrl(
+        Uri(
+          scheme: 'mailto',
+          path: 'website@limitless360.org',
+          query: 'subject=This is the subject&body=this is body',
+        ),
+        mode: LaunchMode.externalApplication)) throw 'Could not launch $url';
+  } else {
+    var newUrl = "http://$url";
+    if (!await launchUrl(
+        Uri(
+          scheme: 'mailto',
+          path: 'website@limitless360.org',
+          query: 'subject=This is the subject&body=this is body',
+        ),
+        mode: LaunchMode.externalApplication)) throw 'Could not launch $newUrl';
+  }
+}

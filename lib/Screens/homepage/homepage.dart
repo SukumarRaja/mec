@@ -918,7 +918,7 @@ class HomepageState extends State<Homepage>
                                       : 1,
                                   backgroundColor:
                                       DESIGN_TYPE == Themetype.whatsapp
-                                          ? mecgreen
+                                          ? mecDeepGreen
                                           : mecWhite,
                                   title: Text(
                                     Appname,
@@ -1221,13 +1221,13 @@ class HomepageState extends State<Homepage>
                                                     getTranslated(context,
                                                         'newbroadcast'),
                                                   )),
-                                              PopupMenuItem<String>(
-                                                value: 'tutorials',
-                                                child: Text(
-                                                  getTranslated(
-                                                      context, 'tutorials'),
-                                                ),
-                                              ),
+                                              // PopupMenuItem<String>(
+                                              //   value: 'tutorials',
+                                              //   child: Text(
+                                              //     getTranslated(
+                                              //         context, 'tutorials'),
+                                              //   ),
+                                              // ),
                                               PopupMenuItem<String>(
                                                   value: 'settings',
                                                   child: Text(
@@ -1548,7 +1548,7 @@ Future _showNotificationWithDefaultSound(String? title, String? message,
 
 Widget errorScreen(String? title, String? subtitle) {
   return Scaffold(
-    backgroundColor: mecgreen,
+    backgroundColor: mecDeepGreen,
     body: Center(
       child: Padding(
         padding: const EdgeInsets.all(30.0),

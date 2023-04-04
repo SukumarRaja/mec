@@ -411,7 +411,7 @@ class _SettingsOptionState extends State<SettingsOption> {
               ),
               ListTile(
                 onTap: () {
-                  custom_url_launcher('mailto:${observer.feedbackEmail}');
+                  custom_url_mail('mailto:${observer.feedbackEmail}');
                 },
                 contentPadding: EdgeInsets.fromLTRB(30, 3, 10, 3),
                 leading: Padding(

@@ -5,17 +5,16 @@ import 'package:flutter/material.dart';
 //-**********---------- WHATSAPP Color Theme: -------------------------
 final mecBlack = new Color(0xFF1E1E1E);
 final mecBlue = new Color(0xFF02ac88);
-final mecDeepGreen = new Color(0xFF01826b);
-final mecLightGreen = new Color(0xFF02ac88);
-final mecgreen = new Color(0xFF098b74);
+final mecDeepGreen = Color.fromRGBO(73, 75, 162, 1);
+final mecLightGreen =Color.fromRGBO(105, 106, 171, 1);
+final mecgreen = Color.fromRGBO(105, 106, 171, 1);
 final mecteagreen = new Color(0xFFe9fedf);
 final mecWhite = Colors.white;
 final mecGrey = Color(0xff85959f);
 final mecChatbackground = new Color(0xffe8ded5);
 const DESIGN_TYPE = Themetype.whatsapp;
 const IsSplashOnlySolidColor = false;
-const SplashBackgroundSolidColor = Color(
-    0xFF01826b); //applies this colors to fill the areas around splash screen.  Color Code: 0xFF01826b for Whatsapp theme & 0xFFFFFFFF for messenger theme.
+const SplashBackgroundSolidColor =  Color.fromRGBO(73, 75, 162, 1);//applies this colors to fill the areas around splash screen.  Color Code: 0xFF01826b for Whatsapp theme & 0xFFFFFFFF for messenger theme.
 final statusBarColor = mecDeepGreen;
 final isDarkIconsinStatusBar =
     false; // This Color will be applied to status bar across the App if App is messenger theme. For whatsapp theme, it picks the color automatically.
@@ -62,5 +61,5 @@ const FONTFAMILY_NAME =
     null; // make sure you have registered the font in pubspec.yaml
 
 //--WARNING----- PLEASE DONT EDIT THE BELOW LINES UNLESS YOU ARE A DEVELOPER -------
-const SplashPath = 'assets/images/splash.jpeg';
-const AppLogoPath = 'assets/images/applogo.png';
+const SplashPath = 'assets/images/chat.png';
+const AppLogoPath = 'assets/images/logo.png';

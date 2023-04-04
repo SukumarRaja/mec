@@ -50,7 +50,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   final WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  showNotificationWithDefaultSound(title: "Message",message: "New Message");
+  // showNotificationWithDefaultSound(title: "Message",message: "New Message");
 
   binding.renderView.automaticSystemUiAdjustment = false;
   setStatusBarColor();
