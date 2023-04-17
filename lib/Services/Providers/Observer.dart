@@ -24,6 +24,7 @@ class Observer with ChangeNotifier {
   int broadcastMemberslimit = BroadcastMemberslimit;
   int statusDeleteAfterInHours = StatusDeleteAfterInHours;
   String feedbackEmail = FeedbackEmail;
+  String fcmToken = FcmTOKEN;
   bool isLogoutButtonShowInSettingsPage = IsLogoutButtonShowInSettingsPage;
   bool isAllowCreatingGroups = IsAllowCreatingGroups;
   bool isAllowCreatingBroadcasts = IsAllowCreatingBroadcasts;
@@ -61,6 +62,7 @@ class Observer with ChangeNotifier {
     int? getbroadcastMemberslimit,
     int? getstatusDeleteAfterInHours,
     String? getfeedbackEmail,
+    String? fcmToken,
     bool? getisLogoutButtonShowInSettingsPage,
     bool? getisCallFeatureTotallyHide,
     bool? getisAllowCreatingGroups,
@@ -98,6 +100,7 @@ class Observer with ChangeNotifier {
     this.statusDeleteAfterInHours =
         getstatusDeleteAfterInHours ?? this.statusDeleteAfterInHours;
     this.feedbackEmail = getfeedbackEmail ?? this.feedbackEmail;
+    this.fcmToken = fcmToken ?? this.fcmToken;
     this.isLogoutButtonShowInSettingsPage =
         getisLogoutButtonShowInSettingsPage ??
             this.isLogoutButtonShowInSettingsPage;

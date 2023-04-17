@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
+import 'package:gallery_saver/files.dart';
 import 'package:mec/Configs/Dbkeys.dart';
 import 'package:mec/Configs/Dbpaths.dart';
 import 'package:mec/Configs/optional_constants.dart';
@@ -50,6 +52,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mec/Configs/Enum.dart';
 import 'package:mec/Utils/unawaited.dart';
+import 'package:http/http.dart' as http;
 
 class Homepage extends StatefulWidget {
   Homepage(
@@ -122,6 +125,85 @@ class HomepageState extends State<Homepage>
       );
   }
 
+  void updateFcm() async {
+    if (widget.currentUserNo != null) {
+      var token = await FirebaseMessaging.instance.getToken();
+      var previous;
+      await FirebaseFirestore.instance
+          .collection(DbPaths.collectionusers)
+          .doc(widget.currentUserNo)
+          .get()
+          .then((value) {
+        previous = value.data()!['fcmToken'];
+        print("previous value is ${value.data()!['fcmToken']}");
+      });
+      if (token != previous || previous == null || previous == "") {
+        await FirebaseFirestore.instance
+            .collection(DbPaths.collectionusers)
+            .doc(widget.currentUserNo)
+            .update({'fcmToken': token}).whenComplete(() {
+          print("update fcm token successfully");
+        }).onError((error, stackTrace) {
+          print("update fcm token failed due to $error");
+        });
+      } else {
+        print("fcmToken already updated $previous");
+      }
+    }
+  }
+
+  sendMessageNotification({required toMobileNumber}) async {
+    var serverKey =
+        "AAAAgzbnOQ4:APA91bEWAOtn-knnFbusVg9h5LRN8O7--_RqhMvT9gl5Gw4lZuhgszpUxulZczrDO4R_BAe0sxbprDE4vdkRM2c2BzSFJXmicyr6F1Z1vkVtUpa2xHNnGSMbPD2o2BbQ0B1eQXk7cQz4";
+    var url = "https://fcm.googleapis.com/fcm/send";
+    var token = "";
+    try {
+      if (widget.currentUserNo != null) {
+        await FirebaseFirestore.instance
+            .collection(DbPaths.collectionusers)
+            .doc(toMobileNumber)
+            .get()
+            .then((value) {
+          token = value.data()!['fcmToken'];
+          print("value is ${value.data()!['fcmToken']}");
+        });
+      }
+      http.Response response = await http.post(Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'key=$serverKey',
+          },
+          body: jsonEncode(
+            {
+              'to': token,
+              'notification': {'body': 'body', 'title': 'titk'},
+              'priority': 'high',
+              'data': {
+                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                'id': '1',
+                'status': 'done'
+              },
+            },
+          ));
+
+      if (response.statusCode == 200) {
+        print("response body is: ${jsonDecode(response.body)}");
+        var invalid = "${jsonDecode(response.body)['results'][0]['error']}";
+        if (invalid == "InvalidRegistration") {
+          print(
+              "response body is: ${jsonDecode(response.body)['results'][0]['error']}");
+        } else {
+          print("send message to fcm notification successfully");
+        }
+      } else if (response.statusCode == 401) {
+        print("response body is: ${response.body}");
+        print("response body is: INVALID SERVER KEY OR WRONG");
+      }
+    } catch (e) {
+      print("Error push notification on send message $e");
+    }
+  }
+
   final TextEditingController _filter = new TextEditingController();
   bool isAuthenticating = false;
 
@@ -151,6 +233,7 @@ class HomepageState extends State<Homepage>
     super.initState();
     getSignedInUserOrRedirect();
     setdeviceinfo();
+    updateFcm();
     registerNotification();
 
     controllerIfcallallowed = TabController(length: 3, vsync: this);
@@ -435,15 +518,38 @@ class HomepageState extends State<Homepage>
   }
 
   void listenToNotification() async {
-    //FOR ANDROID  background notification is handled here whereas for iOS it is handled at the very top of main.dart ------
     if (Platform.isAndroid) {
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandlerAndroid);
     }
-    //ANDROID & iOS  OnMessage callback
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      // ignore: unnecessary_null_comparison
       flutterLocalNotificationsPlugin..cancelAll();
-
+      if (message.data != null) {
+        showOverlayNotification((context) {
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            child: SafeArea(
+              child: ListTile(
+                title: Text(
+                  "${message.notification!.title}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  "${message.notification!.body}",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      OverlaySupportEntry.of(context)!.dismiss();
+                    }),
+              ),
+            ),
+          );
+        }, duration: Duration(seconds: 5));
+        // mec.toast("kjhljkhjkhjkk");
+      }
       if (message.data['title'] != 'Call Ended' &&
           message.data['title'] != 'Missed Call' &&
           message.data['title'] != 'You have new message(s)' &&
@@ -451,39 +557,8 @@ class HomepageState extends State<Homepage>
           message.data['title'] != 'Incoming Audio Call...' &&
           message.data['title'] != 'Incoming Call ended' &&
           message.data['title'] != 'New message in Group') {
-        mec.toast(getTranslated(this.context, 'newnotifications'));
       } else {
         if (message.data['title'] == 'New message in Group') {
-          // var currentpeer =
-          //     Provider.of<CurrentChatPeer>(this.context, listen: false);
-          // if (currentpeer.groupChatId != message.data['groupid']) {
-          //   flutterLocalNotificationsPlugin..cancelAll();
-
-          //   showOverlayNotification((context) {
-          //     return Card(
-          //       margin: const EdgeInsets.symmetric(horizontal: 4),
-          //       child: SafeArea(
-          //         child: ListTile(
-          //           title: Text(
-          //             message.data['titleMultilang'],
-          //             maxLines: 1,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //           subtitle: Text(
-          //             message.data['bodyMultilang'],
-          //             maxLines: 2,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //           trailing: IconButton(
-          //               icon: Icon(Icons.close),
-          //               onPressed: () {
-          //                 OverlaySupportEntry.of(context)!.dismiss();
-          //               }),
-          //         ),
-          //       ),
-          //     );
-          //   }, duration: Duration(milliseconds: 2000));
-          // }
         } else if (message.data['title'] == 'Call Ended') {
           flutterLocalNotificationsPlugin..cancelAll();
         } else {
@@ -507,12 +582,12 @@ class HomepageState extends State<Homepage>
                   child: SafeArea(
                     child: ListTile(
                       title: Text(
-                        message.data['titleMultilang'],
+                        "dgsfsd",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(
-                        message.data['bodyMultilang'],
+                        "ljhkhjk",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -585,9 +660,10 @@ class HomepageState extends State<Homepage>
           Navigator.push(
               context,
               new MaterialPageRoute(
-                  builder: (context) => AllNotifications(
-                        prefs: widget.prefs,
-                      )));
+                  builder: (context) => Homepage(
+                      currentUserNo: widget.currentUserNo,
+                      prefs: widget.prefs,
+                      doc: widget.doc)));
         } else {
           flutterLocalNotificationsPlugin..cancelAll();
         }
@@ -609,9 +685,10 @@ class HomepageState extends State<Homepage>
           Navigator.push(
               context,
               new MaterialPageRoute(
-                  builder: (context) => AllNotifications(
-                        prefs: widget.prefs,
-                      )));
+                  builder: (context) => Homepage(
+                      currentUserNo: widget.currentUserNo,
+                      prefs: widget.prefs,
+                      doc: widget.doc)));
         }
       }
     });
@@ -736,6 +813,7 @@ class HomepageState extends State<Homepage>
           } else {
             print("observer is");
             final observer = Provider.of<Observer>(this.context, listen: false);
+            ;
 
             observer.setObserver(
               getuserAppSettingsDoc: widget.doc,
@@ -893,7 +971,7 @@ class HomepageState extends State<Homepage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
+    // sendMessageNotification();
     final observer = Provider.of<Observer>(context, listen: true);
     return isNotAllowEmulator == true
         ? errorScreen(
@@ -1462,34 +1540,6 @@ Future<dynamic> myBackgroundMessageHandlerAndroid(RemoteMessage message) async {
   return Future<void>.value();
 }
 
-// Future<dynamic> myBackgroundMessageHandlerIos(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-
-//   if (message.data['title'] == 'Call Ended') {
-//     final data = message.data;
-
-//     final titleMultilang = data['titleMultilang'];
-//     final bodyMultilang = data['bodyMultilang'];
-//     flutterLocalNotificationsPlugin..cancelAll();
-//     await _showNotificationWithDefaultSound(
-//         'Missed Call', 'You have Missed a Call', titleMultilang, bodyMultilang);
-//   } else {
-//     if (message.data['title'] == 'You have new message(s)') {
-//     } else if (message.data['title'] == 'Incoming Audio Call...' ||
-//         message.data['title'] == 'Incoming Video Call...') {
-//       final data = message.data;
-//       final title = data['title'];
-//       final body = data['body'];
-//       final titleMultilang = data['titleMultilang'];
-//       final bodyMultilang = data['bodyMultilang'];
-//       await _showNotificationWithDefaultSound(
-//           title, body, titleMultilang, bodyMultilang);
-//     }
-//   }
-
-//   return Future<void>.value();
-// }
-
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -1516,7 +1566,7 @@ Future _showNotificationWithDefaultSound(String? title, String? message,
               visibility: NotificationVisibility.public,
               timeoutAfter: 28000)
           : local.AndroidNotificationDetails('channel_id', 'channel_name',
-              sound: RawResourceAndroidNotificationSound('ringtone'),
+              sound: RawResourceAndroidNotificationSound('notification'),
               playSound: true,
               ongoing: true,
               importance: local.Importance.max,

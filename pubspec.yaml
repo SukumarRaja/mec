@@ -96,7 +96,7 @@ dependencies:
   permission_handler: 8.3.0
   agora_rtc_engine: 5.2.0
   translator: 0.1.7
-  audioplayers: 0.20.1
+  audioplayers:
   flutter_local_notifications: 9.8.0+1
   flutter_secure_storage: 5.0.2
   package_info: 2.0.2

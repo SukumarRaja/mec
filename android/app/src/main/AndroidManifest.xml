@@ -20,7 +20,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:exported="true"
-            android:resource="@drawable/transparent"
+            android:resource="@drawable/notification_logo"
 
 
             />
@@ -37,6 +37,7 @@
             android:launchMode="singleTop"
             android:requestLegacyExternalStorage="true"
             android:theme="@style/LaunchTheme"
+            android:keepScreenOn="true"
             android:windowSoftInputMode="adjustResize">
             <!-- android:showWhenLocked="true"
     android:turnScreenOn="true" -->
@@ -111,7 +112,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:exported="true"
-            android:value="@string/default_notification_channel_id" />
+            android:value="1" />
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
@@ -136,5 +137,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
 </manifest>

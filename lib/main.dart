@@ -1,7 +1,8 @@
-
 import 'dart:core';
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mec/Configs/Dbkeys.dart';
 import 'package:mec/Configs/app_constants.dart';
 import 'package:mec/Screens/homepage/initialize.dart';
@@ -30,28 +31,18 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/services/notifications.dart';
-
 List<CameraDescription> cameras = <CameraDescription>[];
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  // startMessage();
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   runApp(
-  //     const MaterialApp(
-  //       debugShowCheckedModeBanner: false,
-  //       home: TrueCallerOverlay(),
-  //     ),
-  //   );
-
   print('Handling a background message ${message.messageId}');
 }
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
   final WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // showNotificationWithDefaultSound(title: "Message",message: "New Message");
-
   binding.renderView.automaticSystemUiAdjustment = false;
   setStatusBarColor();
   if (IsBannerAdShow == true ||
@@ -74,6 +65,7 @@ void main() async {
 
 class mecWrapper extends StatefulWidget {
   const mecWrapper({Key? key}) : super(key: key);
+
   static void setLocale(BuildContext context, Locale newLocale) {
     _mecWrapperState state =
         context.findAncestorStateOfType<_mecWrapperState>()!;
@@ -86,6 +78,7 @@ class mecWrapper extends StatefulWidget {
 
 class _mecWrapperState extends State<mecWrapper> {
   Locale? _locale;
+
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -93,6 +86,7 @@ class _mecWrapperState extends State<mecWrapper> {
   }
 
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   void didChangeDependencies() {
     getLocale().then((locale) {
@@ -129,6 +123,8 @@ class _mecWrapperState extends State<mecWrapper> {
                   builder:
                       (context, AsyncSnapshot<SharedPreferences> snapshot) {
                     if (snapshot.hasData) {
+                      print(
+                          "main id is :${snapshot.data!.getString(Dbkeys.phone)}");
                       return MultiProvider(
                         providers: [
                           ChangeNotifierProvider(
@@ -273,5 +269,14 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
   Widget buildOverscrollIndicator(
       BuildContext context, Widget child, ScrollableDetails details) {
     return child;
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

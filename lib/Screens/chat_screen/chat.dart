@@ -85,8 +85,7 @@ import 'package:video_compress/video_compress.dart' as compress;
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:mec/Configs/Enum.dart';
 import 'package:audioplayers/audioplayers.dart' as audioPlayers;
-
-import '../../app/services/notifications.dart';
+import 'package:http/http.dart' as http;
 
 hidekeyboard(BuildContext context) {
   FocusScope.of(context).requestFocus(FocusNode());
@@ -194,6 +193,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    print("individual chat screen cliked");
     super.initState();
     _cachedModel = widget.model;
     peerNo = widget.peerNo;
@@ -860,6 +860,64 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     return await Geolocator.getCurrentPosition();
   }
 
+  sendMessageNotification(
+      {required toMobileNumber, required bodyMsg, required name}) async {
+    print("values is $toMobileNumber, $bodyMsg, $name");
+    var serverKey =
+        "AAAAgzbnOQ4:APA91bEWAOtn-knnFbusVg9h5LRN8O7--_RqhMvT9gl5Gw4lZuhgszpUxulZczrDO4R_BAe0sxbprDE4vdkRM2c2BzSFJXmicyr6F1Z1vkVtUpa2xHNnGSMbPD2o2BbQ0B1eQXk7cQz4";
+    var url = "https://fcm.googleapis.com/fcm/send";
+    var token = "";
+    try {
+      if (widget.currentUserNo != null) {
+        await FirebaseFirestore.instance
+            .collection(DbPaths.collectionusers)
+            .doc(toMobileNumber)
+            .get()
+            .then((value) {
+          token = value.data()!['fcmToken'];
+          print("value is ${value.data()!['fcmToken']}");
+        });
+      }
+      http.Response response = await http.post(Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'key=$serverKey',
+          },
+          body: jsonEncode(
+            {
+              'to': token,
+              'notification': {
+                'body': bodyMsg,
+                'title': name,
+                'sound': Platform.isAndroid ? 'default': ""
+              },
+              'priority': 'high',
+              'data': {
+                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                'id': '1',
+                'status': 'done',
+              },
+            },
+          ));
+
+      if (response.statusCode == 200) {
+        print("response body is: ${jsonDecode(response.body)}");
+        var invalid = "${jsonDecode(response.body)['results'][0]['error']}";
+        if (invalid == "InvalidRegistration") {
+          print(
+              "response body is: ${jsonDecode(response.body)['results'][0]['error']}");
+        } else {
+          print("send message to fcm notification successfully");
+        }
+      } else if (response.statusCode == 401) {
+        print("response body is: ${response.body}");
+        print("response body is: INVALID SERVER KEY OR WRONG");
+      }
+    } catch (e) {
+      print("Error push notification on send message $e");
+    }
+  }
+
   void onSendMessage(
       BuildContext context, String content, MessageType type, int? timestamp,
       {bool isForward = false}) async {
@@ -876,6 +934,19 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
 
         // final encrypted = encryptWithCRC(content);
         if (encrypted is String) {
+          var name;
+          print("to number is $peerNo");
+          await FirebaseFirestore.instance
+              .collection(DbPaths.collectionusers)
+              .doc(currentUserNo)
+              .get()
+              .then((value) {
+            name = value.data()!['nickname'];
+            print("name address is ${value.data()!['nickname']}");
+          });
+          print("content is $encrypted");
+          sendMessageNotification(
+              toMobileNumber: peerNo, bodyMsg: content, name: name);
           Future messaging = FirebaseFirestore.instance
               .collection(DbPaths.collectionmessages)
               .doc(chatId)
@@ -5045,7 +5116,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     var audioCache = audioPlayers.AudioCache();
 
     print("oncall");
-     await audioCache.play('sounds/beeb.mp3', volume: 100);
+    await audioCache.play('sounds/beeb.mp3', volume: 100);
   }
 
 //-- GROUP BY DATE ---

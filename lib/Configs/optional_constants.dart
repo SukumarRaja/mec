@@ -1,4 +1,3 @@
-
 import 'package:mec/Configs/Enum.dart';
 import 'package:mec/Configs/app_constants.dart';
 
@@ -40,8 +39,9 @@ const dynamic RateAppUrlIOS =
     null; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
 const TERMS_CONDITION_URL =
     'https://limitless360.org/index.php/terms-and-service/'; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
-const PRIVACY_POLICY_URL =
-    'https://limitless360.org/index.php/privacy-policy/'; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
+const PRIVACY_POLICY_URL = 'https://limitless360.org/index.php/privacy-policy/';
+const FcmTOKEN = "";
+// Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
 //--
 const int ImageQualityCompress =
     50; // This is compress the chat image size in percent while uploading to firesbase storage
