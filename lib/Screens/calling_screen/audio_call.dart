@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -30,6 +29,7 @@ class AudioCall extends StatefulWidget {
   final SharedPreferences prefs;
   final String? currentuseruid;
   final ClientRole? role;
+
   const AudioCall(
       {Key? key,
       required this.call,
@@ -65,6 +65,7 @@ class _AudioCallState extends State<AudioCall> {
   }
 
   Stream<DocumentSnapshot>? stream;
+
   @override
   void initState() {
     super.initState();
@@ -89,10 +90,10 @@ class _AudioCallState extends State<AudioCall> {
   String? mp3Uri;
   late audioPlayers.AudioPlayer player;
   AudioCache audioCache = AudioCache();
-  Future<Null> _playCallingTone() async {
-    print("sound");
-    player = await audioCache.loop('sounds/callingtone.mp3', volume: 100);
 
+  void _playCallingTone() async {
+    print("sound");
+    player = await audioCache.play('sounds/callingtone.mp3', volume: 100);
     setState(() {});
   }
 
@@ -101,6 +102,7 @@ class _AudioCallState extends State<AudioCall> {
   }
 
   bool isspeaker = false;
+
   Future<void> initialize() async {
     if (Agora_APP_IDD.isEmpty) {
       setState(() {
@@ -130,7 +132,9 @@ class _AudioCallState extends State<AudioCall> {
 
   bool isPickedup = false;
   bool isalreadyendedcall = false;
+
   void _addAgoraEventHandlers() {
+    // _playCallingTone();
     _engine.setEventHandler(RtcEngineEventHandler(error: (code) {
       setState(() {
         final info = 'onError: $code';
@@ -871,9 +875,7 @@ class _AudioCallState extends State<AudioCall> {
                 : widget.call.callerName!,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: DESIGN_TYPE == Themetype.whatsapp
-                  ? mecWhite
-                  : mecBlack,
+              color: DESIGN_TYPE == Themetype.whatsapp ? mecWhite : mecBlack,
               fontSize: 22,
             ),
           ),
@@ -1074,6 +1076,16 @@ class _AudioCallState extends State<AudioCall> {
     var w = MediaQuery.of(context).size.width;
     var h = MediaQuery.of(context).size.height;
     setStatusBarColor();
+    Timer(Duration(seconds: 30), () {
+      if (isalreadyendedcall == false) {
+        print("once call end function called");
+        _onCallEnd(context);
+      }
+      setState(() {
+        isalreadyendedcall = true;
+      });
+    });
+
     return WillPopScope(
         onWillPop: onWillPopNEw,
         child: h > w && ((h / w) > 1.5)
@@ -1270,8 +1282,10 @@ class _AudioCallState extends State<AudioCall> {
   //------ Timer Widget Section Below:
   bool flag = true;
   Stream<int>? timerStream;
+
   // ignore: cancel_subscriptions
   StreamSubscription<int>? timerSubscription;
+
   // ignore: close_sinks
   StreamController<int>? streamController;
   String hoursStr = '00';
@@ -1329,5 +1343,5 @@ class _AudioCallState extends State<AudioCall> {
     });
   }
 
-  //------
+//------
 }
