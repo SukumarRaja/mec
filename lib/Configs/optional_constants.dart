@@ -38,8 +38,8 @@ const dynamic RateAppUrlAndroid =
 const dynamic RateAppUrlIOS =
     null; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
 const TERMS_CONDITION_URL =
-    'https://limitless360.org/index.php/terms-and-service/'; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
-const PRIVACY_POLICY_URL = 'https://limitless360.org/index.php/privacy-policy/';
+    ''; // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
+const PRIVACY_POLICY_URL = '';
 const FcmTOKEN = "";
 // Once the database is written, It can only be changed from Admin App OR directly inside Firestore database - appsettings/userapp document.
 //--
@@ -79,7 +79,8 @@ const IsShowGIFsenderButtonByGIPHY =
     true; //If true, GIF sending button will be shown to users in the text input area in chatrooms.
 
 final loginPageTopColor =
-    DESIGN_TYPE == Themetype.whatsapp ? mecgreen : mecWhite;
+    DESIGN_TYPE == Themetype.whatsapp ? mecDeepGreen : mecWhite;
 
 final loginPageBottomColor =
-    DESIGN_TYPE == Themetype.whatsapp ? mecDeepGreen : mecWhite;
+    DESIGN_TYPE == Themetype.whatsapp ? mecgreen : mecWhite;
+

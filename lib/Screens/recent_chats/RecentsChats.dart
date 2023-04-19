@@ -561,55 +561,55 @@ class RecentChatsState extends State<RecentChats> {
                   size: 30.0,
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => new SmartContactsPage(
-                              onTapCreateGroup: () {
-                                if (observer.isAllowCreatingGroups == false) {
-                                  mec.showRationale(
-                                      getTranslated(this.context, 'disabled'));
-                                } else {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddContactsToGroup(
-                                                currentUserNo:
-                                                    widget.currentUserNo,
-                                                model: _cachedModel,
-                                                biometricEnabled: false,
-                                                prefs: widget.prefs,
-                                                isAddingWhileCreatingGroup:
-                                                    true,
-                                              )));
-                                }
-                              },
-                              onTapCreateBroadcast: () {
-                                if (observer.isAllowCreatingBroadcasts ==
-                                    false) {
-                                  mec.showRationale(
-                                      getTranslated(this.context, 'disabled'));
-                                } else {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddContactsToBroadcast(
-                                                currentUserNo:
-                                                    widget.currentUserNo,
-                                                model: _cachedModel,
-                                                biometricEnabled: false,
-                                                prefs: widget.prefs,
-                                                isAddingWhileCreatingBroadcast:
-                                                    true,
-                                              )));
-                                }
-                              },
-                              prefs: widget.prefs,
-                              biometricEnabled: biometricEnabled,
-                              currentUserNo: currentUserNo!,
-                              model: _cachedModel!)));
+                  // Navigator.push(
+                  //     context,
+                  //     new MaterialPageRoute(
+                  //         builder: (context) => new SmartContactsPage(
+                  //             onTapCreateGroup: () {
+                  //               if (observer.isAllowCreatingGroups == false) {
+                  //                 mec.showRationale(
+                  //                     getTranslated(this.context, 'disabled'));
+                  //               } else {
+                  //                 Navigator.pushReplacement(
+                  //                     context,
+                  //                     MaterialPageRoute(
+                  //                         builder: (context) =>
+                  //                             AddContactsToGroup(
+                  //                               currentUserNo:
+                  //                                   widget.currentUserNo,
+                  //                               model: _cachedModel,
+                  //                               biometricEnabled: false,
+                  //                               prefs: widget.prefs,
+                  //                               isAddingWhileCreatingGroup:
+                  //                                   true,
+                  //                             )));
+                  //               }
+                  //             },
+                  //             onTapCreateBroadcast: () {
+                  //               if (observer.isAllowCreatingBroadcasts ==
+                  //                   false) {
+                  //                 mec.showRationale(
+                  //                     getTranslated(this.context, 'disabled'));
+                  //               } else {
+                  //                 Navigator.pushReplacement(
+                  //                     context,
+                  //                     MaterialPageRoute(
+                  //                         builder: (context) =>
+                  //                             AddContactsToBroadcast(
+                  //                               currentUserNo:
+                  //                                   widget.currentUserNo,
+                  //                               model: _cachedModel,
+                  //                               biometricEnabled: false,
+                  //                               prefs: widget.prefs,
+                  //                               isAddingWhileCreatingBroadcast:
+                  //                                   true,
+                  //                             )));
+                  //               }
+                  //             },
+                  //             prefs: widget.prefs,
+                  //             biometricEnabled: biometricEnabled,
+                  //             currentUserNo: currentUserNo!,
+                  //             model: _cachedModel!)));
                 }),
           ),
           body: RefreshIndicator(
