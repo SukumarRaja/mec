@@ -309,104 +309,104 @@ class _StatusState extends State<Status> with AutomaticKeepAliveClientMixin {
             ScopedModelDescendant<DataModel>(builder: (context, child, model) {
           return Scaffold(
             backgroundColor: mecWhite,
-            // floatingActionButton: Padding(
-            //   padding: EdgeInsets.only(
-            //       bottom: IsBannerAdShow == true && observer.isadmobshow == true
-            //           ? 60
-            //           : 0),
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.end,
-            //     mainAxisSize: MainAxisSize.min,
-            //     children: [
-            //       Container(
-            //         height: 43,
-            //         margin: EdgeInsets.only(bottom: 18),
-            //         child: FloatingActionButton(
-            //             heroTag: "d636546yt834",
-            //             backgroundColor: Color(0xffebecee),
-            //             child: Icon(Icons.edit,
-            //                 size: 23.0, color: Colors.blueGrey[700]),
-            //             onPressed: observer.isAllowCreatingStatus == false
-            //                 ? () {
-            //                     mec.showRationale(
-            //                         getTranslated(this.context, 'disabled'));
-            //                   }
-            //                 : () {
-            //                     Navigator.push(
-            //                         context,
-            //                         MaterialPageRoute(
-            //                             builder: (context) => TextStatus(
-            //                                 currentuserNo:
-            //                                     widget.currentUserNo!,
-            //                                 phoneNumberVariants:
-            //                                     widget.phoneNumberVariants)));
-            //                   }),
-            //       ),
-            //       FloatingActionButton(
-            //         heroTag: "frewrwr",
-            //         backgroundColor: mecLightGreen,
-            //         child: Icon(
-            //           Icons.camera_alt_rounded,
-            //           size: 25,
-            //         ),
-            //         onPressed: observer.isAllowCreatingStatus == false
-            //             ? () {
-            //                 mec.showRationale(
-            //                     getTranslated(this.context, 'disabled'));
-            //               }
-            //             : () async {
-            //                 showMediaOptions(
-            //                     ishideTextStatusbutton: true,
-            //                     phoneVariants: widget.phoneNumberVariants,
-            //                     context: context,
-            //                     pickVideoCallback: () {
-            //                       Navigator.push(
-            //                           context,
-            //                           MaterialPageRoute(
-            //                               builder: (context) =>
-            //                                   StatusVideoEditor(
-            //                                     callback: (v, d, t) async {
-            //                                       Navigator.of(context).pop();
-            //                                       await uploadFile(
-            //                                           filename: DateTime.now()
-            //                                               .millisecondsSinceEpoch
-            //                                               .toString(),
-            //                                           type: Dbkeys
-            //                                               .statustypeVIDEO,
-            //                                           file: d,
-            //                                           caption: v,
-            //                                           duration: t);
-            //                                     },
-            //                                     title: getTranslated(
-            //                                         context, 'createstatus'),
-            //                                   )));
-            //                     },
-            //                     pickImageCallback: () {
-            //                       Navigator.push(
-            //                           context,
-            //                           MaterialPageRoute(
-            //                               builder: (context) =>
-            //                                   StatusImageEditor(
-            //                                     callback: (v, d) async {
-            //                                       Navigator.of(context).pop();
-            //                                       await uploadFile(
-            //                                           filename: DateTime.now()
-            //                                               .millisecondsSinceEpoch
-            //                                               .toString(),
-            //                                           type: Dbkeys
-            //                                               .statustypeIMAGE,
-            //                                           file: d,
-            //                                           caption: v);
-            //                                     },
-            //                                     title: getTranslated(
-            //                                         context, 'createstatus'),
-            //                                   )));
-            //                     });
-            //               },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            floatingActionButton: Padding(
+              padding: EdgeInsets.only(
+                  bottom: IsBannerAdShow == true && observer.isadmobshow == true
+                      ? 60
+                      : 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 43,
+                    margin: EdgeInsets.only(bottom: 18),
+                    child: FloatingActionButton(
+                        heroTag: "d636546yt834",
+                        backgroundColor: Color(0xffebecee),
+                        child: Icon(Icons.edit,
+                            size: 23.0, color: Colors.blueGrey[700]),
+                        onPressed: observer.isAllowCreatingStatus == false
+                            ? () {
+                                mec.showRationale(
+                                    getTranslated(this.context, 'disabled'));
+                              }
+                            : () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TextStatus(
+                                            currentuserNo:
+                                                widget.currentUserNo!,
+                                            phoneNumberVariants:
+                                                widget.phoneNumberVariants)));
+                              }),
+                  ),
+                  FloatingActionButton(
+                    heroTag: "frewrwr",
+                    backgroundColor: mecLightGreen,
+                    child: Icon(
+                      Icons.camera_alt_rounded,
+                      size: 25,
+                    ),
+                    onPressed: observer.isAllowCreatingStatus == false
+                        ? () {
+                            mec.showRationale(
+                                getTranslated(this.context, 'disabled'));
+                          }
+                        : () async {
+                            showMediaOptions(
+                                ishideTextStatusbutton: true,
+                                phoneVariants: widget.phoneNumberVariants,
+                                context: context,
+                                pickVideoCallback: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              StatusVideoEditor(
+                                                callback: (v, d, t) async {
+                                                  Navigator.of(context).pop();
+                                                  await uploadFile(
+                                                      filename: DateTime.now()
+                                                          .millisecondsSinceEpoch
+                                                          .toString(),
+                                                      type: Dbkeys
+                                                          .statustypeVIDEO,
+                                                      file: d,
+                                                      caption: v,
+                                                      duration: t);
+                                                },
+                                                title: getTranslated(
+                                                    context, 'createstatus'),
+                                              )));
+                                },
+                                pickImageCallback: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              StatusImageEditor(
+                                                callback: (v, d) async {
+                                                  Navigator.of(context).pop();
+                                                  await uploadFile(
+                                                      filename: DateTime.now()
+                                                          .millisecondsSinceEpoch
+                                                          .toString(),
+                                                      type: Dbkeys
+                                                          .statustypeIMAGE,
+                                                      file: d,
+                                                      caption: v);
+                                                },
+                                                title: getTranslated(
+                                                    context, 'createstatus'),
+                                              )));
+                                });
+                          },
+                  ),
+                ],
+              ),
+            ),
             bottomSheet: IsBannerAdShow == true &&
                     observer.isadmobshow == true &&
                     adWidget != null
@@ -439,952 +439,952 @@ class _StatusState extends State<Status> with AutomaticKeepAliveClientMixin {
                 child: Consumer<StatusProvider>(
                     builder: (context, statusProvider, _child) => Stack(
                           children: [
-                            // Container(
-                            //   color: Color(0xfff2f2f2),
-                            //   child: Column(
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: <Widget>[
-                            //       StreamBuilder(
-                            //           stream: myStatusUpdates,
-                            //           builder:
-                            //               (context, AsyncSnapshot snapshot) {
-                            //             if (snapshot.connectionState ==
-                            //                 ConnectionState.waiting) {
-                            //               return Card(
-                            //                 color: Colors.white,
-                            //                 elevation: 0.0,
-                            //                 child: Padding(
-                            //                     padding:
-                            //                         const EdgeInsets.fromLTRB(
-                            //                             0, 8, 8, 8),
-                            //                     child: InkWell(
-                            //                       onTap: () {},
-                            //                       child: ListTile(
-                            //                         leading: Stack(
-                            //                           children: <Widget>[
-                            //                             customCircleAvatar(
-                            //                                 radius: 35),
-                            //                             Positioned(
-                            //                               bottom: 1.0,
-                            //                               right: 1.0,
-                            //                               child: Container(
-                            //                                 height: 20,
-                            //                                 width: 20,
-                            //                                 child: Icon(
-                            //                                   Icons.add,
-                            //                                   color:
-                            //                                       Colors.white,
-                            //                                   size: 15,
-                            //                                 ),
-                            //                                 decoration:
-                            //                                     BoxDecoration(
-                            //                                   color:
-                            //                                       Colors.green,
-                            //                                   shape: BoxShape
-                            //                                       .circle,
-                            //                                 ),
-                            //                               ),
-                            //                             ),
-                            //                           ],
-                            //                         ),
-                            //                         title: Text(
-                            //                           getTranslated(
-                            //                               context, 'mystatus'),
-                            //                           style: TextStyle(
-                            //                               fontWeight:
-                            //                                   FontWeight.bold),
-                            //                         ),
-                            //                         subtitle: Text(
-                            //                           getTranslated(
-                            //                               context, 'loading'),
-                            //                         ),
-                            //                       ),
-                            //                     )),
-                            //               );
-                            //             } else if (snapshot.hasData &&
-                            //                 snapshot.data.exists) {
-                            //               int seen = !snapshot.data
-                            //                       .data()
-                            //                       .containsKey(
-                            //                           widget.currentUserNo)
-                            //                   ? 0
-                            //                   : 0;
-                            //               if (snapshot.data.data().containsKey(
-                            //                   widget.currentUserNo)) {
-                            //                 snapshot
-                            //                     .data[Dbkeys.statusITEMSLIST]
-                            //                     .forEach((status) {
-                            //                   if (snapshot
-                            //                       .data[widget.currentUserNo]
-                            //                       .contains(status[
-                            //                           Dbkeys.statusItemID])) {
-                            //                     seen = seen + 1;
-                            //                   }
-                            //                 });
-                            //               }
-                            //
-                            //               return Card(
-                            //                 color: Colors.white,
-                            //                 elevation: 0.0,
-                            //                 child: Padding(
-                            //                   padding:
-                            //                       const EdgeInsets.fromLTRB(
-                            //                           3, 8, 8, 8),
-                            //                   child: ListTile(
-                            //                     leading: Stack(
-                            //                       children: <Widget>[
-                            //                         InkWell(
-                            //                           onTap: () {
-                            //                             Navigator.push(
-                            //                                 context,
-                            //                                 MaterialPageRoute(
-                            //                                     builder:
-                            //                                         (context) =>
-                            //                                             StatusView(
-                            //                                               model:
-                            //                                                   widget.model!,
-                            //                                               prefs:
-                            //                                                   widget.prefs,
-                            //                                               currentUserNo:
-                            //                                                   widget.currentUserNo!,
-                            //                                               statusDoc:
-                            //                                                   snapshot.data,
-                            //                                               postedbyFullname:
-                            //                                                   widget.currentUserFullname ?? '',
-                            //                                               postedbyPhotourl:
-                            //                                                   widget.currentUserPhotourl,
-                            //                                             )));
-                            //                           },
-                            //                           child: Padding(
-                            //                             padding:
-                            //                                 const EdgeInsets
-                            //                                     .only(left: 0),
-                            //                             child: CircularBorder(
-                            //                               totalitems: snapshot
-                            //                                   .data[Dbkeys
-                            //                                       .statusITEMSLIST]
-                            //                                   .length,
-                            //                               totalseen: seen,
-                            //                               width: 2.5,
-                            //                               size: 65,
-                            //                               color: snapshot.data
-                            //                                           .data()
-                            //                                           .containsKey(
-                            //                                               widget
-                            //                                                   .currentUserNo) ==
-                            //                                       true
-                            //                                   ? snapshot
-                            //                                               .data[Dbkeys
-                            //                                                   .statusITEMSLIST]
-                            //                                               .length >
-                            //                                           0
-                            //                                       ? Colors.teal
-                            //                                           .withOpacity(
-                            //                                               0.8)
-                            //                                       : Colors.grey
-                            //                                           .withOpacity(
-                            //                                               0.8)
-                            //                                   : Colors.grey
-                            //                                       .withOpacity(
-                            //                                           0.8),
-                            //                               icon: Padding(
-                            //                                 padding:
-                            //                                     const EdgeInsets
-                            //                                         .all(3.0),
-                            //                                 child:
-                            //                                     snapshot.data[Dbkeys.statusITEMSLIST]
-                            //                                                 [
-                            //                                                 snapshot.data[Dbkeys.statusITEMSLIST].length -
-                            //                                                     1][Dbkeys
-                            //                                                 .statusItemTYPE] ==
-                            //                                             Dbkeys
-                            //                                                 .statustypeTEXT
-                            //                                         ? Container(
-                            //                                             width:
-                            //                                                 50.0,
-                            //                                             height:
-                            //                                                 50.0,
-                            //                                             child: Icon(
-                            //                                                 Icons
-                            //                                                     .text_fields,
-                            //                                                 color:
-                            //                                                     Colors.white54),
-                            //                                             decoration:
-                            //                                                 BoxDecoration(
-                            //                                               color: Color(int.parse(
-                            //                                                   snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR],
-                            //                                                   radix: 16)),
-                            //                                               shape:
-                            //                                                   BoxShape.circle,
-                            //                                             ),
-                            //                                           )
-                            //                                         : snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length -
-                            //                                                     1][Dbkeys.statusItemTYPE] ==
-                            //                                                 Dbkeys.statustypeVIDEO
-                            //                                             ? Container(
-                            //                                                 width:
-                            //                                                     50.0,
-                            //                                                 height:
-                            //                                                     50.0,
-                            //                                                 child:
-                            //                                                     Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
-                            //                                                 decoration:
-                            //                                                     BoxDecoration(
-                            //                                                   color: Colors.black87,
-                            //                                                   shape: BoxShape.circle,
-                            //                                                 ),
-                            //                                               )
-                            //                                             : CachedNetworkImage(
-                            //                                                 imageUrl:
-                            //                                                     snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
-                            //                                                 imageBuilder: (context, imageProvider) =>
-                            //                                                     Container(
-                            //                                                   width: 50.0,
-                            //                                                   height: 50.0,
-                            //                                                   decoration: BoxDecoration(
-                            //                                                     shape: BoxShape.circle,
-                            //                                                     image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                            //                                                   ),
-                            //                                                 ),
-                            //                                                 placeholder: (context, url) =>
-                            //                                                     Container(
-                            //                                                   width: 50.0,
-                            //                                                   height: 50.0,
-                            //                                                   decoration: BoxDecoration(
-                            //                                                     color: Colors.grey[300],
-                            //                                                     shape: BoxShape.circle,
-                            //                                                   ),
-                            //                                                 ),
-                            //                                                 errorWidget: (context, url, error) =>
-                            //                                                     Container(
-                            //                                                   width: 50.0,
-                            //                                                   height: 50.0,
-                            //                                                   decoration: BoxDecoration(
-                            //                                                     color: Colors.grey[300],
-                            //                                                     shape: BoxShape.circle,
-                            //                                                   ),
-                            //                                                 ),
-                            //                                               ),
-                            //                               ),
-                            //                             ),
-                            //                           ),
-                            //                         ),
-                            //                         Positioned(
-                            //                           bottom: 1.0,
-                            //                           right: 1.0,
-                            //                           child: InkWell(
-                            //                             onTap:
-                            //                                 observer.isAllowCreatingStatus ==
-                            //                                         false
-                            //                                     ? () {
-                            //                                         mec.showRationale(getTranslated(
-                            //                                             this.context,
-                            //                                             'disabled'));
-                            //                                       }
-                            //                                     : () async {
-                            //                                         showMediaOptions(
-                            //                                             ishideTextStatusbutton:
-                            //                                                 false,
-                            //                                             phoneVariants:
-                            //                                                 widget
-                            //                                                     .phoneNumberVariants,
-                            //                                             context:
-                            //                                                 context,
-                            //                                             pickVideoCallback:
-                            //                                                 () {
-                            //                                               Navigator.push(
-                            //                                                   context,
-                            //                                                   MaterialPageRoute(
-                            //                                                       builder: (context) => StatusVideoEditor(
-                            //                                                             callback: (v, d, t) async {
-                            //                                                               Navigator.of(context).pop();
-                            //                                                               await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeVIDEO, file: d, caption: v, duration: t);
-                            //                                                             },
-                            //                                                             title: getTranslated(context, 'createstatus'),
-                            //                                                           )));
-                            //                                             },
-                            //                                             pickImageCallback:
-                            //                                                 () {
-                            //                                               Navigator.push(
-                            //                                                   context,
-                            //                                                   MaterialPageRoute(
-                            //                                                       builder: (context) => StatusImageEditor(
-                            //                                                             callback: (v, d) async {
-                            //                                                               Navigator.of(context).pop();
-                            //                                                               await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeIMAGE, file: d, caption: v);
-                            //                                                             },
-                            //                                                             title: getTranslated(context, 'createstatus'),
-                            //                                                           )));
-                            //                                             });
-                            //                                       },
-                            //                             child: Container(
-                            //                               height: 20,
-                            //                               width: 20,
-                            //                               child: Icon(
-                            //                                 Icons.add,
-                            //                                 color: Colors.white,
-                            //                                 size: 15,
-                            //                               ),
-                            //                               decoration:
-                            //                                   BoxDecoration(
-                            //                                 color: Colors.green,
-                            //                                 shape:
-                            //                                     BoxShape.circle,
-                            //                               ),
-                            //                             ),
-                            //                           ),
-                            //                         ),
-                            //                       ],
-                            //                     ),
-                            //                     title: InkWell(
-                            //                       onTap: () {
-                            //                         Navigator.push(
-                            //                             context,
-                            //                             MaterialPageRoute(
-                            //                                 builder:
-                            //                                     (context) =>
-                            //                                         StatusView(
-                            //                                           model: widget
-                            //                                               .model!,
-                            //                                           prefs: widget
-                            //                                               .prefs,
-                            //                                           firestoreUserDoc:
-                            //                                               snapshot
-                            //                                                   .data,
-                            //                                           currentUserNo:
-                            //                                               widget
-                            //                                                   .currentUserNo!,
-                            //                                           statusDoc:
-                            //                                               snapshot
-                            //                                                   .data,
-                            //                                           postedbyFullname:
-                            //                                               widget.currentUserFullname ??
-                            //                                                   '',
-                            //                                           postedbyPhotourl:
-                            //                                               widget
-                            //                                                   .currentUserPhotourl,
-                            //                                         )));
-                            //                       },
-                            //                       child: Text(
-                            //                         getTranslated(
-                            //                             context, 'mystatus'),
-                            //                         style: TextStyle(
-                            //                             fontWeight:
-                            //                                 FontWeight.bold),
-                            //                       ),
-                            //                     ),
-                            //                     subtitle: InkWell(
-                            //                         onTap: () {
-                            //                           Navigator.push(
-                            //                               context,
-                            //                               MaterialPageRoute(
-                            //                                   builder:
-                            //                                       (context) =>
-                            //                                           StatusView(
-                            //                                             model: widget
-                            //                                                 .model!,
-                            //                                             prefs: widget
-                            //                                                 .prefs,
-                            //                                             currentUserNo:
-                            //                                                 widget.currentUserNo!,
-                            //                                             statusDoc:
-                            //                                                 snapshot.data,
-                            //                                             postedbyFullname:
-                            //                                                 widget.currentUserFullname ??
-                            //                                                     '',
-                            //                                             postedbyPhotourl:
-                            //                                                 widget.currentUserPhotourl,
-                            //                                           )));
-                            //                         },
-                            //                         child: Text(
-                            //                           getTranslated(
-                            //                               context, 'taptoview'),
-                            //                           style: TextStyle(
-                            //                               fontSize: 14),
-                            //                         )),
-                            //                     trailing: Container(
-                            //                       alignment:
-                            //                           Alignment.centerRight,
-                            //                       width: 90,
-                            //                       child: Row(
-                            //                         mainAxisAlignment:
-                            //                             MainAxisAlignment
-                            //                                 .spaceBetween,
-                            //                         children: [
-                            //                           InkWell(
-                            //                             onTap: snapshot
-                            //                                         .data[Dbkeys
-                            //                                             .statusVIEWERLISTWITHTIME]
-                            //                                         .length >
-                            //                                     0
-                            //                                 ? () {
-                            //                                     showViewers(
-                            //                                         context,
-                            //                                         snapshot
-                            //                                             .data,
-                            //                                         contactsProvider
-                            //                                             .contactsBookContactList,
-                            //                                         widget
-                            //                                             .currentUserNo!,
-                            //                                         widget
-                            //                                             .prefs,
-                            //                                         widget
-                            //                                             .model!);
-                            //                                   }
-                            //                                 : () {},
-                            //                             child: Row(
-                            //                               children: [
-                            //                                 Icon(Icons
-                            //                                     .visibility),
-                            //                                 SizedBox(
-                            //                                   width: 2,
-                            //                                 ),
-                            //                                 Text(
-                            //                                   ' ${snapshot.data[Dbkeys.statusVIEWERLIST].length}',
-                            //                                   style: TextStyle(
-                            //                                       fontSize: 14,
-                            //                                       fontWeight:
-                            //                                           FontWeight
-                            //                                               .normal),
-                            //                                 ),
-                            //                               ],
-                            //                             ),
-                            //                           ),
-                            //                           InkWell(
-                            //                             onTap: () {
-                            //                               deleteOptions(context,
-                            //                                   snapshot.data);
-                            //                             },
-                            //                             child: SizedBox(
-                            //                                 width: 25,
-                            //                                 child: Icon(
-                            //                                     Icons.edit)),
-                            //                           )
-                            //                         ],
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               );
-                            //             } else if (!snapshot.hasData ||
-                            //                 !snapshot.data.exists) {
-                            //               return Card(
-                            //                 color: Colors.white,
-                            //                 elevation: 0.0,
-                            //                 child: Padding(
-                            //                     padding:
-                            //                         const EdgeInsets.fromLTRB(
-                            //                             0, 8, 8, 8),
-                            //                     child: InkWell(
-                            //                       onTap:
-                            //                           observer.isAllowCreatingStatus ==
-                            //                                   false
-                            //                               ? () {
-                            //                                   mec.showRationale(
-                            //                                       getTranslated(
-                            //                                           this.context,
-                            //                                           'disabled'));
-                            //                                 }
-                            //                               : () {
-                            //                                   showMediaOptions(
-                            //                                       ishideTextStatusbutton:
-                            //                                           false,
-                            //                                       phoneVariants:
-                            //                                           widget
-                            //                                               .phoneNumberVariants,
-                            //                                       context:
-                            //                                           context,
-                            //                                       pickVideoCallback:
-                            //                                           () {
-                            //                                         Navigator.push(
-                            //                                             context,
-                            //                                             MaterialPageRoute(
-                            //                                                 builder: (context) => StatusVideoEditor(
-                            //                                                       callback: (v, d, t) async {
-                            //                                                         Navigator.of(context).pop();
-                            //                                                         await uploadFile(duration: t, filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeVIDEO, file: d, caption: v);
-                            //                                                       },
-                            //                                                       title: getTranslated(context, 'createstatus'),
-                            //                                                     )));
-                            //                                       },
-                            //                                       pickImageCallback:
-                            //                                           () {
-                            //                                         Navigator.push(
-                            //                                             context,
-                            //                                             MaterialPageRoute(
-                            //                                                 builder: (context) => StatusImageEditor(
-                            //                                                       callback: (v, d) async {
-                            //                                                         Navigator.of(context).pop();
-                            //                                                         await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeIMAGE, file: d, caption: v);
-                            //                                                       },
-                            //                                                       title: getTranslated(context, 'createstatus'),
-                            //                                                     )));
-                            //                                       });
-                            //                                 },
-                            //                       child: ListTile(
-                            //                         leading: Stack(
-                            //                           children: <Widget>[
-                            //                             customCircleAvatar(
-                            //                                 radius: 35),
-                            //                             Positioned(
-                            //                               bottom: 1.0,
-                            //                               right: 1.0,
-                            //                               child: Container(
-                            //                                 height: 20,
-                            //                                 width: 20,
-                            //                                 child: Icon(
-                            //                                   Icons.add,
-                            //                                   color:
-                            //                                       Colors.white,
-                            //                                   size: 15,
-                            //                                 ),
-                            //                                 decoration:
-                            //                                     BoxDecoration(
-                            //                                   color:
-                            //                                       Colors.green,
-                            //                                   shape: BoxShape
-                            //                                       .circle,
-                            //                                 ),
-                            //                               ),
-                            //                             ),
-                            //                           ],
-                            //                         ),
-                            //                         title: Text(
-                            //                           getTranslated(
-                            //                               context, 'mystatus'),
-                            //                           style: TextStyle(
-                            //                               fontWeight:
-                            //                                   FontWeight.bold),
-                            //                         ),
-                            //                         subtitle: Text(
-                            //                           getTranslated(context,
-                            //                               'taptoupdtstatus'),
-                            //                           style: TextStyle(
-                            //                               fontSize: 14),
-                            //                         ),
-                            //                       ),
-                            //                     )),
-                            //               );
-                            //             }
-                            //             return Card(
-                            //               color: Colors.white,
-                            //               elevation: 0.0,
-                            //               child: Padding(
-                            //                   padding:
-                            //                       const EdgeInsets.fromLTRB(
-                            //                           0, 8, 8, 8),
-                            //                   child: InkWell(
-                            //                     onTap: () {},
-                            //                     child: ListTile(
-                            //                       leading: Stack(
-                            //                         children: <Widget>[
-                            //                           customCircleAvatar(
-                            //                               radius: 35),
-                            //                           Positioned(
-                            //                             bottom: 1.0,
-                            //                             right: 1.0,
-                            //                             child: Container(
-                            //                               height: 20,
-                            //                               width: 20,
-                            //                               child: Icon(
-                            //                                 Icons.add,
-                            //                                 color: Colors.white,
-                            //                                 size: 15,
-                            //                               ),
-                            //                               decoration:
-                            //                                   BoxDecoration(
-                            //                                 color: Colors.green,
-                            //                                 shape:
-                            //                                     BoxShape.circle,
-                            //                               ),
-                            //                             ),
-                            //                           ),
-                            //                         ],
-                            //                       ),
-                            //                       title: Text(
-                            //                         getTranslated(
-                            //                             context, 'mystatus'),
-                            //                         style: TextStyle(
-                            //                             fontWeight:
-                            //                                 FontWeight.bold),
-                            //                       ),
-                            //                       subtitle: Text(
-                            //                         getTranslated(
-                            //                             context, 'loading'),
-                            //                       ),
-                            //                     ),
-                            //                   )),
-                            //             );
-                            //           }),
-                            //       Padding(
-                            //         padding:
-                            //             const EdgeInsets.fromLTRB(12, 8, 8, 8),
-                            //         child: Row(
-                            //           mainAxisAlignment:
-                            //               MainAxisAlignment.start,
-                            //           children: [
-                            //             Text(
-                            //               getTranslated(context, 'rcntupdates'),
-                            //               style: TextStyle(
-                            //                   color: Colors.grey,
-                            //                   fontWeight: FontWeight.bold),
-                            //             ),
-                            //             SizedBox(
-                            //               width: 13,
-                            //             ),
-                            //             statusProvider
-                            //                         .searchingcontactsstatus ==
-                            //                     true
-                            //                 ? Container(
-                            //                     margin:
-                            //                         EdgeInsets.only(right: 17),
-                            //                     height: 15,
-                            //                     width: 15,
-                            //                     child: Center(
-                            //                       child: Padding(
-                            //                         padding:
-                            //                             EdgeInsets.only(top: 0),
-                            //                         child: CircularProgressIndicator(
-                            //                             strokeWidth: 1.5,
-                            //                             valueColor:
-                            //                                 AlwaysStoppedAnimation<
-                            //                                         Color>(
-                            //                                     mecBlue)),
-                            //                       ),
-                            //                     ),
-                            //                     color: Colors.transparent)
-                            //                 : SizedBox()
-                            //           ],
-                            //         ),
-                            //       ),
-                            //       statusProvider.searchingcontactsstatus == true
-                            //           ? Expanded(
-                            //               child: Container(color: Colors.white),
-                            //             )
-                            //           : statusProvider.contactsStatus.length ==
-                            //                   0
-                            //               ? Expanded(
-                            //                   child: Container(
-                            //                       child: Center(
-                            //                         child: Padding(
-                            //                             padding:
-                            //                                 EdgeInsets.only(
-                            //                                     top: 40,
-                            //                                     left: 25,
-                            //                                     right: 25,
-                            //                                     bottom: 70),
-                            //                             child: Text(
-                            //                               getTranslated(context,
-                            //                                   'nostatus'),
-                            //                               textAlign:
-                            //                                   TextAlign.center,
-                            //                               style: TextStyle(
-                            //                                   fontSize: 15.0,
-                            //                                   color: mecGrey
-                            //                                       .withOpacity(
-                            //                                           0.8),
-                            //                                   fontWeight:
-                            //                                       FontWeight
-                            //                                           .w400),
-                            //                             )),
-                            //                       ),
-                            //                       color: Colors.white),
-                            //                 )
-                            //               : Expanded(
-                            //                   child: Container(
-                            //                       padding:
-                            //                           const EdgeInsets.fromLTRB(
-                            //                               0, 8, 8, 8),
-                            //                       color: Colors.white,
-                            //                       child: ListView.builder(
-                            //                         padding: EdgeInsets.all(10),
-                            //                         itemCount: statusProvider
-                            //                             .contactsStatus.length,
-                            //                         itemBuilder:
-                            //                             (context, idx) {
-                            //                           int seen = !statusProvider
-                            //                                   .contactsStatus[
-                            //                                       idx]
-                            //                                   .data()!
-                            //                                   .containsKey(widget
-                            //                                       .currentUserNo)
-                            //                               ? 0
-                            //                               : 0;
-                            //                           if (statusProvider
-                            //                               .contactsStatus[idx]
-                            //                               .data()
-                            //                               .containsKey(widget
-                            //                                   .currentUserNo)) {
-                            //                             statusProvider
-                            //                                 .contactsStatus[idx]
-                            //                                     [Dbkeys
-                            //                                         .statusITEMSLIST]
-                            //                                 .forEach((status) {
-                            //                               if (statusProvider
-                            //                                   .contactsStatus[
-                            //                                       idx]
-                            //                                   .data()[widget
-                            //                                       .currentUserNo]
-                            //                                   .contains(status[
-                            //                                       Dbkeys
-                            //                                           .statusItemID])) {
-                            //                                 seen = seen + 1;
-                            //                               }
-                            //                             });
-                            //                           }
-                            //                           return Consumer<
-                            //                                   AvailableContactsProvider>(
-                            //                               builder:
-                            //                                   (context,
-                            //                                           contactsProvider,
-                            //                                           _child) =>
-                            //                                       FutureBuilder<
-                            //                                               Map<String,
-                            //                                                   dynamic>>(
-                            //                                           future: contactsProvider.getUserDoc(statusProvider.contactsStatus[idx]
-                            //                                                   .data()[
-                            //                                               Dbkeys
-                            //                                                   .statusPUBLISHERPHONE]),
-                            //                                           builder: (BuildContext
-                            //                                                   context,
-                            //                                               AsyncSnapshot<Map<String, dynamic>>
-                            //                                                   snapshot) {
-                            //                                             if (snapshot
-                            //                                                 .hasData) {
-                            //                                               return InkWell(
-                            //                                                 onTap:
-                            //                                                     () {
-                            //                                                   // print(statusProvider
-                            //                                                   //     .contactsStatus[idx]
-                            //                                                   //     .toString());
-                            //                                                   Navigator.push(
-                            //                                                       context,
-                            //                                                       MaterialPageRoute(
-                            //                                                           builder: (context) => StatusView(
-                            //                                                                 model: widget.model!,
-                            //                                                                 prefs: widget.prefs,
-                            //                                                                 callback: (statuspublisherphone) {
-                            //                                                                   FirebaseFirestore.instance.collection(DbPaths.collectionnstatus).where(Dbkeys.statusPUBLISHERPHONE, isEqualTo: statuspublisherphone).get().then((doc) {
-                            //                                                                     if (doc.docs.length > 0) {
-                            //                                                                       int i = statusProvider.contactsStatus.indexWhere((element) => element.data()[Dbkeys.statusPUBLISHERPHONE] == statuspublisherphone);
-                            //
-                            //                                                                       if (i >= 0) {
-                            //                                                                         statusProvider.replaceStatus(i, doc.docs.first);
-                            //                                                                       }
-                            //
-                            //                                                                       // setState(() {});
-                            //                                                                     }
-                            //                                                                   });
-                            //                                                                   if (IsInterstitialAdShow == true && observer.isadmobshow == true) {
-                            //                                                                     Future.delayed(const Duration(milliseconds: 500), () {
-                            //                                                                       _showInterstitialAd();
-                            //                                                                     });
-                            //                                                                   }
-                            //                                                                 },
-                            //                                                                 currentUserNo: widget.currentUserNo!,
-                            //                                                                 statusDoc: statusProvider.contactsStatus[idx],
-                            //                                                                 postedbyFullname: snapshot.data![Dbkeys.nickname],
-                            //                                                                 postedbyPhotourl: snapshot.data![Dbkeys.photoUrl],
-                            //                                                               )));
-                            //                                                 },
-                            //                                                 child:
-                            //                                                     ListTile(
-                            //                                                   contentPadding: EdgeInsets.fromLTRB(5, 6, 10, 6),
-                            //                                                   leading: Padding(
-                            //                                                     padding: const EdgeInsets.only(left: 5),
-                            //                                                     child: CircularBorder(
-                            //                                                       totalitems: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length,
-                            //                                                       totalseen: seen,
-                            //                                                       width: 2.5,
-                            //                                                       size: 65,
-                            //                                                       color: statusProvider.contactsStatus[idx].data().containsKey(widget.currentUserNo)
-                            //                                                           ? statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length > 0
-                            //                                                               ? Colors.teal.withOpacity(0.8)
-                            //                                                               : Colors.grey.withOpacity(0.8)
-                            //                                                           : Colors.grey.withOpacity(0.8),
-                            //                                                       icon: Padding(
-                            //                                                         padding: const EdgeInsets.all(3.0),
-                            //                                                         child: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeTEXT
-                            //                                                             ? Container(
-                            //                                                                 width: 50.0,
-                            //                                                                 height: 50.0,
-                            //                                                                 child: Icon(Icons.text_fields, color: Colors.white54),
-                            //                                                                 decoration: BoxDecoration(
-                            //                                                                   color: Color(int.parse(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR], radix: 16)),
-                            //                                                                   shape: BoxShape.circle,
-                            //                                                                 ),
-                            //                                                               )
-                            //                                                             : statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeVIDEO
-                            //                                                                 ? Container(
-                            //                                                                     width: 50.0,
-                            //                                                                     height: 50.0,
-                            //                                                                     child: Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
-                            //                                                                     decoration: BoxDecoration(
-                            //                                                                       color: Colors.black87,
-                            //                                                                       shape: BoxShape.circle,
-                            //                                                                     ),
-                            //                                                                   )
-                            //                                                                 : CachedNetworkImage(
-                            //                                                                     imageUrl: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
-                            //                                                                     imageBuilder: (context, imageProvider) => Container(
-                            //                                                                       width: 50.0,
-                            //                                                                       height: 50.0,
-                            //                                                                       decoration: BoxDecoration(
-                            //                                                                         shape: BoxShape.circle,
-                            //                                                                         image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                            //                                                                       ),
-                            //                                                                     ),
-                            //                                                                     placeholder: (context, url) => Container(
-                            //                                                                       width: 50.0,
-                            //                                                                       height: 50.0,
-                            //                                                                       decoration: BoxDecoration(
-                            //                                                                         color: Colors.grey[300],
-                            //                                                                         shape: BoxShape.circle,
-                            //                                                                       ),
-                            //                                                                     ),
-                            //                                                                     errorWidget: (context, url, error) => Container(
-                            //                                                                       width: 50.0,
-                            //                                                                       height: 50.0,
-                            //                                                                       decoration: BoxDecoration(
-                            //                                                                         color: Colors.grey[300],
-                            //                                                                         shape: BoxShape.circle,
-                            //                                                                       ),
-                            //                                                                     ),
-                            //                                                                   ),
-                            //                                                       ),
-                            //                                                     ),
-                            //                                                   ),
-                            //                                                   title: Text(
-                            //                                                     snapshot.data![Dbkeys.nickname],
-                            //                                                     style: TextStyle(fontWeight: FontWeight.bold),
-                            //                                                   ),
-                            //                                                   subtitle: Text(
-                            //                                                     getStatusTime(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemID], this.context),
-                            //                                                     style: TextStyle(height: 1.4),
-                            //                                                   ),
-                            //                                                 ),
-                            //                                               );
-                            //                                             }
-                            //                                             return InkWell(
-                            //                                               onTap:
-                            //                                                   () {
-                            //                                                 Navigator.push(
-                            //                                                     context,
-                            //                                                     MaterialPageRoute(
-                            //                                                         builder: (context) => StatusView(
-                            //                                                               model: widget.model!,
-                            //                                                               prefs: widget.prefs,
-                            //                                                               callback: (statuspublisherphone) {
-                            //                                                                 FirebaseFirestore.instance.collection(DbPaths.collectionnstatus).where(Dbkeys.statusPUBLISHERPHONE, isEqualTo: statuspublisherphone).get().then((doc) {
-                            //                                                                   if (doc.docs.length > 0) {
-                            //                                                                     int i = statusProvider.contactsStatus.indexWhere((element) => element[Dbkeys.statusPUBLISHERPHONE] == statuspublisherphone);
-                            //                                                                     statusProvider.replaceStatus(i, doc.docs.first);
-                            //                                                                     setState(() {});
-                            //                                                                   }
-                            //                                                                 });
-                            //                                                                 if (IsInterstitialAdShow == true && observer.isadmobshow == true) {
-                            //                                                                   Future.delayed(const Duration(milliseconds: 500), () {
-                            //                                                                     _showInterstitialAd();
-                            //                                                                   });
-                            //                                                                 }
-                            //                                                               },
-                            //                                                               currentUserNo: widget.currentUserNo!,
-                            //                                                               statusDoc: statusProvider.contactsStatus[idx],
-                            //                                                               postedbyFullname: statusProvider.joinedUserPhoneStringAsInServer.elementAt(statusProvider.joinedUserPhoneStringAsInServer.toList().indexWhere((element) => statusProvider.contactsStatus[idx][Dbkeys.statusPUBLISHERPHONEVARIANTS].contains(element.phone.toString()))).name.toString(),
-                            //                                                               postedbyPhotourl: null,
-                            //                                                             )));
-                            //                                               },
-                            //                                               child:
-                            //                                                   ListTile(
-                            //                                                 contentPadding: EdgeInsets.fromLTRB(
-                            //                                                     5,
-                            //                                                     6,
-                            //                                                     10,
-                            //                                                     6),
-                            //                                                 leading:
-                            //                                                     Padding(
-                            //                                                   padding: const EdgeInsets.only(left: 5),
-                            //                                                   child: CircularBorder(
-                            //                                                     totalitems: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length,
-                            //                                                     totalseen: seen,
-                            //                                                     width: 2.5,
-                            //                                                     size: 65,
-                            //                                                     color: statusProvider.contactsStatus[idx].data().containsKey(widget.currentUserNo)
-                            //                                                         ? statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length > 0
-                            //                                                             ? Colors.teal.withOpacity(0.8)
-                            //                                                             : Colors.grey.withOpacity(0.8)
-                            //                                                         : Colors.grey.withOpacity(0.8),
-                            //                                                     icon: Padding(
-                            //                                                       padding: const EdgeInsets.all(3.0),
-                            //                                                       child: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeTEXT
-                            //                                                           ? Container(
-                            //                                                               width: 50.0,
-                            //                                                               height: 50.0,
-                            //                                                               child: Icon(Icons.text_fields, color: Colors.white54),
-                            //                                                               decoration: BoxDecoration(
-                            //                                                                 color: Color(int.parse(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR], radix: 16)),
-                            //                                                                 shape: BoxShape.circle,
-                            //                                                               ),
-                            //                                                             )
-                            //                                                           : statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeVIDEO
-                            //                                                               ? Container(
-                            //                                                                   width: 50.0,
-                            //                                                                   height: 50.0,
-                            //                                                                   child: Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
-                            //                                                                   decoration: BoxDecoration(
-                            //                                                                     color: Colors.black87,
-                            //                                                                     shape: BoxShape.circle,
-                            //                                                                   ),
-                            //                                                                 )
-                            //                                                               : CachedNetworkImage(
-                            //                                                                   imageUrl: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
-                            //                                                                   imageBuilder: (context, imageProvider) => Container(
-                            //                                                                     width: 50.0,
-                            //                                                                     height: 50.0,
-                            //                                                                     decoration: BoxDecoration(
-                            //                                                                       shape: BoxShape.circle,
-                            //                                                                       image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                            //                                                                     ),
-                            //                                                                   ),
-                            //                                                                   placeholder: (context, url) => Container(
-                            //                                                                     width: 50.0,
-                            //                                                                     height: 50.0,
-                            //                                                                     decoration: BoxDecoration(
-                            //                                                                       color: Colors.grey[300],
-                            //                                                                       shape: BoxShape.circle,
-                            //                                                                     ),
-                            //                                                                   ),
-                            //                                                                   errorWidget: (context, url, error) => Container(
-                            //                                                                     width: 50.0,
-                            //                                                                     height: 50.0,
-                            //                                                                     decoration: BoxDecoration(
-                            //                                                                       color: Colors.grey[300],
-                            //                                                                       shape: BoxShape.circle,
-                            //                                                                     ),
-                            //                                                                   ),
-                            //                                                                 ),
-                            //                                                     ),
-                            //                                                   ),
-                            //                                                 ),
-                            //                                                 title:
-                            //                                                     Text(
-                            //                                                   statusProvider.joinedUserPhoneStringAsInServer.elementAt(statusProvider.joinedUserPhoneStringAsInServer.toList().indexWhere((element) => statusProvider.contactsStatus[idx][Dbkeys.statusPUBLISHERPHONEVARIANTS].contains(element.phone))).name.toString(),
-                            //                                                   style: TextStyle(fontWeight: FontWeight.bold),
-                            //                                                 ),
-                            //                                                 subtitle:
-                            //                                                     Text(
-                            //                                                   getStatusTime(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemID], this.context),
-                            //                                                   style: TextStyle(height: 1.4),
-                            //                                                 ),
-                            //                                               ),
-                            //                                             );
-                            //                                           }));
-                            //                         },
-                            //                       )),
-                            //                 ),
-                            //     ],
-                            //   ),
-                            // ),
+                            Container(
+                              color: Color(0xfff2f2f2),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  StreamBuilder(
+                                      stream: myStatusUpdates,
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Card(
+                                            color: Colors.white,
+                                            elevation: 0.0,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 8, 8, 8),
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: ListTile(
+                                                    leading: Stack(
+                                                      children: <Widget>[
+                                                        customCircleAvatar(
+                                                            radius: 35),
+                                                        Positioned(
+                                                          bottom: 1.0,
+                                                          right: 1.0,
+                                                          child: Container(
+                                                            height: 20,
+                                                            width: 20,
+                                                            child: Icon(
+                                                              Icons.add,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    title: Text(
+                                                      getTranslated(
+                                                          context, 'mystatus'),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    subtitle: Text(
+                                                      getTranslated(
+                                                          context, 'loading'),
+                                                    ),
+                                                  ),
+                                                )),
+                                          );
+                                        } else if (snapshot.hasData &&
+                                            snapshot.data.exists) {
+                                          int seen = !snapshot.data
+                                                  .data()
+                                                  .containsKey(
+                                                      widget.currentUserNo)
+                                              ? 0
+                                              : 0;
+                                          if (snapshot.data.data().containsKey(
+                                              widget.currentUserNo)) {
+                                            snapshot
+                                                .data[Dbkeys.statusITEMSLIST]
+                                                .forEach((status) {
+                                              if (snapshot
+                                                  .data[widget.currentUserNo]
+                                                  .contains(status[
+                                                      Dbkeys.statusItemID])) {
+                                                seen = seen + 1;
+                                              }
+                                            });
+                                          }
+
+                                          return Card(
+                                            color: Colors.white,
+                                            elevation: 0.0,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      3, 8, 8, 8),
+                                              child: ListTile(
+                                                leading: Stack(
+                                                  children: <Widget>[
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        StatusView(
+                                                                          model:
+                                                                              widget.model!,
+                                                                          prefs:
+                                                                              widget.prefs,
+                                                                          currentUserNo:
+                                                                              widget.currentUserNo!,
+                                                                          statusDoc:
+                                                                              snapshot.data,
+                                                                          postedbyFullname:
+                                                                              widget.currentUserFullname ?? '',
+                                                                          postedbyPhotourl:
+                                                                              widget.currentUserPhotourl,
+                                                                        )));
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 0),
+                                                        child: CircularBorder(
+                                                          totalitems: snapshot
+                                                              .data[Dbkeys
+                                                                  .statusITEMSLIST]
+                                                              .length,
+                                                          totalseen: seen,
+                                                          width: 2.5,
+                                                          size: 65,
+                                                          color: snapshot.data
+                                                                      .data()
+                                                                      .containsKey(
+                                                                          widget
+                                                                              .currentUserNo) ==
+                                                                  true
+                                                              ? snapshot
+                                                                          .data[Dbkeys
+                                                                              .statusITEMSLIST]
+                                                                          .length >
+                                                                      0
+                                                                  ? Colors.teal
+                                                                      .withOpacity(
+                                                                          0.8)
+                                                                  : Colors.grey
+                                                                      .withOpacity(
+                                                                          0.8)
+                                                              : Colors.grey
+                                                                  .withOpacity(
+                                                                      0.8),
+                                                          icon: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(3.0),
+                                                            child:
+                                                                snapshot.data[Dbkeys.statusITEMSLIST]
+                                                                            [
+                                                                            snapshot.data[Dbkeys.statusITEMSLIST].length -
+                                                                                1][Dbkeys
+                                                                            .statusItemTYPE] ==
+                                                                        Dbkeys
+                                                                            .statustypeTEXT
+                                                                    ? Container(
+                                                                        width:
+                                                                            50.0,
+                                                                        height:
+                                                                            50.0,
+                                                                        child: Icon(
+                                                                            Icons
+                                                                                .text_fields,
+                                                                            color:
+                                                                                Colors.white54),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color: Color(int.parse(
+                                                                              snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR],
+                                                                              radix: 16)),
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                      )
+                                                                    : snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length -
+                                                                                1][Dbkeys.statusItemTYPE] ==
+                                                                            Dbkeys.statustypeVIDEO
+                                                                        ? Container(
+                                                                            width:
+                                                                                50.0,
+                                                                            height:
+                                                                                50.0,
+                                                                            child:
+                                                                                Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.black87,
+                                                                              shape: BoxShape.circle,
+                                                                            ),
+                                                                          )
+                                                                        : CachedNetworkImage(
+                                                                            imageUrl:
+                                                                                snapshot.data[Dbkeys.statusITEMSLIST][snapshot.data[Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
+                                                                            imageBuilder: (context, imageProvider) =>
+                                                                                Container(
+                                                                              width: 50.0,
+                                                                              height: 50.0,
+                                                                              decoration: BoxDecoration(
+                                                                                shape: BoxShape.circle,
+                                                                                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                                                                              ),
+                                                                            ),
+                                                                            placeholder: (context, url) =>
+                                                                                Container(
+                                                                              width: 50.0,
+                                                                              height: 50.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.grey[300],
+                                                                                shape: BoxShape.circle,
+                                                                              ),
+                                                                            ),
+                                                                            errorWidget: (context, url, error) =>
+                                                                                Container(
+                                                                              width: 50.0,
+                                                                              height: 50.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.grey[300],
+                                                                                shape: BoxShape.circle,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      bottom: 1.0,
+                                                      right: 1.0,
+                                                      child: InkWell(
+                                                        onTap:
+                                                            observer.isAllowCreatingStatus ==
+                                                                    false
+                                                                ? () {
+                                                                    mec.showRationale(getTranslated(
+                                                                        this.context,
+                                                                        'disabled'));
+                                                                  }
+                                                                : () async {
+                                                                    showMediaOptions(
+                                                                        ishideTextStatusbutton:
+                                                                            false,
+                                                                        phoneVariants:
+                                                                            widget
+                                                                                .phoneNumberVariants,
+                                                                        context:
+                                                                            context,
+                                                                        pickVideoCallback:
+                                                                            () {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                  builder: (context) => StatusVideoEditor(
+                                                                                        callback: (v, d, t) async {
+                                                                                          Navigator.of(context).pop();
+                                                                                          await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeVIDEO, file: d, caption: v, duration: t);
+                                                                                        },
+                                                                                        title: getTranslated(context, 'createstatus'),
+                                                                                      )));
+                                                                        },
+                                                                        pickImageCallback:
+                                                                            () {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                  builder: (context) => StatusImageEditor(
+                                                                                        callback: (v, d) async {
+                                                                                          Navigator.of(context).pop();
+                                                                                          await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeIMAGE, file: d, caption: v);
+                                                                                        },
+                                                                                        title: getTranslated(context, 'createstatus'),
+                                                                                      )));
+                                                                        });
+                                                                  },
+                                                        child: Container(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 15,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.green,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                title: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    StatusView(
+                                                                      model: widget
+                                                                          .model!,
+                                                                      prefs: widget
+                                                                          .prefs,
+                                                                      firestoreUserDoc:
+                                                                          snapshot
+                                                                              .data,
+                                                                      currentUserNo:
+                                                                          widget
+                                                                              .currentUserNo!,
+                                                                      statusDoc:
+                                                                          snapshot
+                                                                              .data,
+                                                                      postedbyFullname:
+                                                                          widget.currentUserFullname ??
+                                                                              '',
+                                                                      postedbyPhotourl:
+                                                                          widget
+                                                                              .currentUserPhotourl,
+                                                                    )));
+                                                  },
+                                                  child: Text(
+                                                    getTranslated(
+                                                        context, 'mystatus'),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                subtitle: InkWell(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      StatusView(
+                                                                        model: widget
+                                                                            .model!,
+                                                                        prefs: widget
+                                                                            .prefs,
+                                                                        currentUserNo:
+                                                                            widget.currentUserNo!,
+                                                                        statusDoc:
+                                                                            snapshot.data,
+                                                                        postedbyFullname:
+                                                                            widget.currentUserFullname ??
+                                                                                '',
+                                                                        postedbyPhotourl:
+                                                                            widget.currentUserPhotourl,
+                                                                      )));
+                                                    },
+                                                    child: Text(
+                                                      getTranslated(
+                                                          context, 'taptoview'),
+                                                      style: TextStyle(
+                                                          fontSize: 14),
+                                                    )),
+                                                trailing: Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  width: 90,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: snapshot
+                                                                    .data[Dbkeys
+                                                                        .statusVIEWERLISTWITHTIME]
+                                                                    .length >
+                                                                0
+                                                            ? () {
+                                                                showViewers(
+                                                                    context,
+                                                                    snapshot
+                                                                        .data,
+                                                                    contactsProvider
+                                                                        .contactsBookContactList,
+                                                                    widget
+                                                                        .currentUserNo!,
+                                                                    widget
+                                                                        .prefs,
+                                                                    widget
+                                                                        .model!);
+                                                              }
+                                                            : () {},
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(Icons
+                                                                .visibility),
+                                                            SizedBox(
+                                                              width: 2,
+                                                            ),
+                                                            Text(
+                                                              ' ${snapshot.data[Dbkeys.statusVIEWERLIST].length}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          deleteOptions(context,
+                                                              snapshot.data);
+                                                        },
+                                                        child: SizedBox(
+                                                            width: 25,
+                                                            child: Icon(
+                                                                Icons.edit)),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        } else if (!snapshot.hasData ||
+                                            !snapshot.data.exists) {
+                                          return Card(
+                                            color: Colors.white,
+                                            elevation: 0.0,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 8, 8, 8),
+                                                child: InkWell(
+                                                  onTap:
+                                                      observer.isAllowCreatingStatus ==
+                                                              false
+                                                          ? () {
+                                                              mec.showRationale(
+                                                                  getTranslated(
+                                                                      this.context,
+                                                                      'disabled'));
+                                                            }
+                                                          : () {
+                                                              showMediaOptions(
+                                                                  ishideTextStatusbutton:
+                                                                      false,
+                                                                  phoneVariants:
+                                                                      widget
+                                                                          .phoneNumberVariants,
+                                                                  context:
+                                                                      context,
+                                                                  pickVideoCallback:
+                                                                      () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) => StatusVideoEditor(
+                                                                                  callback: (v, d, t) async {
+                                                                                    Navigator.of(context).pop();
+                                                                                    await uploadFile(duration: t, filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeVIDEO, file: d, caption: v);
+                                                                                  },
+                                                                                  title: getTranslated(context, 'createstatus'),
+                                                                                )));
+                                                                  },
+                                                                  pickImageCallback:
+                                                                      () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) => StatusImageEditor(
+                                                                                  callback: (v, d) async {
+                                                                                    Navigator.of(context).pop();
+                                                                                    await uploadFile(filename: DateTime.now().millisecondsSinceEpoch.toString(), type: Dbkeys.statustypeIMAGE, file: d, caption: v);
+                                                                                  },
+                                                                                  title: getTranslated(context, 'createstatus'),
+                                                                                )));
+                                                                  });
+                                                            },
+                                                  child: ListTile(
+                                                    leading: Stack(
+                                                      children: <Widget>[
+                                                        customCircleAvatar(
+                                                            radius: 35),
+                                                        Positioned(
+                                                          bottom: 1.0,
+                                                          right: 1.0,
+                                                          child: Container(
+                                                            height: 20,
+                                                            width: 20,
+                                                            child: Icon(
+                                                              Icons.add,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    title: Text(
+                                                      getTranslated(
+                                                          context, 'mystatus'),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    subtitle: Text(
+                                                      getTranslated(context,
+                                                          'taptoupdtstatus'),
+                                                      style: TextStyle(
+                                                          fontSize: 14),
+                                                    ),
+                                                  ),
+                                                )),
+                                          );
+                                        }
+                                        return Card(
+                                          color: Colors.white,
+                                          elevation: 0.0,
+                                          child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 8, 8, 8),
+                                              child: InkWell(
+                                                onTap: () {},
+                                                child: ListTile(
+                                                  leading: Stack(
+                                                    children: <Widget>[
+                                                      customCircleAvatar(
+                                                          radius: 35),
+                                                      Positioned(
+                                                        bottom: 1.0,
+                                                        right: 1.0,
+                                                        child: Container(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 15,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.green,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  title: Text(
+                                                    getTranslated(
+                                                        context, 'mystatus'),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  subtitle: Text(
+                                                    getTranslated(
+                                                        context, 'loading'),
+                                                  ),
+                                                ),
+                                              )),
+                                        );
+                                      }),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(12, 8, 8, 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          getTranslated(context, 'rcntupdates'),
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          width: 13,
+                                        ),
+                                        statusProvider
+                                                    .searchingcontactsstatus ==
+                                                true
+                                            ? Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 17),
+                                                height: 15,
+                                                width: 15,
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.only(top: 0),
+                                                    child: CircularProgressIndicator(
+                                                        strokeWidth: 1.5,
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                                mecBlue)),
+                                                  ),
+                                                ),
+                                                color: Colors.transparent)
+                                            : SizedBox()
+                                      ],
+                                    ),
+                                  ),
+                                  statusProvider.searchingcontactsstatus == true
+                                      ? Expanded(
+                                          child: Container(color: Colors.white),
+                                        )
+                                      : statusProvider.contactsStatus.length ==
+                                              0
+                                          ? Expanded(
+                                              child: Container(
+                                                  child: Center(
+                                                    child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 40,
+                                                                left: 25,
+                                                                right: 25,
+                                                                bottom: 70),
+                                                        child: Text(
+                                                          getTranslated(context,
+                                                              'nostatus'),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 15.0,
+                                                              color: mecGrey
+                                                                  .withOpacity(
+                                                                      0.8),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        )),
+                                                  ),
+                                                  color: Colors.white),
+                                            )
+                                          : Expanded(
+                                              child: Container(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 8, 8, 8),
+                                                  color: Colors.white,
+                                                  child: ListView.builder(
+                                                    padding: EdgeInsets.all(10),
+                                                    itemCount: statusProvider
+                                                        .contactsStatus.length,
+                                                    itemBuilder:
+                                                        (context, idx) {
+                                                      int seen = !statusProvider
+                                                              .contactsStatus[
+                                                                  idx]
+                                                              .data()!
+                                                              .containsKey(widget
+                                                                  .currentUserNo)
+                                                          ? 0
+                                                          : 0;
+                                                      if (statusProvider
+                                                          .contactsStatus[idx]
+                                                          .data()
+                                                          .containsKey(widget
+                                                              .currentUserNo)) {
+                                                        statusProvider
+                                                            .contactsStatus[idx]
+                                                                [Dbkeys
+                                                                    .statusITEMSLIST]
+                                                            .forEach((status) {
+                                                          if (statusProvider
+                                                              .contactsStatus[
+                                                                  idx]
+                                                              .data()[widget
+                                                                  .currentUserNo]
+                                                              .contains(status[
+                                                                  Dbkeys
+                                                                      .statusItemID])) {
+                                                            seen = seen + 1;
+                                                          }
+                                                        });
+                                                      }
+                                                      return Consumer<
+                                                              AvailableContactsProvider>(
+                                                          builder:
+                                                              (context,
+                                                                      contactsProvider,
+                                                                      _child) =>
+                                                                  FutureBuilder<
+                                                                          Map<String,
+                                                                              dynamic>>(
+                                                                      future: contactsProvider.getUserDoc(statusProvider.contactsStatus[idx]
+                                                                              .data()[
+                                                                          Dbkeys
+                                                                              .statusPUBLISHERPHONE]),
+                                                                      builder: (BuildContext
+                                                                              context,
+                                                                          AsyncSnapshot<Map<String, dynamic>>
+                                                                              snapshot) {
+                                                                        if (snapshot
+                                                                            .hasData) {
+                                                                          return InkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              // print(statusProvider
+                                                                              //     .contactsStatus[idx]
+                                                                              //     .toString());
+                                                                              Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(
+                                                                                      builder: (context) => StatusView(
+                                                                                            model: widget.model!,
+                                                                                            prefs: widget.prefs,
+                                                                                            callback: (statuspublisherphone) {
+                                                                                              FirebaseFirestore.instance.collection(DbPaths.collectionnstatus).where(Dbkeys.statusPUBLISHERPHONE, isEqualTo: statuspublisherphone).get().then((doc) {
+                                                                                                if (doc.docs.length > 0) {
+                                                                                                  int i = statusProvider.contactsStatus.indexWhere((element) => element.data()[Dbkeys.statusPUBLISHERPHONE] == statuspublisherphone);
+
+                                                                                                  if (i >= 0) {
+                                                                                                    statusProvider.replaceStatus(i, doc.docs.first);
+                                                                                                  }
+
+                                                                                                  // setState(() {});
+                                                                                                }
+                                                                                              });
+                                                                                              if (IsInterstitialAdShow == true && observer.isadmobshow == true) {
+                                                                                                Future.delayed(const Duration(milliseconds: 500), () {
+                                                                                                  _showInterstitialAd();
+                                                                                                });
+                                                                                              }
+                                                                                            },
+                                                                                            currentUserNo: widget.currentUserNo!,
+                                                                                            statusDoc: statusProvider.contactsStatus[idx],
+                                                                                            postedbyFullname: snapshot.data![Dbkeys.nickname],
+                                                                                            postedbyPhotourl: snapshot.data![Dbkeys.photoUrl],
+                                                                                          )));
+                                                                            },
+                                                                            child:
+                                                                                ListTile(
+                                                                              contentPadding: EdgeInsets.fromLTRB(5, 6, 10, 6),
+                                                                              leading: Padding(
+                                                                                padding: const EdgeInsets.only(left: 5),
+                                                                                child: CircularBorder(
+                                                                                  totalitems: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length,
+                                                                                  totalseen: seen,
+                                                                                  width: 2.5,
+                                                                                  size: 65,
+                                                                                  color: statusProvider.contactsStatus[idx].data().containsKey(widget.currentUserNo)
+                                                                                      ? statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length > 0
+                                                                                          ? Colors.teal.withOpacity(0.8)
+                                                                                          : Colors.grey.withOpacity(0.8)
+                                                                                      : Colors.grey.withOpacity(0.8),
+                                                                                  icon: Padding(
+                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                    child: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeTEXT
+                                                                                        ? Container(
+                                                                                            width: 50.0,
+                                                                                            height: 50.0,
+                                                                                            child: Icon(Icons.text_fields, color: Colors.white54),
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: Color(int.parse(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR], radix: 16)),
+                                                                                              shape: BoxShape.circle,
+                                                                                            ),
+                                                                                          )
+                                                                                        : statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeVIDEO
+                                                                                            ? Container(
+                                                                                                width: 50.0,
+                                                                                                height: 50.0,
+                                                                                                child: Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.black87,
+                                                                                                  shape: BoxShape.circle,
+                                                                                                ),
+                                                                                              )
+                                                                                            : CachedNetworkImage(
+                                                                                                imageUrl: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
+                                                                                                imageBuilder: (context, imageProvider) => Container(
+                                                                                                  width: 50.0,
+                                                                                                  height: 50.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    shape: BoxShape.circle,
+                                                                                                    image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                placeholder: (context, url) => Container(
+                                                                                                  width: 50.0,
+                                                                                                  height: 50.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: Colors.grey[300],
+                                                                                                    shape: BoxShape.circle,
+                                                                                                  ),
+                                                                                                ),
+                                                                                                errorWidget: (context, url, error) => Container(
+                                                                                                  width: 50.0,
+                                                                                                  height: 50.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: Colors.grey[300],
+                                                                                                    shape: BoxShape.circle,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              title: Text(
+                                                                                snapshot.data![Dbkeys.nickname],
+                                                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              subtitle: Text(
+                                                                                getStatusTime(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemID], this.context),
+                                                                                style: TextStyle(height: 1.4),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                        return InkWell(
+                                                                          onTap:
+                                                                              () {
+                                                                            Navigator.push(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                    builder: (context) => StatusView(
+                                                                                          model: widget.model!,
+                                                                                          prefs: widget.prefs,
+                                                                                          callback: (statuspublisherphone) {
+                                                                                            FirebaseFirestore.instance.collection(DbPaths.collectionnstatus).where(Dbkeys.statusPUBLISHERPHONE, isEqualTo: statuspublisherphone).get().then((doc) {
+                                                                                              if (doc.docs.length > 0) {
+                                                                                                int i = statusProvider.contactsStatus.indexWhere((element) => element[Dbkeys.statusPUBLISHERPHONE] == statuspublisherphone);
+                                                                                                statusProvider.replaceStatus(i, doc.docs.first);
+                                                                                                setState(() {});
+                                                                                              }
+                                                                                            });
+                                                                                            if (IsInterstitialAdShow == true && observer.isadmobshow == true) {
+                                                                                              Future.delayed(const Duration(milliseconds: 500), () {
+                                                                                                _showInterstitialAd();
+                                                                                              });
+                                                                                            }
+                                                                                          },
+                                                                                          currentUserNo: widget.currentUserNo!,
+                                                                                          statusDoc: statusProvider.contactsStatus[idx],
+                                                                                          postedbyFullname: statusProvider.joinedUserPhoneStringAsInServer.elementAt(statusProvider.joinedUserPhoneStringAsInServer.toList().indexWhere((element) => statusProvider.contactsStatus[idx][Dbkeys.statusPUBLISHERPHONEVARIANTS].contains(element.phone.toString()))).name.toString(),
+                                                                                          postedbyPhotourl: null,
+                                                                                        )));
+                                                                          },
+                                                                          child:
+                                                                              ListTile(
+                                                                            contentPadding: EdgeInsets.fromLTRB(
+                                                                                5,
+                                                                                6,
+                                                                                10,
+                                                                                6),
+                                                                            leading:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(left: 5),
+                                                                              child: CircularBorder(
+                                                                                totalitems: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length,
+                                                                                totalseen: seen,
+                                                                                width: 2.5,
+                                                                                size: 65,
+                                                                                color: statusProvider.contactsStatus[idx].data().containsKey(widget.currentUserNo)
+                                                                                    ? statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length > 0
+                                                                                        ? Colors.teal.withOpacity(0.8)
+                                                                                        : Colors.grey.withOpacity(0.8)
+                                                                                    : Colors.grey.withOpacity(0.8),
+                                                                                icon: Padding(
+                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                  child: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeTEXT
+                                                                                      ? Container(
+                                                                                          width: 50.0,
+                                                                                          height: 50.0,
+                                                                                          child: Icon(Icons.text_fields, color: Colors.white54),
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: Color(int.parse(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemBGCOLOR], radix: 16)),
+                                                                                            shape: BoxShape.circle,
+                                                                                          ),
+                                                                                        )
+                                                                                      : statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemTYPE] == Dbkeys.statustypeVIDEO
+                                                                                          ? Container(
+                                                                                              width: 50.0,
+                                                                                              height: 50.0,
+                                                                                              child: Icon(Icons.play_circle_fill_rounded, color: Colors.white54),
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: Colors.black87,
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                            )
+                                                                                          : CachedNetworkImage(
+                                                                                              imageUrl: statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemURL],
+                                                                                              imageBuilder: (context, imageProvider) => Container(
+                                                                                                width: 50.0,
+                                                                                                height: 50.0,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  shape: BoxShape.circle,
+                                                                                                  image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                                                                                                ),
+                                                                                              ),
+                                                                                              placeholder: (context, url) => Container(
+                                                                                                width: 50.0,
+                                                                                                height: 50.0,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.grey[300],
+                                                                                                  shape: BoxShape.circle,
+                                                                                                ),
+                                                                                              ),
+                                                                                              errorWidget: (context, url, error) => Container(
+                                                                                                width: 50.0,
+                                                                                                height: 50.0,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Colors.grey[300],
+                                                                                                  shape: BoxShape.circle,
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            title:
+                                                                                Text(
+                                                                              statusProvider.joinedUserPhoneStringAsInServer.elementAt(statusProvider.joinedUserPhoneStringAsInServer.toList().indexWhere((element) => statusProvider.contactsStatus[idx][Dbkeys.statusPUBLISHERPHONEVARIANTS].contains(element.phone))).name.toString(),
+                                                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            subtitle:
+                                                                                Text(
+                                                                              getStatusTime(statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST][statusProvider.contactsStatus[idx][Dbkeys.statusITEMSLIST].length - 1][Dbkeys.statusItemID], this.context),
+                                                                              style: TextStyle(height: 1.4),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }));
+                                                    },
+                                                  )),
+                                            ),
+                                ],
+                              ),
+                            ),
                             Positioned(
                               child: statusProvider.isLoading
                                   ? Container(

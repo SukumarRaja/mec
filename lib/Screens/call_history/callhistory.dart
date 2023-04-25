@@ -104,139 +104,139 @@ class _CallHistoryState extends State<CallHistory> {
             : SizedBox(
                 height: 0,
               ),
-        // floatingActionButton: firestoreDataProvider.recievedDocs.length == 0
-        //     ? Padding(
-        //         padding: EdgeInsets.only(
-        //             bottom:
-        //                 IsBannerAdShow == true && observer.isadmobshow == true
-        //                     ? 60
-        //                     : 0),
-        //         child: FloatingActionButton(
-        //             heroTag: "dfsf4e8t4yaddweqewt834",
-        //             backgroundColor: mecLightGreen,
-        //             child: Icon(
-        //               Icons.add_call,
-        //               size: 30.0,
-        //             ),
-        //             onPressed: () {
-        //               Navigator.push(
-        //                   context,
-        //                   new MaterialPageRoute(
-        //                       builder: (context) => new SmartContactsPage(
-        //                           onTapCreateGroup: () {
-        //                             if (observer.isAllowCreatingGroups ==
-        //                                 false) {
-        //                               mec.showRationale(getTranslated(
-        //                                   this.context, 'disabled'));
-        //                             } else {
-        //                               Navigator.pushReplacement(
-        //                                   context,
-        //                                   MaterialPageRoute(
-        //                                       builder: (context) =>
-        //                                           AddContactsToGroup(
-        //                                             currentUserNo:
-        //                                                 widget.userphone,
-        //                                             model: widget.model,
-        //                                             biometricEnabled: false,
-        //                                             prefs: widget.prefs,
-        //                                             isAddingWhileCreatingGroup:
-        //                                                 true,
-        //                                           )));
-        //                             }
-        //                           },
-        //                           onTapCreateBroadcast: () {
-        //                             if (observer.isAllowCreatingBroadcasts ==
-        //                                 false) {
-        //                               mec.showRationale(getTranslated(
-        //                                   this.context, 'disabled'));
-        //                             } else {
-        //                               Navigator.pushReplacement(
-        //                                   context,
-        //                                   MaterialPageRoute(
-        //                                       builder: (context) =>
-        //                                           AddContactsToBroadcast(
-        //                                             currentUserNo:
-        //                                                 widget.userphone,
-        //                                             model: widget.model,
-        //                                             biometricEnabled: false,
-        //                                             prefs: widget.prefs,
-        //                                             isAddingWhileCreatingBroadcast:
-        //                                                 true,
-        //                                           )));
-        //                             }
-        //                           },
-        //                           prefs: widget.prefs,
-        //                           biometricEnabled: false,
-        //                           currentUserNo: widget.userphone!,
-        //                           model: widget.model!)));
-        //             }),
-        //       )
-        //     : Padding(
-        //         padding: EdgeInsets.only(
-        //             bottom:
-        //                 IsBannerAdShow == true && observer.isadmobshow == true
-        //                     ? 60
-        //                     : 0),
-        //         child: FloatingActionButton(
-        //             heroTag: "dfsf4e8t4yt834",
-        //             backgroundColor: mecWhite,
-        //             child: Icon(
-        //               Icons.delete,
-        //               size: 30.0,
-        //               color: Colors.red,
-        //             ),
-        //             onPressed: () {
-        //               showDialog(
-        //                 builder: (BuildContext context) {
-        //                   return AlertDialog(
-        //                     title: new Text(getTranslated(context, 'clearlog')),
-        //                     content: new Text(
-        //                         getTranslated(context, 'clearloglong')),
-        //                     actions: [
-        //                       // ignore: deprecated_member_use
-        //                       ElevatedButton(
-        //                         child: Text(
-        //                           getTranslated(context, 'cancel'),
-        //                           style: TextStyle(
-        //                               color: mecgreen, fontSize: 18),
-        //                         ),
-        //                         onPressed: () {
-        //                           Navigator.of(context).pop();
-        //                         },
-        //                       ),
-        //                       // ignore: deprecated_member_use
-        //                       ElevatedButton(
-        //                         child: Text(
-        //                           getTranslated(context, 'delete'),
-        //                           style: TextStyle(
-        //                               color: Colors.red, fontSize: 18),
-        //                         ),
-        //                         onPressed: () async {
-        //                           Navigator.of(context).pop();
-        //                           mec.toast(
-        //                               getTranslated(context, 'plswait'));
-        //                           FirebaseFirestore.instance
-        //                               .collection(DbPaths.collectionusers)
-        //                               .doc(widget.userphone)
-        //                               .collection(DbPaths.collectioncallhistory)
-        //                               .get()
-        //                               .then((snapshot) {
-        //                             for (DocumentSnapshot doc
-        //                                 in snapshot.docs) {
-        //                               doc.reference.delete();
-        //                             }
-        //                           }).then((value) {
-        //                             firestoreDataProvider.clearall();
-        //                           });
-        //                         },
-        //                       )
-        //                     ],
-        //                   );
-        //                 },
-        //                 context: context,
-        //               );
-        //             }),
-        //       ),
+        floatingActionButton: firestoreDataProvider.recievedDocs.length == 0
+            ? Padding(
+                padding: EdgeInsets.only(
+                    bottom:
+                        IsBannerAdShow == true && observer.isadmobshow == true
+                            ? 60
+                            : 0),
+                child: FloatingActionButton(
+                    heroTag: "dfsf4e8t4yaddweqewt834",
+                    backgroundColor: mecLightGreen,
+                    child: Icon(
+                      Icons.add_call,
+                      size: 30.0,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new SmartContactsPage(
+                                  onTapCreateGroup: () {
+                                    if (observer.isAllowCreatingGroups ==
+                                        false) {
+                                      mec.showRationale(getTranslated(
+                                          this.context, 'disabled'));
+                                    } else {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddContactsToGroup(
+                                                    currentUserNo:
+                                                        widget.userphone,
+                                                    model: widget.model,
+                                                    biometricEnabled: false,
+                                                    prefs: widget.prefs,
+                                                    isAddingWhileCreatingGroup:
+                                                        true,
+                                                  )));
+                                    }
+                                  },
+                                  onTapCreateBroadcast: () {
+                                    if (observer.isAllowCreatingBroadcasts ==
+                                        false) {
+                                      mec.showRationale(getTranslated(
+                                          this.context, 'disabled'));
+                                    } else {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddContactsToBroadcast(
+                                                    currentUserNo:
+                                                        widget.userphone,
+                                                    model: widget.model,
+                                                    biometricEnabled: false,
+                                                    prefs: widget.prefs,
+                                                    isAddingWhileCreatingBroadcast:
+                                                        true,
+                                                  )));
+                                    }
+                                  },
+                                  prefs: widget.prefs,
+                                  biometricEnabled: false,
+                                  currentUserNo: widget.userphone!,
+                                  model: widget.model!)));
+                    }),
+              )
+            : Padding(
+                padding: EdgeInsets.only(
+                    bottom:
+                        IsBannerAdShow == true && observer.isadmobshow == true
+                            ? 60
+                            : 0),
+                child: FloatingActionButton(
+                    heroTag: "dfsf4e8t4yt834",
+                    backgroundColor: mecWhite,
+                    child: Icon(
+                      Icons.delete,
+                      size: 30.0,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: new Text(getTranslated(context, 'clearlog')),
+                            content: new Text(
+                                getTranslated(context, 'clearloglong')),
+                            actions: [
+                              // ignore: deprecated_member_use
+                              ElevatedButton(
+                                child: Text(
+                                  getTranslated(context, 'cancel'),
+                                  style: TextStyle(
+                                      color: mecgreen, fontSize: 18),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              // ignore: deprecated_member_use
+                              ElevatedButton(
+                                child: Text(
+                                  getTranslated(context, 'delete'),
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 18),
+                                ),
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  mec.toast(
+                                      getTranslated(context, 'plswait'));
+                                  FirebaseFirestore.instance
+                                      .collection(DbPaths.collectionusers)
+                                      .doc(widget.userphone)
+                                      .collection(DbPaths.collectioncallhistory)
+                                      .get()
+                                      .then((snapshot) {
+                                    for (DocumentSnapshot doc
+                                        in snapshot.docs) {
+                                      doc.reference.delete();
+                                    }
+                                  }).then((value) {
+                                    firestoreDataProvider.clearall();
+                                  });
+                                },
+                              )
+                            ],
+                          );
+                        },
+                        context: context,
+                      );
+                    }),
+              ),
         body: Consumer<AvailableContactsProvider>(
           builder: (context, contactsProvider, _child) => InfiniteListView(
             firestoreDataProviderCALLHISTORY: firestoreDataProvider,

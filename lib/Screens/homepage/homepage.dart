@@ -1114,176 +1114,176 @@ class HomepageState extends State<Homepage>
                                         ),
                                         color: mecWhite,
                                         onSelected: (dynamic val) async {
-                                          // switch (val) {
-                                          //   case 'rate':
-                                          //     break;
-                                          //   case 'tutorials':
-                                          //     showDialog(
-                                          //         context: context,
-                                          //         builder: (context) {
-                                          //           return SimpleDialog(
-                                          //             contentPadding:
-                                          //                 EdgeInsets.all(20),
-                                          //             children: <Widget>[
-                                          //               ListTile(
-                                          //                 title: Text(
-                                          //                   getTranslated(
-                                          //                       context,
-                                          //                       'swipeview'),
-                                          //                 ),
-                                          //               ),
-                                          //               SizedBox(
-                                          //                 height: 10,
-                                          //               ),
-                                          //               ListTile(
-                                          //                   title: Text(
-                                          //                 getTranslated(context,
-                                          //                     'swipehide'),
-                                          //               )),
-                                          //               SizedBox(
-                                          //                 height: 10,
-                                          //               ),
-                                          //               ListTile(
-                                          //                   title: Text(
-                                          //                 getTranslated(context,
-                                          //                     'lp_setalias'),
-                                          //               ))
-                                          //             ],
-                                          //           );
-                                          //         });
-                                          //     break;
-                                          //   case 'privacy':
-                                          //     break;
-                                          //   case 'tnc':
-                                          //     break;
-                                          //   case 'share':
-                                          //     break;
-                                          //   case 'notifications':
-                                          //     Navigator.push(
-                                          //         context,
-                                          //         new MaterialPageRoute(
-                                          //             builder: (context) =>
-                                          //                 AllNotifications(
-                                          //                   prefs: widget.prefs,
-                                          //                 )));
-                                          //
-                                          //     break;
-                                          //   case 'feedback':
-                                          //     break;
-                                          //   case 'logout':
-                                          //     break;
-                                          //   case 'settings':
-                                          //     Navigator.push(
-                                          //         context,
-                                          //         new MaterialPageRoute(
-                                          //             builder:
-                                          //                 (context) =>
-                                          //                     SettingsOption(
-                                          //                       prefs: widget
-                                          //                           .prefs,
-                                          //                       onTapLogout:
-                                          //                           () async {
-                                          //                         await logout(
-                                          //                             context);
-                                          //                       },
-                                          //                       onTapEditProfile:
-                                          //                           () {
-                                          //                         Navigator.push(
-                                          //                             context,
-                                          //                             new MaterialPageRoute(
-                                          //                                 builder: (context) => ProfileSetting(
-                                          //                                       prefs: widget.prefs,
-                                          //                                       biometricEnabled: biometricEnabled,
-                                          //                                       type: mec.getAuthenticationType(biometricEnabled, _cachedModel),
-                                          //                                     )));
-                                          //                       },
-                                          //                       currentUserNo:
-                                          //                           widget
-                                          //                               .currentUserNo!,
-                                          //                       biometricEnabled:
-                                          //                           biometricEnabled,
-                                          //                       type: mec.getAuthenticationType(
-                                          //                           biometricEnabled,
-                                          //                           _cachedModel),
-                                          //                     )));
-                                          //
-                                          //     break;
-                                          //   case 'group':
-                                          //     if (observer
-                                          //             .isAllowCreatingGroups ==
-                                          //         false) {
-                                          //       mec.showRationale(getTranslated(
-                                          //           this.context, 'disabled'));
-                                          //     } else {
-                                          //       final AvailableContactsProvider
-                                          //           dbcontactsProvider =
-                                          //           Provider.of<
-                                          //                   AvailableContactsProvider>(
-                                          //               context,
-                                          //               listen: false);
-                                          //       dbcontactsProvider
-                                          //           .fetchContacts(
-                                          //               context,
-                                          //               _cachedModel,
-                                          //               widget.currentUserNo!,
-                                          //               widget.prefs);
-                                          //       Navigator.push(
-                                          //           context,
-                                          //           MaterialPageRoute(
-                                          //               builder: (context) =>
-                                          //                   AddContactsToGroup(
-                                          //                     currentUserNo: widget
-                                          //                         .currentUserNo,
-                                          //                     model:
-                                          //                         _cachedModel,
-                                          //                     biometricEnabled:
-                                          //                         false,
-                                          //                     prefs:
-                                          //                         widget.prefs,
-                                          //                     isAddingWhileCreatingGroup:
-                                          //                         true,
-                                          //                   )));
-                                          //     }
-                                          //     break;
-                                          //
-                                          //   case 'broadcast':
-                                          //     if (observer
-                                          //             .isAllowCreatingBroadcasts ==
-                                          //         false) {
-                                          //       mec.showRationale(getTranslated(
-                                          //           this.context, 'disabled'));
-                                          //     } else {
-                                          //       final AvailableContactsProvider
-                                          //           dbcontactsProvider =
-                                          //           Provider.of<
-                                          //                   AvailableContactsProvider>(
-                                          //               context,
-                                          //               listen: false);
-                                          //       dbcontactsProvider
-                                          //           .fetchContacts(
-                                          //               context,
-                                          //               _cachedModel,
-                                          //               widget.currentUserNo!,
-                                          //               widget.prefs);
-                                          //       await Navigator.push(
-                                          //           context,
-                                          //           MaterialPageRoute(
-                                          //               builder: (context) =>
-                                          //                   AddContactsToBroadcast(
-                                          //                     currentUserNo: widget
-                                          //                         .currentUserNo,
-                                          //                     model:
-                                          //                         _cachedModel,
-                                          //                     biometricEnabled:
-                                          //                         false,
-                                          //                     prefs:
-                                          //                         widget.prefs,
-                                          //                     isAddingWhileCreatingBroadcast:
-                                          //                         true,
-                                          //                   )));
-                                          //     }
-                                          //     break;
-                                          // }
+                                          switch (val) {
+                                            case 'rate':
+                                              break;
+                                            case 'tutorials':
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return SimpleDialog(
+                                                      contentPadding:
+                                                          EdgeInsets.all(20),
+                                                      children: <Widget>[
+                                                        ListTile(
+                                                          title: Text(
+                                                            getTranslated(
+                                                                context,
+                                                                'swipeview'),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        ListTile(
+                                                            title: Text(
+                                                          getTranslated(context,
+                                                              'swipehide'),
+                                                        )),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        ListTile(
+                                                            title: Text(
+                                                          getTranslated(context,
+                                                              'lp_setalias'),
+                                                        ))
+                                                      ],
+                                                    );
+                                                  });
+                                              break;
+                                            case 'privacy':
+                                              break;
+                                            case 'tnc':
+                                              break;
+                                            case 'share':
+                                              break;
+                                            case 'notifications':
+                                              Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AllNotifications(
+                                                            prefs: widget.prefs,
+                                                          )));
+
+                                              break;
+                                            case 'feedback':
+                                              break;
+                                            case 'logout':
+                                              break;
+                                            case 'settings':
+                                              Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              SettingsOption(
+                                                                prefs: widget
+                                                                    .prefs,
+                                                                onTapLogout:
+                                                                    () async {
+                                                                  await logout(
+                                                                      context);
+                                                                },
+                                                                onTapEditProfile:
+                                                                    () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      new MaterialPageRoute(
+                                                                          builder: (context) => ProfileSetting(
+                                                                                prefs: widget.prefs,
+                                                                                biometricEnabled: biometricEnabled,
+                                                                                type: mec.getAuthenticationType(biometricEnabled, _cachedModel),
+                                                                              )));
+                                                                },
+                                                                currentUserNo:
+                                                                    widget
+                                                                        .currentUserNo!,
+                                                                biometricEnabled:
+                                                                    biometricEnabled,
+                                                                type: mec.getAuthenticationType(
+                                                                    biometricEnabled,
+                                                                    _cachedModel),
+                                                              )));
+
+                                              break;
+                                            case 'group':
+                                              if (observer
+                                                      .isAllowCreatingGroups ==
+                                                  false) {
+                                                mec.showRationale(getTranslated(
+                                                    this.context, 'disabled'));
+                                              } else {
+                                                final AvailableContactsProvider
+                                                    dbcontactsProvider =
+                                                    Provider.of<
+                                                            AvailableContactsProvider>(
+                                                        context,
+                                                        listen: false);
+                                                dbcontactsProvider
+                                                    .fetchContacts(
+                                                        context,
+                                                        _cachedModel,
+                                                        widget.currentUserNo!,
+                                                        widget.prefs);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddContactsToGroup(
+                                                              currentUserNo: widget
+                                                                  .currentUserNo,
+                                                              model:
+                                                                  _cachedModel,
+                                                              biometricEnabled:
+                                                                  false,
+                                                              prefs:
+                                                                  widget.prefs,
+                                                              isAddingWhileCreatingGroup:
+                                                                  true,
+                                                            )));
+                                              }
+                                              break;
+
+                                            case 'broadcast':
+                                              if (observer
+                                                      .isAllowCreatingBroadcasts ==
+                                                  false) {
+                                                mec.showRationale(getTranslated(
+                                                    this.context, 'disabled'));
+                                              } else {
+                                                final AvailableContactsProvider
+                                                    dbcontactsProvider =
+                                                    Provider.of<
+                                                            AvailableContactsProvider>(
+                                                        context,
+                                                        listen: false);
+                                                dbcontactsProvider
+                                                    .fetchContacts(
+                                                        context,
+                                                        _cachedModel,
+                                                        widget.currentUserNo!,
+                                                        widget.prefs);
+                                                await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddContactsToBroadcast(
+                                                              currentUserNo: widget
+                                                                  .currentUserNo,
+                                                              model:
+                                                                  _cachedModel,
+                                                              biometricEnabled:
+                                                                  false,
+                                                              prefs:
+                                                                  widget.prefs,
+                                                              isAddingWhileCreatingBroadcast:
+                                                                  true,
+                                                            )));
+                                              }
+                                              break;
+                                          }
                                         },
                                         itemBuilder: (context) =>
                                             <PopupMenuItem<String>>[
